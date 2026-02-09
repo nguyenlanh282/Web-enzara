@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <rect y="0" width="1200" height="8" fill="#047857"/>
+  <rect y="622" width="1200" height="8" fill="#047857"/>
+  <rect x="540" y="200" width="120" height="120" rx="24" fill="#047857"/>
+  <text x="600" y="283" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#ffffff" text-anchor="middle">E</text>
+  <text x="600" y="370" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#111827" text-anchor="middle">Enzara</text>
+  <text x="600" y="420" font-family="Arial, sans-serif" font-size="22" fill="#6b7280" text-anchor="middle">San pham tay rua huu co tu enzyme dua</text>
+  <text x="600" y="460" font-family="Arial, sans-serif" font-size="16" fill="#047857" text-anchor="middle">enzara.vn</text>
+</svg>
