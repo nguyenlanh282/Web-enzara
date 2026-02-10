@@ -8,9 +8,11 @@ import { BrandsAdminController, BrandsPublicController } from "./brands.controll
 import { BrandsService } from "./brands.service";
 import { PrismaService } from "../../common/services/prisma.service";
 import { AuthModule } from "../auth/auth.module";
+import { PancakeModule } from "../pancake/pancake.module";
+import { InventoryController } from "./inventory.controller";
 
 @Module({
-  imports: [AuthModule],
+  imports: [AuthModule, PancakeModule],
   controllers: [
     ProductsController,
     ProductsPublicController,
@@ -18,6 +20,7 @@ import { AuthModule } from "../auth/auth.module";
     CategoriesPublicController,
     BrandsAdminController,
     BrandsPublicController,
+    InventoryController,
   ],
   providers: [ProductsService, CategoriesService, BrandsService, PrismaService],
   exports: [ProductsService, CategoriesService, BrandsService],

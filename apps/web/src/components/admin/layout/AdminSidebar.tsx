@@ -46,6 +46,7 @@ const navItems: NavItem[] = [
       { label: 'Tat ca san pham', href: '/admin/products' },
       { label: 'Danh muc', href: '/admin/categories' },
       { label: 'Thuong hieu', href: '/admin/brands' },
+      { label: 'Ton kho', href: '/admin/inventory' },
     ],
   },
   {
