@@ -11,7 +11,7 @@ import AddToCartSection from "./AddToCartSection";
 import ViewTracker from "./ViewTracker";
 import { FlashSaleBadge } from "./FlashSaleBadge";
 import { WishlistButton } from "@/components/storefront/shared/WishlistButton";
-import { generatePageMetadata } from "@/lib/seo";
+import { generatePageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { RecentlyViewed } from "@/components/storefront/product/RecentlyViewed";
 import { TrackRecentlyViewed } from "./TrackRecentlyViewed";
 import { SocialShare } from "@/components/storefront/product/SocialShare";
@@ -189,6 +189,18 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       />
 
       <RecentlyViewed currentProductId={product.id} />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd([
+            { name: "Trang chu", url: "/" },
+            { name: "San pham", url: "/products" },
+            ...(product.category ? [{ name: product.category.name, url: `/categories/${product.category.slug}` }] : []),
+            { name: product.name, url: `/products/${product.slug}` },
+          ])),
+        }}
+      />
 
       <script
         type="application/ld+json"

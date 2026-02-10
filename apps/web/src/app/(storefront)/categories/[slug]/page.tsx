@@ -4,6 +4,7 @@ import { Pagination } from "@/components/storefront/shared/Pagination";
 import { ProductCard } from "@/components/storefront/product/ProductCard";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { generatePageMetadata, breadcrumbJsonLd, collectionPageJsonLd } from "@/lib/seo";
 
 interface Category {
   id: string;
@@ -25,10 +26,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const category = await fetchAPI<Category>(`/categories/${slug}`);
   if (!category) return { title: "Danh muc khong ton tai" };
-  return {
+  return generatePageMetadata({
     title: category.metaTitle || `${category.name} - Enzara`,
-    description: category.metaDescription || category.description || "",
-  };
+    description: category.metaDescription || category.description || `Mua san pham ${category.name} tai Enzara`,
+    path: `/categories/${slug}`,
+  });
 }
 
 export default async function CategoryPage({
@@ -53,6 +55,26 @@ export default async function CategoryPage({
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd([
+            { name: "Trang chu", url: "/" },
+            { name: "San pham", url: "/products" },
+            { name: category.name, url: `/categories/${slug}` },
+          ])),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(collectionPageJsonLd({
+            name: category.name,
+            description: category.description,
+            url: `/categories/${slug}`,
+          })),
+        }}
+      />
       <Breadcrumbs
         items={[
           { label: "San pham", href: "/products" },

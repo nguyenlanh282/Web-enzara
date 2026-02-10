@@ -6,7 +6,7 @@ import { ProductCarousel } from "@/components/storefront/home/ProductCarousel";
 import { Newsletter } from "@/components/storefront/home/Newsletter";
 import { FlashSaleWidget } from "@/components/storefront/home/FlashSaleWidget";
 import { Testimonials } from "@/components/storefront/home/Testimonials";
-import { generatePageMetadata, organizationJsonLd } from "@/lib/seo";
+import { generatePageMetadata, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 interface FlashSaleData {
   id: string;
@@ -54,6 +54,12 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(organizationJsonLd()),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteJsonLd()),
         }}
       />
 

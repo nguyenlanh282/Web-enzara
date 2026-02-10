@@ -5,11 +5,13 @@ import { ProductCard } from "@/components/storefront/product/ProductCard";
 import FilterSidebar from "./FilterSidebar";
 import SortBar from "./SortBar";
 import { Metadata } from "next";
+import { generatePageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generatePageMetadata({
   title: "San pham - Enzara",
-  description: "Kham pha san pham lam sach huu co Enzara",
-};
+  description: "Kham pha bo suu tap san pham lam sach huu co Enzara. Nuoc rua chen, nuoc giat, nuoc lau san tu enzyme dua tu nhien.",
+  path: "/products",
+});
 
 interface ProductListResponse {
   items: any[];

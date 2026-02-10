@@ -1,9 +1,12 @@
 import { Metadata } from "next";
 import { ContactForm } from "./ContactForm";
+import { generatePageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generatePageMetadata({
   title: "Lien he - Enzara",
-};
+  description: "Lien he voi Enzara de duoc tu van ve san pham tay rua huu co tu enzyme dua. Ho tro khach hang nhanh chong.",
+  path: "/lien-he",
+});
 
 export default function ContactPage() {
   return (

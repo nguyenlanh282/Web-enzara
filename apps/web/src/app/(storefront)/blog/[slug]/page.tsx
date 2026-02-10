@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { fetchAPI } from '@/lib/api-server';
 import { Breadcrumbs } from '@/components/storefront/shared/Breadcrumbs';
+import { breadcrumbJsonLd, generatePageMetadata } from '@/lib/seo';
 import { TableOfContents } from '@/components/storefront/blog/TableOfContents';
 import { ShareButtons } from '@/components/storefront/blog/ShareButtons';
 import { CommentSection } from '@/components/storefront/blog/CommentSection';
@@ -52,26 +53,14 @@ export async function generateMetadata({
     };
   }
 
-  return {
+  return generatePageMetadata({
     title: `${post.title} - Blog Enzara`,
     description: post.excerpt,
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      type: 'article',
-      publishedTime: post.publishedAt,
-      images: post.featuredImage
-        ? [
-            {
-              url: post.featuredImage,
-              width: 1200,
-              height: 630,
-              alt: post.title,
-            },
-          ]
-        : [],
-    },
-  };
+    image: post.featuredImage || undefined,
+    path: `/blog/${slug}`,
+    type: 'article',
+    publishedTime: post.publishedAt,
+  });
 }
 
 export default async function BlogPostPage({
@@ -128,6 +117,17 @@ export default async function BlogPostPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd([
+            { name: 'Trang chu', url: '/' },
+            { name: 'Blog', url: '/blog' },
+            { name: post.category.name, url: `/blog?category=${post.category.slug}` },
+            { name: post.title, url: `/blog/${post.slug}` },
+          ])),
+        }}
       />
 
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

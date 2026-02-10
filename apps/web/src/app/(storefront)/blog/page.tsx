@@ -4,6 +4,7 @@ import { fetchAPI } from '@/lib/api-server';
 import { Breadcrumbs } from '@/components/storefront/shared/Breadcrumbs';
 import { Pagination } from '@/components/storefront/shared/Pagination';
 import { BlogCard } from '@/components/storefront/blog/BlogCard';
+import { generatePageMetadata } from '@/lib/seo';
 
 export const revalidate = 300;
 
@@ -40,10 +41,11 @@ interface PostsResponse {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
+  return generatePageMetadata({
     title: 'Blog - Enzara',
-    description: 'Khám phá kiến thức về enzyme và giải pháp vệ sinh sinh thái thân thiện với môi trường cùng Enzara',
-  };
+    description: 'Kham pha kien thuc ve enzyme va giai phap ve sinh sinh thai than thien voi moi truong cung Enzara',
+    path: '/blog',
+  });
 }
 
 export default async function BlogPage({
