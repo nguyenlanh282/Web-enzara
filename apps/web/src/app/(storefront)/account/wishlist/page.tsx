@@ -47,7 +47,7 @@ function getProductImage(product: WishlistProduct): string | null {
   return primary?.url || product.images[0]?.url || null;
 }
 
-export function WishlistPage() {
+function WishlistPage() {
   const [items, setItems] = useState<WishlistItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

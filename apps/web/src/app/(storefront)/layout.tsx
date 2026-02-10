@@ -7,6 +7,7 @@ import { ChatWidget } from "@/components/storefront/shared/ChatWidget";
 import { FloatingContacts } from "@/components/storefront/shared/FloatingContacts";
 import { TrackingScripts } from "@/components/storefront/shared/TrackingScripts";
 import { ToastProvider } from "@/components/storefront/shared/Toast";
+import { PwaInstallPrompt } from "@/components/storefront/PwaInstallPrompt";
 
 export default async function StorefrontLayout({
   children,
@@ -60,6 +61,7 @@ export default async function StorefrontLayout({
       <ChatWidget settings={chatConfig} />
       <FloatingContacts items={contactItems} />
       <ToastProvider />
+      <PwaInstallPrompt />
     </div>
   );
 }

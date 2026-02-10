@@ -106,7 +106,7 @@ const TIER_BENEFITS: Record<string, string[]> = {
   ],
 };
 
-export function LoyaltyPage() {
+function LoyaltyPage() {
   const [balance, setBalance] = useState<BalanceResponse | null>(null);
   const [history, setHistory] = useState<LoyaltyRecord[]>([]);
   const [loading, setLoading] = useState(true);

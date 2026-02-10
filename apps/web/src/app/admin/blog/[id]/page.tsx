@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -67,7 +67,8 @@ function calculateReadingTime(html: string): number {
   return Math.max(1, Math.ceil(wordCount / 200));
 }
 
-export default function EditBlogPostPage({ params }: { params: { id: string } }) {
+export default function EditBlogPostPage() {
+  const params = useParams<{ id: string }>();
   const router = useRouter();
   const [categories, setCategories] = useState<PostCategory[]>([]);
   const [loading, setLoading] = useState(true);

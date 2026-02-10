@@ -129,7 +129,7 @@ const TIMELINE_DOT_COLORS: Record<string, string> = {
   PAYMENT_CONFIRMED: "bg-green-500",
 };
 
-export function OrderDetailPage() {
+function OrderDetailPage() {
   const params = useParams();
   const router = useRouter();
   const orderNumber = params.id as string;

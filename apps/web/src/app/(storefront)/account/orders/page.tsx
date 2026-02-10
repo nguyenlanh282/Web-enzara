@@ -90,7 +90,7 @@ const PAYMENT_STATUS_CONFIG: Record<
   REFUNDED: { label: "Da hoan tien", bg: "bg-orange-100", text: "text-orange-800" },
 };
 
-export function OrderHistoryPage() {
+function OrderHistoryPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
