@@ -2,7 +2,8 @@
 
 import { Search, X, Clock } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -23,6 +24,7 @@ interface SearchModalProps {
 }
 
 export function SearchModal({ open, onClose }: SearchModalProps) {
+  const t = useTranslations("search.modal");
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -137,14 +139,14 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
                     handleSearch(query);
                   }
                 }}
-                placeholder="Tìm kiếm sản phẩm..."
+                placeholder={t("placeholder")}
                 className="flex-1 outline-none text-neutral-900 placeholder:text-neutral-400"
                 autoFocus
               />
               <button
                 onClick={onClose}
                 className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
-                aria-label="Đóng"
+                aria-label={t("close")}
               >
                 <X className="h-5 w-5" />
               </button>
@@ -153,13 +155,13 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
             <div className="flex-1 overflow-y-auto p-4">
               {loading && (
                 <div className="text-center py-8 text-neutral-500">
-                  Đang tìm kiếm...
+                  {t("searching")}
                 </div>
               )}
 
               {!loading && debouncedQuery && results.length === 0 && (
                 <div className="text-center py-8 text-neutral-500">
-                  Không tìm thấy sản phẩm nào
+                  {t("noResults")}
                 </div>
               )}
 
@@ -216,7 +218,7 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
                     }}
                     className="block text-center py-3 mt-2 text-sm font-medium text-primary-700 hover:bg-primary-50 rounded-lg transition-colors"
                   >
-                    Xem tat ca ket qua
+                    {t("viewAllResults")}
                   </Link>
                 </div>
               )}
@@ -225,13 +227,13 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="text-sm font-semibold text-neutral-700">
-                      Tìm kiếm gần đây
+                      {t("recentSearches")}
                     </h3>
                     <button
                       onClick={clearRecentSearches}
                       className="text-xs text-neutral-500 hover:text-neutral-700"
                     >
-                      Xóa tất cả
+                      {t("clearAll")}
                     </button>
                   </div>
                   <div className="space-y-1">

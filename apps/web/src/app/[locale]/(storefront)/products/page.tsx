@@ -1,4 +1,5 @@
 import { fetchAPI } from "@/lib/api-server";
+import { getTranslations } from "next-intl/server";
 import { Breadcrumbs } from "@/components/storefront/shared/Breadcrumbs";
 import { Pagination } from "@/components/storefront/shared/Pagination";
 import { ProductCard } from "@/components/storefront/product/ProductCard";
@@ -7,11 +8,14 @@ import SortBar from "./SortBar";
 import { Metadata } from "next";
 import { generatePageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = generatePageMetadata({
-  title: "San pham - Enzara",
-  description: "Kham pha bo suu tap san pham lam sach huu co Enzara. Nuoc rua chen, nuoc giat, nuoc lau san tu enzyme dua tu nhien.",
-  path: "/products",
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("products");
+  return generatePageMetadata({
+    title: t("seo.title"),
+    description: t("seo.description"),
+    path: "/products",
+  });
+}
 
 interface ProductListResponse {
   items: any[];
@@ -25,6 +29,7 @@ export default async function ProductListingPage({
 }: {
   searchParams: Promise<Record<string, string>>;
 }) {
+  const t = await getTranslations("products");
   const params = await searchParams;
   const queryString = new URLSearchParams(params).toString();
 
@@ -36,7 +41,7 @@ export default async function ProductListingPage({
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      <Breadcrumbs items={[{ label: "San pham" }]} />
+      <Breadcrumbs items={[{ label: t("breadcrumb") }]} />
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mt-4">
         <FilterSidebar categories={categories || []} brands={brands || []} currentParams={params} />
         <div className="lg:col-span-3">
@@ -56,7 +61,7 @@ export default async function ProductListingPage({
             </>
           ) : (
             <div className="text-center py-16">
-              <p className="text-neutral-500 font-body">Khong tim thay san pham nao</p>
+              <p className="text-neutral-500 font-body">{t("noProductsFound")}</p>
             </div>
           )}
         </div>

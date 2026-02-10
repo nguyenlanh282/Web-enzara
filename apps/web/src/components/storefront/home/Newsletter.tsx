@@ -1,10 +1,12 @@
 "use client";
 
 import { Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { apiClient } from "@/lib/api";
 
 export function Newsletter() {
+  const t = useTranslations("newsletter");
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +25,7 @@ export function Newsletter() {
       setEmail("");
     } catch (err) {
       console.error("Newsletter subscription error:", err);
-      setError("Co loi xay ra. Vui long thu lai.");
+      setError(t("error"));
     } finally {
       setIsLoading(false);
     }
@@ -34,18 +36,17 @@ export function Newsletter() {
       <div className="mx-auto max-w-4xl px-4 text-center">
         <Mail className="h-12 w-12 text-white mx-auto mb-4" />
         <h2 className="text-3xl font-heading font-bold text-white mb-3">
-          Đăng ký nhận tin
+          {t("title")}
         </h2>
         <p className="text-primary-100 mb-8 max-w-xl mx-auto">
-          Nhận thông tin về sản phẩm mới, ưu đãi đặc biệt và các mẹo chăm sóc
-          sức khỏe từ Enzara
+          {t("subtitle")}
         </p>
 
         {isSubmitted ? (
           <div className="bg-white/10 text-white py-4 px-6 rounded-lg inline-block">
-            <p className="font-medium">Cảm ơn bạn đã đăng ký!</p>
+            <p className="font-medium">{t("success.title")}</p>
             <p className="text-sm text-primary-100 mt-1">
-              Chúng tôi sẽ gửi tin tức mới nhất đến email của bạn.
+              {t("success.message")}
             </p>
           </div>
         ) : (
@@ -57,7 +58,7 @@ export function Newsletter() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Nhập email của bạn"
+              placeholder={t("placeholder")}
               required
               className="flex-1 px-4 py-3 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-white"
             />
@@ -66,7 +67,7 @@ export function Newsletter() {
               disabled={isLoading}
               className="px-6 py-3 bg-white text-primary-700 font-semibold rounded-lg hover:bg-primary-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? "Đang gửi..." : "Đăng ký"}
+              {isLoading ? t("submitting") : t("submitButton")}
             </button>
           </form>
         )}

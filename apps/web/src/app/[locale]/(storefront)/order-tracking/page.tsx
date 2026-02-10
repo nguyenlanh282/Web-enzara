@@ -1,18 +1,24 @@
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { TrackingForm } from "./TrackingForm";
 
-export const metadata: Metadata = {
-  title: "Theo doi don hang - Enzara",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("orderTracking");
+  return {
+    title: t("seo.title"),
+  };
+}
 
-export default function OrderTrackingPage() {
+export default async function OrderTrackingPage() {
+  const t = await getTranslations("orderTracking");
+
   return (
     <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <h1 className="text-3xl font-heading font-bold text-neutral-900 text-center mb-2">
-        Theo doi don hang
+        {t("title")}
       </h1>
       <p className="text-neutral-500 font-body text-center mb-8">
-        Nhap ma don hang de kiem tra trang thai giao hang
+        {t("subtitle")}
       </p>
       <TrackingForm />
     </div>

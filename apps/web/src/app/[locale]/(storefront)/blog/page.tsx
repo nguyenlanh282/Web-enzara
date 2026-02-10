@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 import { fetchAPI } from '@/lib/api-server';
 import { Breadcrumbs } from '@/components/storefront/shared/Breadcrumbs';
 import { Pagination } from '@/components/storefront/shared/Pagination';
@@ -41,9 +42,10 @@ interface PostsResponse {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('blog');
   return generatePageMetadata({
-    title: 'Blog - Enzara',
-    description: 'Kham pha kien thuc ve enzyme va giai phap ve sinh sinh thai than thien voi moi truong cung Enzara',
+    title: t('seo.title'),
+    description: t('seo.description'),
     path: '/blog',
   });
 }
@@ -53,6 +55,7 @@ export default async function BlogPage({
 }: {
   searchParams: Promise<Record<string, string>>;
 }) {
+  const t = await getTranslations('blog');
   const params = await searchParams;
   const page = parseInt(params.page || '1', 10);
   const category = params.category || '';
@@ -77,10 +80,10 @@ export default async function BlogPage({
 
         <div className="mt-8 mb-12 text-center">
           <h1 className="text-4xl lg:text-5xl font-heading font-bold text-neutral-900 mb-4">
-            Blog Enzara
+            {t('title')}
           </h1>
           <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-            Khám phá kiến thức về enzyme và giải pháp vệ sinh sinh thái thân thiện với môi trường
+            {t('subtitle')}
           </p>
         </div>
 
@@ -93,7 +96,7 @@ export default async function BlogPage({
                 : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
             }`}
           >
-            Tất cả
+            {t('allCategories')}
           </Link>
           {categories.map((cat) => (
             <Link
@@ -129,7 +132,7 @@ export default async function BlogPage({
           </>
         ) : (
           <div className="text-center py-16">
-            <p className="text-neutral-500 text-lg">Chưa có bài viết nào</p>
+            <p className="text-neutral-500 text-lg">{t('noPosts')}</p>
           </div>
         )}
       </div>

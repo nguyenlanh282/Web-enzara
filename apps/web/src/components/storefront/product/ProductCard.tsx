@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -19,6 +20,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const t = useTranslations("products");
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("vi-VN").format(price) + "đ";
   };
@@ -50,7 +52,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
         {product.isFeatured && (
           <div className="absolute top-2 right-2 bg-secondary-600 text-white text-xs font-bold px-2 py-1 rounded">
-            Nổi bật
+            {t("featured")}
           </div>
         )}
       </div>

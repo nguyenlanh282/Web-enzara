@@ -1,0 +1,403 @@
+{
+  "common": {
+    "brandName": "Enzara",
+    "loading": "Loading...",
+    "error": "An error occurred. Please try again.",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "confirm": "Confirm",
+    "back": "Go back",
+    "next": "Next",
+    "previous": "Previous",
+    "viewAll": "View all",
+    "continueShopping": "Continue shopping",
+    "apply": "Apply",
+    "poweredBy": "Powered by Enzara",
+    "allRightsReserved": "All rights reserved.",
+    "currency": "VND",
+    "phone": "Phone",
+    "email": "Email",
+    "optional": "optional",
+    "required": "required",
+    "freeShipping": "Free"
+  },
+
+  "navigation": {
+    "home": "Home",
+    "products": "Products",
+    "blog": "Blog",
+    "contact": "Contact",
+    "orderTracking": "Track order",
+    "account": "Account",
+    "search": "Search",
+    "cart": "Cart",
+    "login": "Log in",
+    "register": "Sign up",
+    "logout": "Log out",
+    "aboutUs": "About us",
+    "menu": "Menu",
+    "closeMenu": "Close menu",
+    "searchPlaceholder": "Search products...",
+    "searchAriaLabel": "Search",
+    "accountAriaLabel": "Account",
+    "categories": "Product categories",
+    "utilities": "Utilities"
+  },
+
+  "home": {
+    "seo": {
+      "title": "Enzara - Organic, eco-friendly cleaning products",
+      "description": "Shop organic, bio-based cleaning products at Enzara. Safe, eco-friendly products for your family's health and the environment."
+    },
+    "categorySection": {
+      "title": "Product categories",
+      "subtitle": "Explore our range of natural, family-safe products"
+    },
+    "featuredProducts": {
+      "title": "Featured products",
+      "subtitle": "Loved and trusted by thousands of customers"
+    },
+    "newProducts": {
+      "title": "New arrivals",
+      "subtitle": "Discover the latest natural products"
+    },
+    "bestSellers": {
+      "title": "Best sellers",
+      "subtitle": "Our most popular products"
+    },
+    "testimonials": {
+      "title": "What customers say about Enzara"
+    },
+    "storeDescription": "Premium essential oils and natural products, bringing health and happiness to your family."
+  },
+
+  "products": {
+    "seo": {
+      "title": "Products - Enzara",
+      "description": "Explore the Enzara organic cleaning product collection. Dish soap, laundry detergent, floor cleaner made from natural pineapple enzymes."
+    },
+    "breadcrumb": "Products",
+    "noProductsFound": "No products found",
+    "featured": "Featured",
+    "addToCart": "Add to cart",
+    "outOfStock": "Out of stock",
+    "sale": "Sale",
+    "new": "New"
+  },
+
+  "cart": {
+    "title": "Shopping cart",
+    "itemCount": "items",
+    "emptyCart": {
+      "title": "Your cart is empty",
+      "description": "Add products to your cart to start shopping for eco-friendly bio-based cleaning products."
+    },
+    "shippingNote": "Shipping fees will be calculated when you select a delivery address at checkout.",
+    "tableHeaders": {
+      "product": "Product",
+      "unitPrice": "Unit price",
+      "quantity": "Quantity",
+      "total": "Total"
+    },
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "removeItem": "Remove item",
+    "continueShopping": "Continue shopping",
+    "voucher": {
+      "title": "Discount code",
+      "placeholder": "Enter discount code",
+      "apply": "Apply",
+      "remove": "Remove discount code"
+    },
+    "proceedToCheckout": "Proceed to checkout"
+  },
+
+  "checkout": {
+    "title": "Checkout",
+    "breadcrumbs": {
+      "cart": "Cart",
+      "checkout": "Checkout"
+    },
+    "validation": {
+      "nameRequired": "Please enter your full name",
+      "phoneInvalid": "Invalid phone number",
+      "emailInvalid": "Invalid email address",
+      "provinceRequired": "Please select a province/city",
+      "districtRequired": "Please select a district",
+      "wardRequired": "Please select a ward",
+      "addressRequired": "Please enter your detailed address"
+    },
+    "submitting": "Processing...",
+    "selectAddress": "Please select a delivery address",
+    "placeOrder": "Place order",
+    "submitError": "An error occurred. Please try again."
+  },
+
+  "auth": {
+    "login": {
+      "title": "Log in",
+      "subtitle": "Enter your account details to continue",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter password",
+      "forgotPassword": "Forgot password?",
+      "submitButton": "Log in",
+      "submitting": "Logging in...",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Sign up",
+      "error": "An error occurred. Please try again."
+    },
+    "register": {
+      "title": "Create an account",
+      "subtitle": "Sign up to shop eco-friendly products",
+      "fullNameLabel": "Full name",
+      "fullNamePlaceholder": "John Doe",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "phoneLabel": "Phone number",
+      "phoneOptional": "optional",
+      "phonePlaceholder": "0912 345 678",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "At least 6 characters",
+      "confirmPasswordLabel": "Confirm password",
+      "confirmPasswordPlaceholder": "Re-enter password",
+      "submitButton": "Sign up",
+      "submitting": "Creating account...",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Log in",
+      "error": "An error occurred. Please try again."
+    },
+    "validation": {
+      "emailRequired": "Please enter your email",
+      "emailInvalid": "Invalid email address",
+      "passwordMin": "Password must be at least 6 characters",
+      "nameRequired": "Please enter your full name",
+      "confirmPasswordRequired": "Please confirm your password",
+      "passwordMismatch": "Passwords do not match"
+    }
+  },
+
+  "account": {
+    "title": "Account",
+    "orders": "My orders",
+    "profile": "Personal information",
+    "addresses": "Addresses",
+    "wishlist": "Wishlist",
+    "loyalty": "Loyalty points",
+    "settings": "Settings"
+  },
+
+  "contact": {
+    "seo": {
+      "title": "Contact - Enzara",
+      "description": "Contact Enzara for advice on organic cleaning products made from pineapple enzymes. Fast customer support."
+    },
+    "title": "Contact us",
+    "subtitle": "Have questions or feedback? Send us a message and we'll get back to you as soon as possible.",
+    "form": {
+      "nameLabel": "Full name *",
+      "namePlaceholder": "Enter your full name",
+      "emailLabel": "Email *",
+      "emailPlaceholder": "Enter your email",
+      "phoneLabel": "Phone number",
+      "phonePlaceholder": "Enter phone number (optional)",
+      "messageLabel": "Message *",
+      "messagePlaceholder": "Enter your message",
+      "submitButton": "Send message",
+      "submitting": "Sending..."
+    },
+    "validation": {
+      "nameRequired": "Please enter your name",
+      "emailInvalid": "Invalid email address",
+      "messageRequired": "Please enter a message"
+    },
+    "success": {
+      "title": "Thank you for contacting us!",
+      "message": "We have received your message and will respond as soon as possible."
+    },
+    "error": "An error occurred. Please try again.",
+    "info": {
+      "title": "Contact information",
+      "address": "Ho Chi Minh City, Vietnam",
+      "phoneLabel": "Phone"
+    }
+  },
+
+  "orderTracking": {
+    "seo": {
+      "title": "Track order - Enzara"
+    },
+    "title": "Track your order",
+    "subtitle": "Enter your order number to check delivery status",
+    "searchPlaceholder": "Enter order number (e.g. ENZ-20260209-XXXXX)",
+    "searchButton": "Track",
+    "searching": "Searching...",
+    "notFound": "Order not found",
+    "error": "An error occurred. Please try again later.",
+    "orderNumber": "Order number",
+    "orderDate": "Order date",
+    "statusLabels": {
+      "PENDING": "Pending",
+      "CONFIRMED": "Confirmed",
+      "PROCESSING": "Processing",
+      "SHIPPING": "Shipping",
+      "DELIVERED": "Delivered",
+      "CANCELLED": "Cancelled"
+    },
+    "orderStatus": "Order status",
+    "currentStatus": "Current status",
+    "notCompleted": "Not completed",
+    "cancelled": "Cancelled",
+    "orderCancelled": "This order has been cancelled",
+    "productsTitle": "Products",
+    "shippingAddress": "Shipping address",
+    "payment": {
+      "title": "Payment",
+      "method": "Method",
+      "status": "Payment status",
+      "subtotal": "Subtotal",
+      "discount": "Discount",
+      "shippingFee": "Shipping fee",
+      "freeShipping": "Free",
+      "total": "Total"
+    },
+    "paymentMethods": {
+      "COD": "Cash on delivery (COD)",
+      "BANK_TRANSFER": "Bank transfer",
+      "MOMO": "MoMo Wallet",
+      "ZALOPAY": "ZaloPay"
+    },
+    "paymentStatus": {
+      "PENDING": "Unpaid",
+      "PAID": "Paid",
+      "FAILED": "Payment failed",
+      "REFUNDED": "Refunded"
+    }
+  },
+
+  "blog": {
+    "seo": {
+      "title": "Blog - Enzara",
+      "description": "Discover knowledge about enzymes and eco-friendly cleaning solutions with Enzara"
+    },
+    "title": "Enzara Blog",
+    "subtitle": "Discover knowledge about enzymes and eco-friendly cleaning solutions",
+    "allCategories": "All",
+    "noPosts": "No posts yet",
+    "readMore": "Read more",
+    "readingTime": "min read"
+  },
+
+  "search": {
+    "seo": {
+      "title": "Search products - Enzara",
+      "resultTitle": "Search results for \"{query}\" - Enzara",
+      "resultDescription": "Search products for \"{query}\""
+    },
+    "breadcrumb": "Search",
+    "title": "Search results for",
+    "foundProducts": "Found",
+    "products": "products",
+    "noResults": "No products found matching",
+    "tryDifferent": "Try searching with a different keyword",
+    "viewAllProducts": "View all products",
+    "enterKeyword": "Enter a keyword to search for products",
+    "modal": {
+      "placeholder": "Search products...",
+      "close": "Close",
+      "searching": "Searching...",
+      "noResults": "No products found",
+      "viewAllResults": "View all results",
+      "recentSearches": "Recent searches",
+      "clearAll": "Clear all"
+    }
+  },
+
+  "footer": {
+    "storeDescription": "Premium essential oils and natural products, bringing health and happiness to your family.",
+    "quickLinks": {
+      "title": "Quick links",
+      "aboutUs": "About us",
+      "products": "Products",
+      "blog": "Blog",
+      "contact": "Contact",
+      "orderTracking": "Track order"
+    },
+    "policies": {
+      "title": "Policies",
+      "privacy": "Privacy policy",
+      "terms": "Terms of use",
+      "shipping": "Shipping policy",
+      "returns": "Return policy"
+    },
+    "contactInfo": {
+      "title": "Contact"
+    },
+    "copyright": "All rights reserved.",
+    "poweredBy": "Powered by Enzara"
+  },
+
+  "newsletter": {
+    "title": "Subscribe to our newsletter",
+    "subtitle": "Get updates on new products, special offers, and health tips from Enzara",
+    "placeholder": "Enter your email",
+    "submitButton": "Subscribe",
+    "submitting": "Sending...",
+    "success": {
+      "title": "Thank you for subscribing!",
+      "message": "We'll send you the latest news to your email."
+    },
+    "error": "An error occurred. Please try again."
+  },
+
+  "flashSale": {
+    "endsIn": "Ends in:",
+    "sold": "Sold",
+    "countdown": {
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds"
+    }
+  },
+
+  "errors": {
+    "generic": "An error occurred. Please try again.",
+    "networkError": "Network connection error. Please check your connection.",
+    "notFound": "Page not found.",
+    "unauthorized": "You need to log in to continue.",
+    "forbidden": "You do not have access permission.",
+    "serverError": "Server error. Please try again later.",
+    "validationError": "Please check your information.",
+    "sessionExpired": "Your session has expired. Please log in again."
+  },
+
+  "seo": {
+    "home": {
+      "title": "Enzara - Organic, eco-friendly cleaning products",
+      "description": "Shop organic, bio-based cleaning products at Enzara. Safe, eco-friendly products for your family's health and the environment."
+    },
+    "products": {
+      "title": "Products - Enzara",
+      "description": "Explore the Enzara organic cleaning product collection. Dish soap, laundry detergent, floor cleaner made from natural pineapple enzymes."
+    },
+    "blog": {
+      "title": "Blog - Enzara",
+      "description": "Discover knowledge about enzymes and eco-friendly cleaning solutions with Enzara"
+    },
+    "contact": {
+      "title": "Contact - Enzara",
+      "description": "Contact Enzara for advice on organic cleaning products made from pineapple enzymes. Fast customer support."
+    },
+    "orderTracking": {
+      "title": "Track order - Enzara"
+    },
+    "search": {
+      "title": "Search products - Enzara"
+    }
+  }
+}

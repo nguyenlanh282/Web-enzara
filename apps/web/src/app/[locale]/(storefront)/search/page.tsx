@@ -1,4 +1,5 @@
 import { fetchAPI } from "@/lib/api-server";
+import { getTranslations } from "next-intl/server";
 import { Breadcrumbs } from "@/components/storefront/shared/Breadcrumbs";
 import { Pagination } from "@/components/storefront/shared/Pagination";
 import { ProductCard } from "@/components/storefront/product/ProductCard";
@@ -13,22 +14,24 @@ interface ProductListResponse {
 }
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<Record<string, string>> }): Promise<Metadata> {
+  const t = await getTranslations("search");
   const params = await searchParams;
   const query = params.q || "";
   return {
-    title: query ? `Ket qua tim kiem cho "${query}" - Enzara` : "Tim kiem san pham - Enzara",
-    description: query ? `Tim kiem san pham cho "${query}"` : "Tim kiem san pham tai Enzara",
+    title: query ? t("seo.resultTitle", { query }) : t("seo.title"),
+    description: query ? t("seo.resultDescription", { query }) : undefined,
   };
 }
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
+  const t = await getTranslations("search");
   const params = await searchParams;
   const query = params.q || "";
 
   if (!query) {
     return (
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <Breadcrumbs items={[{ label: "Tim kiem" }]} />
+        <Breadcrumbs items={[{ label: t("breadcrumb") }]} />
         <div className="text-center py-16 mt-6 bg-white rounded-xl border border-neutral-200">
           <svg
             className="w-16 h-16 mx-auto text-neutral-300"
@@ -43,7 +46,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             />
           </svg>
-          <p className="text-neutral-500 font-body mt-4">Nhap tu khoa de tim kiem san pham</p>
+          <p className="text-neutral-500 font-body mt-4">{t("enterKeyword")}</p>
         </div>
       </div>
     );
@@ -57,18 +60,18 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
       <SearchTracker query={query} />
       <Breadcrumbs
         items={[
-          { label: "Tim kiem", href: "/search" },
+          { label: t("breadcrumb"), href: "/search" },
           { label: `"${query}"` },
         ]}
       />
 
       <div className="mt-6">
         <h1 className="text-2xl font-heading font-bold text-neutral-900">
-          Ket qua tim kiem cho <span className="text-primary-700">"{query}"</span>
+          {t("title")} <span className="text-primary-700">"{query}"</span>
         </h1>
         {products && products.total > 0 && (
           <p className="text-sm text-neutral-600 font-body mt-2">
-            Tim thay <span className="font-semibold text-neutral-900">{products.total}</span> san pham
+            {t("foundProducts")} <span className="font-semibold text-neutral-900">{products.total}</span> {t("products")}
           </p>
         )}
       </div>
@@ -109,14 +112,14 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
               />
             </svg>
             <p className="text-neutral-500 font-body mt-4 text-lg">
-              Khong tim thay san pham phu hop voi <span className="font-semibold">"{query}"</span>
+              {t("noResults")} <span className="font-semibold">"{query}"</span>
             </p>
-            <p className="text-neutral-400 font-body text-sm mt-2">Thu tim kiem voi tu khoa khac</p>
+            <p className="text-neutral-400 font-body text-sm mt-2">{t("tryDifferent")}</p>
             <a
               href="/products"
               className="inline-block mt-6 px-6 py-2 bg-primary-700 text-white rounded-xl font-body font-medium hover:bg-primary-800 transition-colors"
             >
-              Xem tat ca san pham
+              {t("viewAllProducts")}
             </a>
           </div>
         )}

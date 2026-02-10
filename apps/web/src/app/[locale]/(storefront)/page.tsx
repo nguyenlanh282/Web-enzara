@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { fetchAPI } from "@/lib/api-server";
 import { HeroSlider } from "@/components/storefront/home/HeroSlider";
 import { CategoryGrid } from "@/components/storefront/home/CategoryGrid";
@@ -33,15 +34,19 @@ interface FlashSaleData {
   }>;
 }
 
-export const metadata: Metadata = generatePageMetadata({
-  title: "Enzara - San pham tay rua huu co, than thien voi moi truong",
-  description:
-    "Mua sam san pham tay rua sinh hoc, huu co tai Enzara. Cac san pham lam sach an toan, than thien voi moi truong va suc khoe gia dinh ban.",
-  path: "/",
-  type: "website",
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("home");
+  return generatePageMetadata({
+    title: t("seo.title"),
+    description: t("seo.description"),
+    path: "/",
+    type: "website",
+  });
+}
 
 export default async function HomePage() {
+  const t = await getTranslations("home");
+
   const [banners, categories, featuredProducts, newProducts, bestSellers, flashSale, featuredReviews] = await Promise.all([
     fetchAPI<any[]>("/banners?position=hero&active=true"),
     fetchAPI<any[]>("/categories"),
@@ -77,8 +82,8 @@ export default async function HomePage() {
         <section className="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <ScrollReveal animation="fade-up">
             <OrganicSectionHeading
-              title="Danh mục sản phẩm"
-              subtitle="Khám phá các dòng sản phẩm thiên nhiên, an toàn cho gia đình bạn"
+              title={t("categorySection.title")}
+              subtitle={t("categorySection.subtitle")}
             />
           </ScrollReveal>
           <ScrollReveal animation="fade-up" delay={150}>
@@ -95,8 +100,8 @@ export default async function HomePage() {
           <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal animation="fade-up">
               <OrganicSectionHeading
-                title="Sản phẩm nổi bật"
-                subtitle="Được yêu thích và tin dùng bởi hàng ngàn khách hàng"
+                title={t("featuredProducts.title")}
+                subtitle={t("featuredProducts.subtitle")}
               />
             </ScrollReveal>
             <ScrollReveal animation="fade-up" delay={150}>
@@ -115,8 +120,8 @@ export default async function HomePage() {
         <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <ScrollReveal animation="fade-up">
             <OrganicSectionHeading
-              title="Sản phẩm mới"
-              subtitle="Cập nhật những sản phẩm mới nhất từ thiên nhiên"
+              title={t("newProducts.title")}
+              subtitle={t("newProducts.subtitle")}
             />
           </ScrollReveal>
           <ScrollReveal animation="fade-up" delay={150}>
@@ -133,8 +138,8 @@ export default async function HomePage() {
           <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal animation="fade-up">
               <OrganicSectionHeading
-                title="Bán chạy nhất"
-                subtitle="Sản phẩm được lựa chọn nhiều nhất"
+                title={t("bestSellers.title")}
+                subtitle={t("bestSellers.subtitle")}
               />
             </ScrollReveal>
             <ScrollReveal animation="fade-up" delay={150}>

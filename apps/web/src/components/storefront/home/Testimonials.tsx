@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 
 interface Review {
   id: string;
@@ -18,13 +19,14 @@ interface Review {
   };
 }
 
-export function Testimonials({ reviews }: { reviews: Review[] }) {
+export async function Testimonials({ reviews }: { reviews: Review[] }) {
+  const t = await getTranslations("home.testimonials");
   if (!reviews || reviews.length === 0) return null;
 
   return (
     <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <h2 className="text-2xl font-heading font-bold text-neutral-900 mb-8 text-center">
-        Khach hang noi gi ve Enzara
+        {t("title")}
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {reviews.map((review) => (

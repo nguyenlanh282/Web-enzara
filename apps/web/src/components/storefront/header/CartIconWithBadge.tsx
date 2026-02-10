@@ -2,10 +2,12 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { ShoppingCart } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useCartStore, selectTotalItems } from "@/stores/cartStore";
 import { CartDrawer } from "@/components/storefront/cart/CartDrawer";
 
 export function CartIconWithBadge() {
+  const t = useTranslations("navigation");
   const totalItems = useCartStore(selectTotalItems);
   const [mounted, setMounted] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -25,7 +27,7 @@ export function CartIconWithBadge() {
       <button
         onClick={handleClick}
         className="relative p-2 hover:bg-neutral-100 rounded-lg transition-colors"
-        aria-label="Gio hang"
+        aria-label={t("cart")}
       >
         <ShoppingCart className="h-5 w-5" />
         {count > 0 && (

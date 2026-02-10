@@ -1,7 +1,8 @@
 "use client";
 
 import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { PaymentIcons } from "./PaymentIcons";
 
 interface FooterProps {
@@ -10,6 +11,7 @@ interface FooterProps {
 }
 
 export function Footer({ settings = {}, config = {} }: FooterProps) {
+  const t = useTranslations("footer");
   const currentYear = new Date().getFullYear();
 
   return (
@@ -22,7 +24,7 @@ export function Footer({ settings = {}, config = {} }: FooterProps) {
             </h3>
             <p className="text-sm leading-relaxed mb-4">
               {settings.storeDescription ||
-                "Cửa hàng tinh dầu và sản phẩm thiên nhiên chất lượng cao, mang đến sức khỏe và hạnh phúc cho gia đình bạn."}
+                t("storeDescription")}
             </p>
             <div className="flex items-center gap-3">
               {settings.facebookUrl && (
@@ -51,14 +53,14 @@ export function Footer({ settings = {}, config = {} }: FooterProps) {
           </div>
 
           <div>
-            <h4 className="font-semibold text-white mb-4">Liên kết nhanh</h4>
+            <h4 className="font-semibold text-white mb-4">{t("quickLinks.title")}</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   href="/about"
                   className="hover:text-primary-500 transition-colors"
                 >
-                  Về chúng tôi
+                  {t("quickLinks.aboutUs")}
                 </Link>
               </li>
               <li>
@@ -66,7 +68,7 @@ export function Footer({ settings = {}, config = {} }: FooterProps) {
                   href="/products"
                   className="hover:text-primary-500 transition-colors"
                 >
-                  Sản phẩm
+                  {t("quickLinks.products")}
                 </Link>
               </li>
               <li>
@@ -74,37 +76,37 @@ export function Footer({ settings = {}, config = {} }: FooterProps) {
                   href="/blog"
                   className="hover:text-primary-500 transition-colors"
                 >
-                  Blog
+                  {t("quickLinks.blog")}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/lien-he"
+                  href="/contact"
                   className="hover:text-primary-500 transition-colors"
                 >
-                  Liên hệ
+                  {t("quickLinks.contact")}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/theo-doi-don-hang"
+                  href="/order-tracking"
                   className="hover:text-primary-500 transition-colors"
                 >
-                  Theo dõi đơn hàng
+                  {t("quickLinks.orderTracking")}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold text-white mb-4">Chính sách</h4>
+            <h4 className="font-semibold text-white mb-4">{t("policies.title")}</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   href="/pages/chinh-sach-bao-mat"
                   className="hover:text-primary-500 transition-colors"
                 >
-                  Chính sách bảo mật
+                  {t("policies.privacy")}
                 </Link>
               </li>
               <li>
@@ -112,7 +114,7 @@ export function Footer({ settings = {}, config = {} }: FooterProps) {
                   href="/pages/dieu-khoan-su-dung"
                   className="hover:text-primary-500 transition-colors"
                 >
-                  Điều khoản sử dụng
+                  {t("policies.terms")}
                 </Link>
               </li>
               <li>
@@ -120,7 +122,7 @@ export function Footer({ settings = {}, config = {} }: FooterProps) {
                   href="/pages/chinh-sach-van-chuyen"
                   className="hover:text-primary-500 transition-colors"
                 >
-                  Chính sách vận chuyển
+                  {t("policies.shipping")}
                 </Link>
               </li>
               <li>
@@ -128,14 +130,14 @@ export function Footer({ settings = {}, config = {} }: FooterProps) {
                   href="/pages/chinh-sach-doi-tra"
                   className="hover:text-primary-500 transition-colors"
                 >
-                  Chính sách đổi trả
+                  {t("policies.returns")}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold text-white mb-4">Liên hệ</h4>
+            <h4 className="font-semibold text-white mb-4">{t("contactInfo.title")}</h4>
             <ul className="space-y-3 text-sm">
               {settings.storeAddress && (
                 <li className="flex items-start gap-2">
@@ -173,9 +175,9 @@ export function Footer({ settings = {}, config = {} }: FooterProps) {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-sm text-center md:text-left">
               <p>
-                © {currentYear} Enzara. Tất cả quyền được bảo lưu.
+                © {currentYear} Enzara. {t("copyright")}
               </p>
-              <p className="text-neutral-500 mt-1">Powered by Enzara</p>
+              <p className="text-neutral-500 mt-1">{t("poweredBy")}</p>
             </div>
 
             <PaymentIcons />

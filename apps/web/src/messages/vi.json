@@ -1,0 +1,403 @@
+{
+  "common": {
+    "brandName": "Enzara",
+    "loading": "Dang tai...",
+    "error": "Da co loi xay ra. Vui long thu lai.",
+    "close": "Dong",
+    "cancel": "Huy",
+    "save": "Luu",
+    "delete": "Xoa",
+    "edit": "Chinh sua",
+    "confirm": "Xac nhan",
+    "back": "Quay lai",
+    "next": "Tiep theo",
+    "previous": "Truoc do",
+    "viewAll": "Xem tat ca",
+    "continueShopping": "Tiep tuc mua sam",
+    "apply": "Ap dung",
+    "poweredBy": "Powered by Enzara",
+    "allRightsReserved": "Tat ca quyen duoc bao luu.",
+    "currency": "d",
+    "phone": "Dien thoai",
+    "email": "Email",
+    "optional": "khong bat buoc",
+    "required": "bat buoc",
+    "freeShipping": "Mien phi"
+  },
+
+  "navigation": {
+    "home": "Trang chu",
+    "products": "San pham",
+    "blog": "Blog",
+    "contact": "Lien he",
+    "orderTracking": "Theo doi don hang",
+    "account": "Tai khoan",
+    "search": "Tim kiem",
+    "cart": "Gio hang",
+    "login": "Dang nhap",
+    "register": "Dang ky",
+    "logout": "Dang xuat",
+    "aboutUs": "Ve chung toi",
+    "menu": "Menu",
+    "closeMenu": "Dong menu",
+    "searchPlaceholder": "Tim kiem san pham...",
+    "searchAriaLabel": "Tim kiem",
+    "accountAriaLabel": "Tai khoan",
+    "categories": "Danh muc san pham",
+    "utilities": "Tien ich"
+  },
+
+  "home": {
+    "seo": {
+      "title": "Enzara - San pham tay rua huu co, than thien voi moi truong",
+      "description": "Mua sam san pham tay rua sinh hoc, huu co tai Enzara. Cac san pham lam sach an toan, than thien voi moi truong va suc khoe gia dinh ban."
+    },
+    "categorySection": {
+      "title": "Danh muc san pham",
+      "subtitle": "Kham pha cac dong san pham thien nhien, an toan cho gia dinh ban"
+    },
+    "featuredProducts": {
+      "title": "San pham noi bat",
+      "subtitle": "Duoc yeu thich va tin dung boi hang ngan khach hang"
+    },
+    "newProducts": {
+      "title": "San pham moi",
+      "subtitle": "Cap nhat nhung san pham moi nhat tu thien nhien"
+    },
+    "bestSellers": {
+      "title": "Ban chay nhat",
+      "subtitle": "San pham duoc lua chon nhieu nhat"
+    },
+    "testimonials": {
+      "title": "Khach hang noi gi ve Enzara"
+    },
+    "storeDescription": "Cua hang tinh dau va san pham thien nhien chat luong cao, mang den suc khoe va hanh phuc cho gia dinh ban."
+  },
+
+  "products": {
+    "seo": {
+      "title": "San pham - Enzara",
+      "description": "Kham pha bo suu tap san pham lam sach huu co Enzara. Nuoc rua chen, nuoc giat, nuoc lau san tu enzyme dua tu nhien."
+    },
+    "breadcrumb": "San pham",
+    "noProductsFound": "Khong tim thay san pham nao",
+    "featured": "Noi bat",
+    "addToCart": "Them vao gio hang",
+    "outOfStock": "Het hang",
+    "sale": "Giam gia",
+    "new": "Moi"
+  },
+
+  "cart": {
+    "title": "Gio hang",
+    "itemCount": "san pham",
+    "emptyCart": {
+      "title": "Gio hang cua ban dang trong",
+      "description": "Hay them san pham vao gio hang de bat dau mua sam cac san pham lam sach sinh hoc than thien voi moi truong."
+    },
+    "shippingNote": "Phi van chuyen se duoc tinh khi ban chon dia chi giao hang o buoc thanh toan.",
+    "tableHeaders": {
+      "product": "San pham",
+      "unitPrice": "Don gia",
+      "quantity": "So luong",
+      "total": "Thanh tien"
+    },
+    "decreaseQuantity": "Giam so luong",
+    "increaseQuantity": "Tang so luong",
+    "removeItem": "Xoa san pham",
+    "continueShopping": "Tiep tuc mua sam",
+    "voucher": {
+      "title": "Ma giam gia",
+      "placeholder": "Nhap ma giam gia",
+      "apply": "Ap dung",
+      "remove": "Xoa ma giam gia"
+    },
+    "proceedToCheckout": "Tien hanh thanh toan"
+  },
+
+  "checkout": {
+    "title": "Thanh toan",
+    "breadcrumbs": {
+      "cart": "Gio hang",
+      "checkout": "Thanh toan"
+    },
+    "validation": {
+      "nameRequired": "Vui long nhap ho ten",
+      "phoneInvalid": "So dien thoai khong hop le",
+      "emailInvalid": "Email khong hop le",
+      "provinceRequired": "Vui long chon tinh/thanh",
+      "districtRequired": "Vui long chon quan/huyen",
+      "wardRequired": "Vui long chon phuong/xa",
+      "addressRequired": "Vui long nhap dia chi chi tiet"
+    },
+    "submitting": "Dang xu ly...",
+    "selectAddress": "Vui long chon dia chi giao hang",
+    "placeOrder": "Dat hang",
+    "submitError": "Da co loi xay ra. Vui long thu lai."
+  },
+
+  "auth": {
+    "login": {
+      "title": "Dang nhap",
+      "subtitle": "Nhap thong tin tai khoan de tiep tuc",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Mat khau",
+      "passwordPlaceholder": "Nhap mat khau",
+      "forgotPassword": "Quen mat khau?",
+      "submitButton": "Dang nhap",
+      "submitting": "Dang dang nhap...",
+      "noAccount": "Chua co tai khoan?",
+      "registerLink": "Dang ky",
+      "error": "Da co loi xay ra. Vui long thu lai."
+    },
+    "register": {
+      "title": "Tao tai khoan",
+      "subtitle": "Dang ky de mua sam san pham sinh thai",
+      "fullNameLabel": "Ho va ten",
+      "fullNamePlaceholder": "Nguyen Van A",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "phoneLabel": "So dien thoai",
+      "phoneOptional": "khong bat buoc",
+      "phonePlaceholder": "0912 345 678",
+      "passwordLabel": "Mat khau",
+      "passwordPlaceholder": "Toi thieu 6 ky tu",
+      "confirmPasswordLabel": "Xac nhan mat khau",
+      "confirmPasswordPlaceholder": "Nhap lai mat khau",
+      "submitButton": "Dang ky",
+      "submitting": "Dang tao tai khoan...",
+      "hasAccount": "Da co tai khoan?",
+      "loginLink": "Dang nhap",
+      "error": "Da co loi xay ra. Vui long thu lai."
+    },
+    "validation": {
+      "emailRequired": "Vui long nhap email",
+      "emailInvalid": "Email khong hop le",
+      "passwordMin": "Mat khau toi thieu 6 ky tu",
+      "nameRequired": "Vui long nhap ho ten",
+      "confirmPasswordRequired": "Vui long xac nhan mat khau",
+      "passwordMismatch": "Mat khau xac nhan khong khop"
+    }
+  },
+
+  "account": {
+    "title": "Tai khoan",
+    "orders": "Don hang cua toi",
+    "profile": "Thong tin ca nhan",
+    "addresses": "Dia chi",
+    "wishlist": "Yeu thich",
+    "loyalty": "Diem thuong",
+    "settings": "Cai dat"
+  },
+
+  "contact": {
+    "seo": {
+      "title": "Lien he - Enzara",
+      "description": "Lien he voi Enzara de duoc tu van ve san pham tay rua huu co tu enzyme dua. Ho tro khach hang nhanh chong."
+    },
+    "title": "Lien he voi chung toi",
+    "subtitle": "Ban co cau hoi hoac gop y? Hay gui tin nhan cho chung toi, chung toi se phan hoi som nhat.",
+    "form": {
+      "nameLabel": "Ho va ten *",
+      "namePlaceholder": "Nhap ho va ten",
+      "emailLabel": "Email *",
+      "emailPlaceholder": "Nhap email",
+      "phoneLabel": "So dien thoai",
+      "phonePlaceholder": "Nhap so dien thoai (tuy chon)",
+      "messageLabel": "Noi dung *",
+      "messagePlaceholder": "Nhap noi dung lien he",
+      "submitButton": "Gui lien he",
+      "submitting": "Dang gui..."
+    },
+    "validation": {
+      "nameRequired": "Vui long nhap ten",
+      "emailInvalid": "Email khong hop le",
+      "messageRequired": "Vui long nhap noi dung"
+    },
+    "success": {
+      "title": "Cam on ban da lien he!",
+      "message": "Chung toi da nhan duoc tin nhan cua ban va se phan hoi trong thoi gian som nhat."
+    },
+    "error": "Co loi xay ra. Vui long thu lai.",
+    "info": {
+      "title": "Thong tin lien he",
+      "address": "Ho Chi Minh City, Vietnam",
+      "phoneLabel": "Dien thoai"
+    }
+  },
+
+  "orderTracking": {
+    "seo": {
+      "title": "Theo doi don hang - Enzara"
+    },
+    "title": "Theo doi don hang",
+    "subtitle": "Nhap ma don hang de kiem tra trang thai giao hang",
+    "searchPlaceholder": "Nhap ma don hang (VD: ENZ-20260209-XXXXX)",
+    "searchButton": "Tra cuu",
+    "searching": "Dang tra cuu...",
+    "notFound": "Khong tim thay don hang",
+    "error": "Da co loi xay ra. Vui long thu lai sau.",
+    "orderNumber": "Ma don hang",
+    "orderDate": "Ngay dat",
+    "statusLabels": {
+      "PENDING": "Cho xu ly",
+      "CONFIRMED": "Da xac nhan",
+      "PROCESSING": "Dang chuan bi",
+      "SHIPPING": "Dang giao hang",
+      "DELIVERED": "Da giao hang",
+      "CANCELLED": "Da huy"
+    },
+    "orderStatus": "Trang thai don hang",
+    "currentStatus": "Trang thai hien tai",
+    "notCompleted": "Chua hoan thanh",
+    "cancelled": "Da huy",
+    "orderCancelled": "Don hang da bi huy",
+    "productsTitle": "San pham",
+    "shippingAddress": "Dia chi nhan hang",
+    "payment": {
+      "title": "Thanh toan",
+      "method": "Phuong thuc",
+      "status": "Trang thai thanh toan",
+      "subtotal": "Tam tinh",
+      "discount": "Giam gia",
+      "shippingFee": "Phi van chuyen",
+      "freeShipping": "Mien phi",
+      "total": "Tong cong"
+    },
+    "paymentMethods": {
+      "COD": "Thanh toan khi nhan hang (COD)",
+      "BANK_TRANSFER": "Chuyen khoan ngan hang",
+      "MOMO": "Vi MoMo",
+      "ZALOPAY": "ZaloPay"
+    },
+    "paymentStatus": {
+      "PENDING": "Chua thanh toan",
+      "PAID": "Da thanh toan",
+      "FAILED": "Thanh toan that bai",
+      "REFUNDED": "Da hoan tien"
+    }
+  },
+
+  "blog": {
+    "seo": {
+      "title": "Blog - Enzara",
+      "description": "Kham pha kien thuc ve enzyme va giai phap ve sinh sinh thai than thien voi moi truong cung Enzara"
+    },
+    "title": "Blog Enzara",
+    "subtitle": "Kham pha kien thuc ve enzyme va giai phap ve sinh sinh thai than thien voi moi truong",
+    "allCategories": "Tat ca",
+    "noPosts": "Chua co bai viet nao",
+    "readMore": "Doc them",
+    "readingTime": "phut doc"
+  },
+
+  "search": {
+    "seo": {
+      "title": "Tim kiem san pham - Enzara",
+      "resultTitle": "Ket qua tim kiem cho \"{query}\" - Enzara",
+      "resultDescription": "Tim kiem san pham cho \"{query}\""
+    },
+    "breadcrumb": "Tim kiem",
+    "title": "Ket qua tim kiem cho",
+    "foundProducts": "Tim thay",
+    "products": "san pham",
+    "noResults": "Khong tim thay san pham phu hop voi",
+    "tryDifferent": "Thu tim kiem voi tu khoa khac",
+    "viewAllProducts": "Xem tat ca san pham",
+    "enterKeyword": "Nhap tu khoa de tim kiem san pham",
+    "modal": {
+      "placeholder": "Tim kiem san pham...",
+      "close": "Dong",
+      "searching": "Dang tim kiem...",
+      "noResults": "Khong tim thay san pham nao",
+      "viewAllResults": "Xem tat ca ket qua",
+      "recentSearches": "Tim kiem gan day",
+      "clearAll": "Xoa tat ca"
+    }
+  },
+
+  "footer": {
+    "storeDescription": "Cua hang tinh dau va san pham thien nhien chat luong cao, mang den suc khoe va hanh phuc cho gia dinh ban.",
+    "quickLinks": {
+      "title": "Lien ket nhanh",
+      "aboutUs": "Ve chung toi",
+      "products": "San pham",
+      "blog": "Blog",
+      "contact": "Lien he",
+      "orderTracking": "Theo doi don hang"
+    },
+    "policies": {
+      "title": "Chinh sach",
+      "privacy": "Chinh sach bao mat",
+      "terms": "Dieu khoan su dung",
+      "shipping": "Chinh sach van chuyen",
+      "returns": "Chinh sach doi tra"
+    },
+    "contactInfo": {
+      "title": "Lien he"
+    },
+    "copyright": "Tat ca quyen duoc bao luu.",
+    "poweredBy": "Powered by Enzara"
+  },
+
+  "newsletter": {
+    "title": "Dang ky nhan tin",
+    "subtitle": "Nhan thong tin ve san pham moi, uu dai dac biet va cac meo cham soc suc khoe tu Enzara",
+    "placeholder": "Nhap email cua ban",
+    "submitButton": "Dang ky",
+    "submitting": "Dang gui...",
+    "success": {
+      "title": "Cam on ban da dang ky!",
+      "message": "Chung toi se gui tin tuc moi nhat den email cua ban."
+    },
+    "error": "Co loi xay ra. Vui long thu lai."
+  },
+
+  "flashSale": {
+    "endsIn": "Ket thuc sau:",
+    "sold": "Da ban",
+    "countdown": {
+      "days": "Ngay",
+      "hours": "Gio",
+      "minutes": "Phut",
+      "seconds": "Giay"
+    }
+  },
+
+  "errors": {
+    "generic": "Da co loi xay ra. Vui long thu lai.",
+    "networkError": "Loi ket noi mang. Vui long kiem tra lai.",
+    "notFound": "Khong tim thay trang nay.",
+    "unauthorized": "Ban can dang nhap de tiep tuc.",
+    "forbidden": "Ban khong co quyen truy cap.",
+    "serverError": "Loi may chu. Vui long thu lai sau.",
+    "validationError": "Vui long kiem tra lai thong tin.",
+    "sessionExpired": "Phien dang nhap da het han. Vui long dang nhap lai."
+  },
+
+  "seo": {
+    "home": {
+      "title": "Enzara - San pham tay rua huu co, than thien voi moi truong",
+      "description": "Mua sam san pham tay rua sinh hoc, huu co tai Enzara. Cac san pham lam sach an toan, than thien voi moi truong va suc khoe gia dinh ban."
+    },
+    "products": {
+      "title": "San pham - Enzara",
+      "description": "Kham pha bo suu tap san pham lam sach huu co Enzara. Nuoc rua chen, nuoc giat, nuoc lau san tu enzyme dua tu nhien."
+    },
+    "blog": {
+      "title": "Blog - Enzara",
+      "description": "Kham pha kien thuc ve enzyme va giai phap ve sinh sinh thai than thien voi moi truong cung Enzara"
+    },
+    "contact": {
+      "title": "Lien he - Enzara",
+      "description": "Lien he voi Enzara de duoc tu van ve san pham tay rua huu co tu enzyme dua. Ho tro khach hang nhanh chong."
+    },
+    "orderTracking": {
+      "title": "Theo doi don hang - Enzara"
+    },
+    "search": {
+      "title": "Tim kiem san pham - Enzara"
+    }
+  }
+}

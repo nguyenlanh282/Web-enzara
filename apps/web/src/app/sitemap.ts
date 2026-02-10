@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { locales } from "@/i18n/config";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://enzara.vn";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
@@ -16,6 +17,23 @@ async function fetchSlugs(path: string): Promise<string[]> {
   }
 }
 
+function multiLocaleEntry(
+  path: string,
+  opts: { changeFrequency: MetadataRoute.Sitemap[0]["changeFrequency"]; priority: number; lastModified: Date },
+): MetadataRoute.Sitemap {
+  return locales.map((locale) => ({
+    url: `${SITE_URL}/${locale}${path}`,
+    lastModified: opts.lastModified,
+    changeFrequency: opts.changeFrequency,
+    priority: opts.priority,
+    alternates: {
+      languages: Object.fromEntries(
+        locales.map((l) => [l, `${SITE_URL}/${l}${path}`]),
+      ),
+    },
+  }));
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
@@ -26,66 +44,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     fetchSlugs("/pages/slugs"),
   ]);
 
-  const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: `${SITE_URL}/`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 1.0,
-    },
-    {
-      url: `${SITE_URL}/products`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_URL}/blog`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_URL}/lien-he`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${SITE_URL}/theo-doi-don-hang`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.4,
-    },
+  const staticPages = [
+    ...multiLocaleEntry("", { changeFrequency: "daily", priority: 1.0, lastModified: now }),
+    ...multiLocaleEntry("/products", { changeFrequency: "daily", priority: 0.9, lastModified: now }),
+    ...multiLocaleEntry("/blog", { changeFrequency: "daily", priority: 0.8, lastModified: now }),
+    ...multiLocaleEntry("/contact", { changeFrequency: "monthly", priority: 0.5, lastModified: now }),
+    ...multiLocaleEntry("/order-tracking", { changeFrequency: "monthly", priority: 0.4, lastModified: now }),
   ];
 
-  const productPages: MetadataRoute.Sitemap = productSlugs.map((slug) => ({
-    url: `${SITE_URL}/products/${slug}`,
-    lastModified: now,
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
-  }));
+  const productPages = productSlugs.flatMap((slug) =>
+    multiLocaleEntry(`/products/${slug}`, { changeFrequency: "weekly", priority: 0.8, lastModified: now }),
+  );
 
-  const categoryPages: MetadataRoute.Sitemap = categorySlugs.map((slug) => ({
-    url: `${SITE_URL}/categories/${slug}`,
-    lastModified: now,
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  }));
+  const categoryPages = categorySlugs.flatMap((slug) =>
+    multiLocaleEntry(`/categories/${slug}`, { changeFrequency: "weekly", priority: 0.7, lastModified: now }),
+  );
 
-  const blogPages: MetadataRoute.Sitemap = postSlugs.map((slug) => ({
-    url: `${SITE_URL}/blog/${slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
+  const blogPages = postSlugs.flatMap((slug) =>
+    multiLocaleEntry(`/blog/${slug}`, { changeFrequency: "monthly", priority: 0.6, lastModified: now }),
+  );
 
-  const cmsPages: MetadataRoute.Sitemap = pageSlugs.map((slug) => ({
-    url: `${SITE_URL}/pages/${slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.5,
-  }));
+  const cmsPages = pageSlugs.flatMap((slug) =>
+    multiLocaleEntry(`/pages/${slug}`, { changeFrequency: "monthly", priority: 0.5, lastModified: now }),
+  );
 
   return [
     ...staticPages,

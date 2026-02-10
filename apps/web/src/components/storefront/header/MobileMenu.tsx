@@ -1,7 +1,8 @@
 "use client";
 
 import { BookOpen, ChevronDown, Mail, Package, X } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -25,6 +26,7 @@ export function MobileMenu({
   categories = [],
 }: MobileMenuProps) {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  const t = useTranslations("navigation");
 
   const toggleCategory = (categoryId: string) => {
     setExpandedCategory(expandedCategory === categoryId ? null : categoryId);
@@ -60,7 +62,7 @@ export function MobileMenu({
               <button
                 onClick={onClose}
                 className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
-                aria-label="Đóng menu"
+                aria-label={t("closeMenu")}
               >
                 <X className="h-6 w-6" />
               </button>
@@ -69,7 +71,7 @@ export function MobileMenu({
             <div className="p-4">
               <div className="mb-6">
                 <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-3">
-                  Danh mục sản phẩm
+                  {t("categories")}
                 </h3>
                 {categories.map((category) => (
                   <div key={category.id} className="mb-2">
@@ -121,7 +123,7 @@ export function MobileMenu({
               {menus.length > 0 && (
                 <div className="mb-6">
                   <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-3">
-                    Menu
+                    {t("menu")}
                   </h3>
                   {menus.map((menu) => (
                     <Link
@@ -138,7 +140,7 @@ export function MobileMenu({
 
               <div className="mb-6">
                 <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-3">
-                  Tien ich
+                  {t("utilities")}
                 </h3>
                 <Link
                   href="/blog"
@@ -146,23 +148,23 @@ export function MobileMenu({
                   onClick={onClose}
                 >
                   <BookOpen className="h-5 w-5" />
-                  Blog
+                  {t("blog")}
                 </Link>
                 <Link
-                  href="/lien-he"
+                  href="/contact"
                   className="flex items-center gap-3 py-2 text-neutral-700 hover:text-primary-700 transition-colors"
                   onClick={onClose}
                 >
                   <Mail className="h-5 w-5" />
-                  Lien he
+                  {t("contact")}
                 </Link>
                 <Link
-                  href="/theo-doi-don-hang"
+                  href="/order-tracking"
                   className="flex items-center gap-3 py-2 text-neutral-700 hover:text-primary-700 transition-colors"
                   onClick={onClose}
                 >
                   <Package className="h-5 w-5" />
-                  Theo doi don hang
+                  {t("orderTracking")}
                 </Link>
               </div>
 
@@ -172,14 +174,14 @@ export function MobileMenu({
                   className="block w-full py-2 px-4 text-center border border-primary-700 text-primary-700 rounded-lg hover:bg-primary-50 transition-colors"
                   onClick={onClose}
                 >
-                  Đăng nhập
+                  {t("login")}
                 </Link>
                 <Link
                   href="/auth/register"
                   className="block w-full py-2 px-4 text-center bg-primary-700 text-white rounded-lg hover:bg-primary-800 transition-colors"
                   onClick={onClose}
                 >
-                  Đăng ký
+                  {t("register")}
                 </Link>
               </div>
             </div>

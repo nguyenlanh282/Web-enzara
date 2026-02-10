@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -54,6 +55,7 @@ function calculateTimeLeft(endTime: string): TimeLeft {
 }
 
 function CountdownTimer({ endTime }: { endTime: string }) {
+  const t = useTranslations("flashSale");
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(() =>
     calculateTimeLeft(endTime)
   );
@@ -73,10 +75,10 @@ function CountdownTimer({ endTime }: { endTime: string }) {
   const pad = (n: number) => String(n).padStart(2, "0");
 
   const boxes = [
-    ...(timeLeft.days > 0 ? [{ value: pad(timeLeft.days), label: "Ngay" }] : []),
-    { value: pad(timeLeft.hours), label: "Gio" },
-    { value: pad(timeLeft.minutes), label: "Phut" },
-    { value: pad(timeLeft.seconds), label: "Giay" },
+    ...(timeLeft.days > 0 ? [{ value: pad(timeLeft.days), label: t("countdown.days") }] : []),
+    { value: pad(timeLeft.hours), label: t("countdown.hours") },
+    { value: pad(timeLeft.minutes), label: t("countdown.minutes") },
+    { value: pad(timeLeft.seconds), label: t("countdown.seconds") },
   ];
 
   return (
@@ -105,6 +107,7 @@ function formatPrice(p: number) {
 }
 
 export function FlashSaleWidget({ flashSale }: FlashSaleWidgetProps) {
+  const t = useTranslations("flashSale");
   const [ended, setEnded] = useState(false);
 
   useEffect(() => {
@@ -141,7 +144,7 @@ export function FlashSaleWidget({ flashSale }: FlashSaleWidgetProps) {
           </div>
           <div className="flex items-center gap-3">
             <span className="text-sm font-body text-neutral-600">
-              Ket thuc sau:
+              {t("endsIn")}
             </span>
             <CountdownTimer endTime={flashSale.endTime} />
           </div>
@@ -219,7 +222,7 @@ export function FlashSaleWidget({ flashSale }: FlashSaleWidgetProps) {
                       />
                     </div>
                     <p className="text-xs font-body text-neutral-500">
-                      Da ban {item.soldCount}/{item.quantity}
+                      {t("sold")} {item.soldCount}/{item.quantity}
                     </p>
                   </div>
                 </div>

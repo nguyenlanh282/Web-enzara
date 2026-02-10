@@ -1,11 +1,13 @@
 "use client";
 
 import { Menu, Phone, Search, User } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { SearchModal } from "./SearchModal";
 import { MobileMenu } from "./MobileMenu";
 import { CartIconWithBadge } from "./CartIconWithBadge";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 interface HeaderProps {
   settings?: Record<string, string>;
@@ -20,6 +22,7 @@ export function Header({
 }: HeaderProps) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const t = useTranslations("navigation");
 
   return (
     <>
@@ -44,17 +47,17 @@ export function Header({
           </div>
           <div className="flex items-center gap-4">
             <Link
-              href="/theo-doi-don-hang"
+              href="/order-tracking"
               className="hover:text-primary-200 transition-colors"
             >
-              Theo doi don hang
+              {t("orderTracking")}
             </Link>
             <span className="text-primary-400">|</span>
             <Link
               href="/blog"
               className="hover:text-primary-200 transition-colors"
             >
-              Blog
+              {t("blog")}
             </Link>
           </div>
         </div>
@@ -83,19 +86,21 @@ export function Header({
               ))}
             </nav>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               <button
                 onClick={() => setSearchOpen(true)}
                 className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
-                aria-label="Tìm kiếm"
+                aria-label={t("searchAriaLabel")}
               >
                 <Search className="h-5 w-5" />
               </button>
 
+              <LanguageSwitcher />
+
               <Link
                 href="/account"
                 className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
-                aria-label="Tài khoản"
+                aria-label={t("accountAriaLabel")}
               >
                 <User className="h-5 w-5" />
               </Link>
@@ -109,7 +114,7 @@ export function Header({
             <button
               onClick={() => setMobileMenuOpen(true)}
               className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
-              aria-label="Menu"
+              aria-label={t("menu")}
             >
               <Menu className="h-6 w-6" />
             </button>

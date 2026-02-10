@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Minus, Plus, ShoppingBag, Trash2, Tag, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -12,12 +12,14 @@ import {
 } from "@/stores/cartStore";
 import { CartSummary } from "@/components/storefront/cart/CartSummary";
 import { CartSuggestions } from "@/components/storefront/cart/CartSuggestions";
+import { useTranslations } from "next-intl";
 
 function formatPrice(price: number): string {
   return new Intl.NumberFormat("vi-VN").format(price) + "đ";
 }
 
 function CartPage() {
+  const t = useTranslations("cart");
   const items = useCartStore((s) => s.items);
   const updateQuantity = useCartStore((s) => s.updateQuantity);
   const removeItem = useCartStore((s) => s.removeItem);
@@ -62,17 +64,16 @@ function CartPage() {
         <div className="flex flex-col items-center justify-center gap-6 text-neutral-400">
           <ShoppingBag className="h-24 w-24 stroke-1" />
           <h1 className="text-2xl font-heading font-bold text-neutral-900">
-            Gio hang cua ban dang trong
+            {t("emptyCart.title")}
           </h1>
           <p className="text-neutral-500 font-body text-center max-w-md">
-            Hay them san pham vao gio hang de bat dau mua sam cac san pham lam
-            sach sinh hoc than thien voi moi truong.
+            {t("emptyCart.description")}
           </p>
           <Link
             href="/products"
             className="inline-flex items-center justify-center h-12 px-8 rounded-xl bg-primary-700 text-white font-medium hover:bg-primary-800 transition-colors"
           >
-            Tiep tuc mua sam
+            {t("continueShopping")}
           </Link>
         </div>
       </div>
@@ -82,13 +83,13 @@ function CartPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
       <h1 className="text-2xl font-heading font-bold text-neutral-900 mb-6">
-        Gio hang ({totalItems} san pham)
+        {t("title")} ({totalItems} {t("itemCount")})
       </h1>
 
       {/* Shipping note */}
       <div className="mb-6 bg-primary-50 rounded-xl p-4">
         <p className="text-sm font-body text-primary-800">
-          Phi van chuyen se duoc tinh khi ban chon dia chi giao hang o buoc thanh toan.
+          {t("shippingNote")}
         </p>
       </div>
 
@@ -97,10 +98,10 @@ function CartPage() {
         <div className="lg:col-span-2">
           {/* Desktop table header */}
           <div className="hidden md:grid md:grid-cols-12 gap-4 pb-3 border-b border-neutral-200 text-sm text-neutral-500 font-body">
-            <div className="col-span-5">San pham</div>
-            <div className="col-span-2 text-center">Don gia</div>
-            <div className="col-span-2 text-center">So luong</div>
-            <div className="col-span-2 text-right">Thanh tien</div>
+            <div className="col-span-5">{t("tableHeaders.product")}</div>
+            <div className="col-span-2 text-center">{t("tableHeaders.unitPrice")}</div>
+            <div className="col-span-2 text-center">{t("tableHeaders.quantity")}</div>
+            <div className="col-span-2 text-right">{t("tableHeaders.total")}</div>
             <div className="col-span-1" />
           </div>
 
@@ -171,7 +172,7 @@ function CartPage() {
                           "text-neutral-600 hover:bg-neutral-50 transition-colors",
                           "disabled:opacity-40 disabled:cursor-not-allowed"
                         )}
-                        aria-label="Giam so luong"
+                        aria-label={t("decreaseQuantity")}
                       >
                         <Minus className="h-3.5 w-3.5" />
                       </button>
@@ -206,7 +207,7 @@ function CartPage() {
                           "text-neutral-600 hover:bg-neutral-50 transition-colors",
                           "disabled:opacity-40 disabled:cursor-not-allowed"
                         )}
-                        aria-label="Tang so luong"
+                        aria-label={t("increaseQuantity")}
                       >
                         <Plus className="h-3.5 w-3.5" />
                       </button>
@@ -226,7 +227,7 @@ function CartPage() {
                           removeItem(item.productId, item.variantId)
                         }
                         className="p-1.5 text-neutral-400 hover:text-red-500 transition-colors"
-                        aria-label="Xoa san pham"
+                        aria-label={t("removeItem")}
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -262,7 +263,7 @@ function CartPage() {
                               removeItem(item.productId, item.variantId)
                             }
                             className="p-1 text-neutral-400 hover:text-red-500 transition-colors flex-shrink-0"
-                            aria-label="Xoa san pham"
+                            aria-label={t("removeItem")}
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
@@ -296,7 +297,7 @@ function CartPage() {
                                 "text-neutral-600 hover:bg-neutral-50 transition-colors",
                                 "disabled:opacity-40 disabled:cursor-not-allowed"
                               )}
-                              aria-label="Giam so luong"
+                              aria-label={t("decreaseQuantity")}
                             >
                               <Minus className="h-3.5 w-3.5" />
                             </button>
@@ -317,7 +318,7 @@ function CartPage() {
                                 "text-neutral-600 hover:bg-neutral-50 transition-colors",
                                 "disabled:opacity-40 disabled:cursor-not-allowed"
                               )}
-                              aria-label="Tang so luong"
+                              aria-label={t("increaseQuantity")}
                             >
                               <Plus className="h-3.5 w-3.5" />
                             </button>
@@ -340,7 +341,7 @@ function CartPage() {
               href="/products"
               className="text-sm text-primary-700 hover:text-primary-800 font-medium underline underline-offset-4"
             >
-              Tiep tuc mua sam
+              {t("continueShopping")}
             </Link>
           </div>
         </div>
@@ -357,7 +358,7 @@ function CartPage() {
           <div className="bg-neutral-50 rounded-xl p-5 mb-4">
             <h3 className="text-sm font-heading font-bold text-neutral-900 flex items-center gap-2 mb-3">
               <Tag className="h-4 w-4" />
-              Ma giam gia
+              {t("voucher.title")}
             </h3>
 
             {voucherCode ? (
@@ -368,7 +369,7 @@ function CartPage() {
                 <button
                   onClick={handleRemoveVoucher}
                   className="p-0.5 text-green-600 hover:text-red-500 transition-colors"
-                  aria-label="Xoa ma giam gia"
+                  aria-label={t("voucher.remove")}
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -380,7 +381,7 @@ function CartPage() {
                     type="text"
                     value={voucherInput}
                     onChange={(e) => setVoucherInput(e.target.value.toUpperCase())}
-                    placeholder="Nhap ma giam gia"
+                    placeholder={t("voucher.placeholder")}
                     className="flex-1 h-10 px-3 text-sm border border-neutral-300 rounded-lg font-body focus:outline-none focus:ring-2 focus:ring-primary-500"
                     onKeyDown={(e) => {
                       if (e.key === "Enter") handleApplyVoucher();
@@ -395,7 +396,7 @@ function CartPage() {
                       "disabled:opacity-50 disabled:cursor-not-allowed"
                     )}
                   >
-                    {voucherLoading ? "..." : "Ap dung"}
+                    {voucherLoading ? "..." : t("voucher.apply")}
                   </button>
                 </div>
                 {voucherMessage && (
@@ -422,7 +423,7 @@ function CartPage() {
             href="/checkout"
             className="mt-4 flex items-center justify-center w-full h-12 rounded-xl bg-primary-700 text-white font-medium hover:bg-primary-800 transition-colors"
           >
-            Tien hanh thanh toan
+            {t("proceedToCheckout")}
           </Link>
         </div>
       </div>

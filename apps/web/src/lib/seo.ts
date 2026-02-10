@@ -10,12 +10,21 @@ export function generatePageMetadata(opts: {
   type?: "website" | "article";
   publishedTime?: string;
   noIndex?: boolean;
+  locale?: string;
 }): Metadata {
-  const url = `${SITE_URL}${opts.path}`;
+  const locale = opts.locale || "vi";
+  const url = `${SITE_URL}/${locale}${opts.path}`;
+  const ogLocale = locale === "vi" ? "vi_VN" : "en_US";
   return {
     title: opts.title,
     description: opts.description,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      languages: {
+        vi: `${SITE_URL}/vi${opts.path}`,
+        en: `${SITE_URL}/en${opts.path}`,
+      },
+    },
     ...(opts.noIndex && { robots: { index: false, follow: false } }),
     openGraph: {
       title: opts.title,
@@ -24,7 +33,7 @@ export function generatePageMetadata(opts: {
       siteName: "Enzara",
       images: opts.image ? [{ url: opts.image, width: 1200, height: 630 }] : [],
       type: opts.type || "website",
-      locale: "vi_VN",
+      locale: ogLocale,
       ...(opts.publishedTime && { publishedTime: opts.publishedTime }),
     },
     twitter: {
@@ -156,7 +165,7 @@ export function websiteJsonLd() {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/search?q={search_term_string}`,
+        urlTemplate: `${SITE_URL}/{locale}/search?q={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     },

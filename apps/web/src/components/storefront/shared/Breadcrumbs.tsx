@@ -1,7 +1,8 @@
 "use client";
 
 import { ChevronRight, Home } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 interface BreadcrumbItem {
   label: string;
@@ -13,6 +14,7 @@ interface BreadcrumbsProps {
 }
 
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
+  const t = useTranslations("navigation");
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -20,7 +22,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
       {
         "@type": "ListItem",
         position: 1,
-        name: "Trang chủ",
+        name: t("home"),
         item: typeof window !== "undefined" ? window.location.origin : "",
       },
       ...items.map((item, index) => ({
@@ -51,7 +53,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
               className="flex items-center text-neutral-600 hover:text-primary-700 transition-colors"
             >
               <Home className="h-4 w-4" />
-              <span className="sr-only">Trang chủ</span>
+              <span className="sr-only">{t("home")}</span>
             </Link>
           </li>
 
