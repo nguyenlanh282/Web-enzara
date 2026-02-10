@@ -15,12 +15,16 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { UserRole } from '@prisma/client';
+import { CacheInvalidationService } from '../../common/services/cache-invalidation.service';
 
 @Controller('admin/reviews')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(UserRole.ADMIN, UserRole.STAFF)
 export class ReviewsController {
-  constructor(private readonly reviewsService: ReviewsService) {}
+  constructor(
+    private readonly reviewsService: ReviewsService,
+    private readonly cacheInvalidation: CacheInvalidationService,
+  ) {}
 
   @Get()
   findAll(@Query() filter: ReviewFilterDto) {
@@ -28,22 +32,30 @@ export class ReviewsController {
   }
 
   @Put(':id/approve')
-  approve(@Param('id') id: string) {
-    return this.reviewsService.approve(id);
+  async approve(@Param('id') id: string) {
+    const result = await this.reviewsService.approve(id);
+    await this.cacheInvalidation.invalidateReviews();
+    return result;
   }
 
   @Put(':id/reject')
-  reject(@Param('id') id: string) {
-    return this.reviewsService.reject(id);
+  async reject(@Param('id') id: string) {
+    const result = await this.reviewsService.reject(id);
+    await this.cacheInvalidation.invalidateReviews();
+    return result;
   }
 
   @Put(':id/reply')
-  reply(@Param('id') id: string, @Body() dto: AdminReplyDto) {
-    return this.reviewsService.reply(id, dto.adminReply);
+  async reply(@Param('id') id: string, @Body() dto: AdminReplyDto) {
+    const result = await this.reviewsService.reply(id, dto.adminReply);
+    await this.cacheInvalidation.invalidateReviews();
+    return result;
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.reviewsService.delete(id);
+  async delete(@Param('id') id: string) {
+    const result = await this.reviewsService.delete(id);
+    await this.cacheInvalidation.invalidateReviews();
+    return result;
   }
 }

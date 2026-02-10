@@ -19,12 +19,16 @@ import { RolesGuard } from "../auth/guards/roles.guard";
 import { Roles } from "../auth/decorators/roles.decorator";
 import { UserRole } from "@prisma/client";
 import { Request } from "express";
+import { CacheInvalidationService } from "../../common/services/cache-invalidation.service";
 
 @Controller("admin/posts")
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(UserRole.ADMIN, UserRole.STAFF)
 export class PostsController {
-  constructor(private readonly postsService: PostsService) {}
+  constructor(
+    private readonly postsService: PostsService,
+    private readonly cacheInvalidation: CacheInvalidationService,
+  ) {}
 
   @Get()
   findAll(@Query() filter: PostFilterDto) {
@@ -37,19 +41,25 @@ export class PostsController {
   }
 
   @Post()
-  create(@Body() dto: CreatePostDto, @Req() req: Request) {
+  async create(@Body() dto: CreatePostDto, @Req() req: Request) {
     const user = req.user as { id: string };
-    return this.postsService.createPost(dto, user.id);
+    const result = await this.postsService.createPost(dto, user.id);
+    await this.cacheInvalidation.invalidateBlog();
+    return result;
   }
 
   @Put(":id")
-  update(@Param("id") id: string, @Body() dto: UpdatePostDto) {
-    return this.postsService.updatePost(id, dto);
+  async update(@Param("id") id: string, @Body() dto: UpdatePostDto) {
+    const result = await this.postsService.updatePost(id, dto);
+    await this.cacheInvalidation.invalidateBlog();
+    return result;
   }
 
   @Delete(":id")
   @Roles(UserRole.ADMIN)
-  delete(@Param("id") id: string) {
-    return this.postsService.deletePost(id);
+  async delete(@Param("id") id: string) {
+    const result = await this.postsService.deletePost(id);
+    await this.cacheInvalidation.invalidateBlog();
+    return result;
   }
 }

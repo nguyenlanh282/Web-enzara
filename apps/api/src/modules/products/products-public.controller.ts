@@ -1,23 +1,29 @@
-import { Controller, Get, Post, Param, Query } from "@nestjs/common";
+import { Controller, Get, Post, Param, Query, UseInterceptors } from "@nestjs/common";
 import { ProductsService } from "./products.service";
 import { ProductFilterDto } from "./dto/product-filter.dto";
+import { HttpCacheInterceptor } from "../../common/interceptors/http-cache.interceptor";
+import { CacheTTL } from "../../common/interceptors/cache-ttl.decorator";
 
 @Controller("products")
+@UseInterceptors(HttpCacheInterceptor)
 export class ProductsPublicController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get()
+  @CacheTTL(120)
   findAll(@Query() filter: ProductFilterDto) {
     return this.productsService.findPublic(filter);
   }
 
   @Get("featured")
+  @CacheTTL(300)
   findFeatured(@Query("limit") limit?: string) {
     const limitNum = limit ? parseInt(limit, 10) : 10;
     return this.productsService.findFeatured(limitNum);
   }
 
   @Get("search")
+  @CacheTTL(60)
   search(
     @Query("q") query: string,
     @Query("limit") limit?: string,
@@ -29,6 +35,7 @@ export class ProductsPublicController {
   }
 
   @Get("suggestions/for-cart")
+  @CacheTTL(120)
   async getCartSuggestions(
     @Query("productIds") productIds: string,
     @Query("limit") limit?: string,
@@ -41,16 +48,19 @@ export class ProductsPublicController {
   }
 
   @Get("slugs")
+  @CacheTTL(3600)
   async getSlugs() {
     return this.productsService.getAllSlugs();
   }
 
   @Get(":slug")
+  @CacheTTL(120)
   findBySlug(@Param("slug") slug: string) {
     return this.productsService.findBySlug(slug);
   }
 
   @Get(":slug/suggestions")
+  @CacheTTL(300)
   async getSuggestions(
     @Param("slug") slug: string,
     @Query("limit") limit?: string,

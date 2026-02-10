@@ -13,6 +13,7 @@ import { RolesGuard } from "../auth/guards/roles.guard";
 import { Roles } from "../auth/decorators/roles.decorator";
 import { PrismaService } from "../../common/services/prisma.service";
 import { PancakeService } from "../pancake/pancake.service";
+import { CacheInvalidationService } from "../../common/services/cache-invalidation.service";
 
 @Controller("admin/inventory")
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -23,6 +24,7 @@ export class InventoryController {
   constructor(
     private readonly prisma: PrismaService,
     private readonly pancakeService: PancakeService,
+    private readonly cacheInvalidation: CacheInvalidationService,
   ) {}
 
   /**
@@ -200,6 +202,8 @@ export class InventoryController {
         }
       }
 
+      await this.cacheInvalidation.invalidateProducts();
+
       return {
         success: true,
         productId: id,
@@ -240,6 +244,8 @@ export class InventoryController {
         );
       }
     }
+
+    await this.cacheInvalidation.invalidateProducts();
 
     return {
       success: true,

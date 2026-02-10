@@ -23,6 +23,7 @@ import { AdminCustomersModule } from "./modules/admin-customers/admin-customers.
 import { ShippingModule } from "./modules/shipping/shipping.module";
 import { PrismaService } from "./common/services/prisma.service";
 import { LoggerMiddleware } from "./common/middleware/logger.middleware";
+import { CacheModule } from "./common/cache.module";
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { LoggerMiddleware } from "./common/middleware/logger.middleware";
       },
     }),
     ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]),
+    CacheModule,
     AuthModule,
     CmsModule,
     ProductsModule,

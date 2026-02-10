@@ -19,12 +19,16 @@ import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { RolesGuard } from "../auth/guards/roles.guard";
 import { Roles } from "../auth/decorators/roles.decorator";
 import { UserRole } from "@prisma/client";
+import { CacheInvalidationService } from "../../common/services/cache-invalidation.service";
 
 @Controller("admin/products")
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(UserRole.ADMIN, UserRole.STAFF)
 export class ProductsController {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(
+    private readonly productsService: ProductsService,
+    private readonly cacheInvalidation: CacheInvalidationService,
+  ) {}
 
   @Get()
   findAll(@Query() filter: ProductFilterDto) {
@@ -49,24 +53,32 @@ export class ProductsController {
   }
 
   @Post()
-  create(@Body() createProductDto: CreateProductDto) {
-    return this.productsService.create(createProductDto);
+  async create(@Body() createProductDto: CreateProductDto) {
+    const result = await this.productsService.create(createProductDto);
+    await this.cacheInvalidation.invalidateProducts();
+    return result;
   }
 
   @Post("import")
   @Roles(UserRole.ADMIN)
-  importCsv(@Body() body: { csvContent: string }) {
-    return this.productsService.importCsv(body.csvContent);
+  async importCsv(@Body() body: { csvContent: string }) {
+    const result = await this.productsService.importCsv(body.csvContent);
+    await this.cacheInvalidation.invalidateProducts();
+    return result;
   }
 
   @Put(":id")
-  update(@Param("id") id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productsService.update(id, updateProductDto);
+  async update(@Param("id") id: string, @Body() updateProductDto: UpdateProductDto) {
+    const result = await this.productsService.update(id, updateProductDto);
+    await this.cacheInvalidation.invalidateProducts();
+    return result;
   }
 
   @Delete(":id")
   @Roles(UserRole.ADMIN)
-  remove(@Param("id") id: string) {
-    return this.productsService.remove(id);
+  async remove(@Param("id") id: string) {
+    const result = await this.productsService.remove(id);
+    await this.cacheInvalidation.invalidateProducts();
+    return result;
   }
 }

@@ -8,6 +8,7 @@ import {
   Param,
   Query,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { FlashSalesService } from './flash-sales.service';
 import { CreateFlashSaleDto } from './dto/create-flash-sale.dto';
@@ -17,16 +18,24 @@ import { AddFlashSaleItemDto } from './dto/add-flash-sale-item.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
+import { HttpCacheInterceptor } from '../../common/interceptors/http-cache.interceptor';
+import { CacheTTL } from '../../common/interceptors/cache-ttl.decorator';
+import { CacheInvalidationService } from '../../common/services/cache-invalidation.service';
 
 @Controller('flash-sales')
 export class FlashSalesController {
-  constructor(private readonly flashSalesService: FlashSalesService) {}
+  constructor(
+    private readonly flashSalesService: FlashSalesService,
+    private readonly cacheInvalidation: CacheInvalidationService,
+  ) {}
 
   /**
    * PUBLIC: Get the currently active flash sale
    * No authentication required
    */
   @Get('active')
+  @UseInterceptors(HttpCacheInterceptor)
+  @CacheTTL(60)
   async getActive() {
     return this.flashSalesService.getActive();
   }
@@ -58,7 +67,9 @@ export class FlashSalesController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('ADMIN')
   async create(@Body() dto: CreateFlashSaleDto) {
-    return this.flashSalesService.create(dto);
+    const result = await this.flashSalesService.create(dto);
+    await this.cacheInvalidation.invalidateFlashSales();
+    return result;
   }
 
   /**
@@ -68,7 +79,9 @@ export class FlashSalesController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('ADMIN')
   async update(@Param('id') id: string, @Body() dto: UpdateFlashSaleDto) {
-    return this.flashSalesService.update(id, dto);
+    const result = await this.flashSalesService.update(id, dto);
+    await this.cacheInvalidation.invalidateFlashSales();
+    return result;
   }
 
   /**
@@ -78,7 +91,9 @@ export class FlashSalesController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('ADMIN')
   async remove(@Param('id') id: string) {
-    return this.flashSalesService.remove(id);
+    const result = await this.flashSalesService.remove(id);
+    await this.cacheInvalidation.invalidateFlashSales();
+    return result;
   }
 
   /**
@@ -91,7 +106,9 @@ export class FlashSalesController {
     @Param('id') id: string,
     @Body() dto: AddFlashSaleItemDto,
   ) {
-    return this.flashSalesService.addItem(id, dto);
+    const result = await this.flashSalesService.addItem(id, dto);
+    await this.cacheInvalidation.invalidateFlashSales();
+    return result;
   }
 
   /**
@@ -104,6 +121,8 @@ export class FlashSalesController {
     @Param('id') id: string,
     @Param('productId') productId: string,
   ) {
-    return this.flashSalesService.removeItem(id, productId);
+    const result = await this.flashSalesService.removeItem(id, productId);
+    await this.cacheInvalidation.invalidateFlashSales();
+    return result;
   }
 }

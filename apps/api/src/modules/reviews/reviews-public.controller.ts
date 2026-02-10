@@ -6,6 +6,7 @@ import {
   Query,
   Body,
   UseGuards,
+  UseInterceptors,
   Req,
 } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
@@ -13,12 +14,16 @@ import { ReviewFilterDto } from './dto/review-filter.dto';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { Request } from 'express';
+import { HttpCacheInterceptor } from '../../common/interceptors/http-cache.interceptor';
+import { CacheTTL } from '../../common/interceptors/cache-ttl.decorator';
 
 @Controller('products')
 export class ReviewsPublicController {
   constructor(private readonly reviewsService: ReviewsService) {}
 
   @Get(':productId/reviews')
+  @UseInterceptors(HttpCacheInterceptor)
+  @CacheTTL(300)
   findByProduct(
     @Param('productId') productId: string,
     @Query() filter: ReviewFilterDto,
@@ -27,6 +32,8 @@ export class ReviewsPublicController {
   }
 
   @Get(':productId/reviews/summary')
+  @UseInterceptors(HttpCacheInterceptor)
+  @CacheTTL(300)
   getRatingSummary(@Param('productId') productId: string) {
     return this.reviewsService.getRatingSummary(productId);
   }
