@@ -3,20 +3,23 @@
 import { useEffect, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { cn } from "@/lib/utils";
+import { apiClient } from "@/lib/api";
 
-interface Province {
-  code: number;
+interface GhnProvince {
+  id: number;
   name: string;
 }
 
-interface District {
-  code: number;
+interface GhnDistrict {
+  id: number;
   name: string;
+  provinceId: number;
 }
 
-interface Ward {
-  code: number;
+interface GhnWard {
+  code: string;
   name: string;
+  districtId: number;
 }
 
 export interface CheckoutFormData {
@@ -31,8 +34,6 @@ export interface CheckoutFormData {
   paymentMethod: "COD" | "SEPAY_QR";
 }
 
-const PROVINCES_API = "https://provinces.open-api.vn/api";
-
 const inputClass =
   "w-full h-10 px-3 text-sm border border-neutral-300 rounded-lg font-body focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors";
 const selectClass =
@@ -42,8 +43,10 @@ const errorClass = "text-xs text-red-500 mt-1";
 
 export function ShippingForm({
   form,
+  onAddressChange,
 }: {
   form: UseFormReturn<CheckoutFormData>;
+  onAddressChange?: (districtId: number, wardCode: string) => void;
 }) {
   const {
     register,
@@ -52,28 +55,27 @@ export function ShippingForm({
     setValue,
   } = form;
 
-  const [provinces, setProvinces] = useState<Province[]>([]);
-  const [districts, setDistricts] = useState<District[]>([]);
-  const [wards, setWards] = useState<Ward[]>([]);
+  const [provinces, setProvinces] = useState<GhnProvince[]>([]);
+  const [districts, setDistricts] = useState<GhnDistrict[]>([]);
+  const [wards, setWards] = useState<GhnWard[]>([]);
   const [loadingProvinces, setLoadingProvinces] = useState(false);
   const [loadingDistricts, setLoadingDistricts] = useState(false);
   const [loadingWards, setLoadingWards] = useState(false);
 
   const selectedProvince = watch("shippingProvince");
   const selectedDistrict = watch("shippingDistrict");
+  const selectedWard = watch("shippingWard");
 
-  // Fetch provinces on mount
+  // Fetch provinces on mount using GHN master data
   useEffect(() => {
     let cancelled = false;
     setLoadingProvinces(true);
-    fetch(`${PROVINCES_API}/p/`)
-      .then((res) => res.json())
-      .then((data: Province[]) => {
+    apiClient
+      .get<GhnProvince[]>("/shipping/provinces")
+      .then((data) => {
         if (!cancelled) setProvinces(data);
       })
-      .catch(() => {
-        // silently fail, user can retry
-      })
+      .catch(() => {})
       .finally(() => {
         if (!cancelled) setLoadingProvinces(false);
       });
@@ -97,10 +99,12 @@ export function ShippingForm({
     setValue("shippingDistrict", "");
     setValue("shippingWard", "");
 
-    fetch(`${PROVINCES_API}/p/${selectedProvince}?depth=2`)
-      .then((res) => res.json())
-      .then((data: { districts: District[] }) => {
-        if (!cancelled) setDistricts(data.districts || []);
+    apiClient
+      .get<GhnDistrict[]>(
+        `/shipping/districts?provinceId=${selectedProvince}`,
+      )
+      .then((data) => {
+        if (!cancelled) setDistricts(data);
       })
       .catch(() => {})
       .finally(() => {
@@ -125,10 +129,10 @@ export function ShippingForm({
     setWards([]);
     setValue("shippingWard", "");
 
-    fetch(`${PROVINCES_API}/d/${selectedDistrict}?depth=2`)
-      .then((res) => res.json())
-      .then((data: { wards: Ward[] }) => {
-        if (!cancelled) setWards(data.wards || []);
+    apiClient
+      .get<GhnWard[]>(`/shipping/wards?districtId=${selectedDistrict}`)
+      .then((data) => {
+        if (!cancelled) setWards(data);
       })
       .catch(() => {})
       .finally(() => {
@@ -140,6 +144,13 @@ export function ShippingForm({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDistrict]);
+
+  // Notify parent when district + ward are selected (for fee calculation)
+  useEffect(() => {
+    if (selectedDistrict && selectedWard && onAddressChange) {
+      onAddressChange(Number(selectedDistrict), selectedWard);
+    }
+  }, [selectedDistrict, selectedWard, onAddressChange]);
 
   return (
     <div className="space-y-4">
@@ -209,7 +220,7 @@ export function ShippingForm({
             id="shippingProvince"
             className={cn(
               selectClass,
-              errors.shippingProvince && "border-red-400"
+              errors.shippingProvince && "border-red-400",
             )}
             disabled={loadingProvinces}
             {...register("shippingProvince")}
@@ -218,7 +229,7 @@ export function ShippingForm({
               {loadingProvinces ? "Dang tai..." : "Chon tinh/thanh"}
             </option>
             {provinces.map((p) => (
-              <option key={p.code} value={String(p.code)}>
+              <option key={p.id} value={String(p.id)}>
                 {p.name}
               </option>
             ))}
@@ -236,7 +247,7 @@ export function ShippingForm({
             id="shippingDistrict"
             className={cn(
               selectClass,
-              errors.shippingDistrict && "border-red-400"
+              errors.shippingDistrict && "border-red-400",
             )}
             disabled={!selectedProvince || loadingDistricts}
             {...register("shippingDistrict")}
@@ -245,7 +256,7 @@ export function ShippingForm({
               {loadingDistricts ? "Dang tai..." : "Chon quan/huyen"}
             </option>
             {districts.map((d) => (
-              <option key={d.code} value={String(d.code)}>
+              <option key={d.id} value={String(d.id)}>
                 {d.name}
               </option>
             ))}
@@ -263,7 +274,7 @@ export function ShippingForm({
             id="shippingWard"
             className={cn(
               selectClass,
-              errors.shippingWard && "border-red-400"
+              errors.shippingWard && "border-red-400",
             )}
             disabled={!selectedDistrict || loadingWards}
             {...register("shippingWard")}
@@ -272,7 +283,7 @@ export function ShippingForm({
               {loadingWards ? "Dang tai..." : "Chon phuong/xa"}
             </option>
             {wards.map((w) => (
-              <option key={w.code} value={String(w.code)}>
+              <option key={w.code} value={w.code}>
                 {w.name}
               </option>
             ))}
@@ -294,7 +305,7 @@ export function ShippingForm({
           placeholder="So nha, ten duong, khu pho..."
           className={cn(
             "w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg font-body focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none",
-            errors.shippingAddress && "border-red-400"
+            errors.shippingAddress && "border-red-400",
           )}
           {...register("shippingAddress")}
         />

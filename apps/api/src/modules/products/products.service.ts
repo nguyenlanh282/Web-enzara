@@ -180,6 +180,7 @@ export class ProductsService {
       if (dto.tags !== undefined) productData.tags = dto.tags;
       if (dto.metaTitle !== undefined) productData.metaTitle = dto.metaTitle;
       if (dto.metaDescription !== undefined) productData.metaDescription = dto.metaDescription;
+      if (dto.pancakeId !== undefined) productData.pancakeId = dto.pancakeId || null;
 
       if (dto.categoryId !== undefined) {
         productData.category = dto.categoryId ? { connect: { id: dto.categoryId } } : { disconnect: true };

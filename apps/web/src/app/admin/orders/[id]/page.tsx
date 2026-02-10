@@ -13,6 +13,8 @@ import {
   Send,
   RefreshCw,
   Printer,
+  Truck,
+  ExternalLink,
 } from "lucide-react";
 
 interface OrderItem {
@@ -141,6 +143,17 @@ export default function OrderDetailPage() {
   const [noteError, setNoteError] = useState<string | null>(null);
   const [noteSuccess, setNoteSuccess] = useState<string | null>(null);
 
+  // GHN shipping
+  const [ghnCreating, setGhnCreating] = useState(false);
+  const [ghnError, setGhnError] = useState<string | null>(null);
+  const [ghnTracking, setGhnTracking] = useState<{
+    orderCode: string;
+    status: string;
+    expectedDelivery: string;
+    logs: Array<{ status: string; updated_date: string }>;
+  } | null>(null);
+  const [ghnTrackingLoading, setGhnTrackingLoading] = useState(false);
+
   useEffect(() => {
     fetchOrder();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -211,6 +224,47 @@ export default function OrderDetailPage() {
       }
     } finally {
       setNoteAdding(false);
+    }
+  }
+
+  async function handleCreateGhnOrder() {
+    if (!order) return;
+    setGhnCreating(true);
+    setGhnError(null);
+    try {
+      await apiClient.post("/admin/shipping/create-order", {
+        orderId: order.id,
+        serviceTypeId: 2,
+        weight: 500,
+        requiredNote: "CHOTHUHANG",
+      });
+      await fetchOrder();
+    } catch (err) {
+      if (err instanceof ApiError) {
+        setGhnError(err.message);
+      } else {
+        setGhnError("Khong the tao don GHN");
+      }
+    } finally {
+      setGhnCreating(false);
+    }
+  }
+
+  async function fetchGhnTracking() {
+    if (!order?.trackingNumber) return;
+    setGhnTrackingLoading(true);
+    try {
+      const data = await apiClient.get<{
+        orderCode: string;
+        status: string;
+        expectedDelivery: string;
+        logs: Array<{ status: string; updated_date: string }>;
+      }>(`/admin/shipping/tracking/${order.id}`);
+      setGhnTracking(data);
+    } catch {
+      // silently fail
+    } finally {
+      setGhnTrackingLoading(false);
     }
   }
 
@@ -398,6 +452,117 @@ export default function OrderDetailPage() {
                 </span>
               </div>
             </div>
+          </div>
+
+          {/* GHN Shipping */}
+          <div className="bg-white rounded-xl border border-neutral-200 p-5">
+            <h2 className="font-heading text-lg font-semibold text-neutral-900 mb-4 flex items-center gap-2">
+              <Truck className="w-5 h-5" />
+              Van chuyen GHN
+            </h2>
+
+            {order.trackingNumber ? (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="font-body text-sm text-neutral-500">Ma van don: </span>
+                    <span className="font-body text-sm font-medium text-neutral-900">
+                      {order.trackingNumber}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={fetchGhnTracking}
+                      disabled={ghnTrackingLoading}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-primary-50 text-primary-700 rounded-lg hover:bg-primary-100 transition-colors disabled:opacity-50"
+                    >
+                      {ghnTrackingLoading ? (
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <RefreshCw className="w-3.5 h-3.5" />
+                      )}
+                      Tra cuu
+                    </button>
+                    <a
+                      href={`https://tracking.ghn.dev/?order_code=${order.trackingNumber}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-neutral-100 text-neutral-700 rounded-lg hover:bg-neutral-200 transition-colors"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      GHN
+                    </a>
+                  </div>
+                </div>
+
+                {ghnTracking && (
+                  <div className="bg-neutral-50 rounded-lg p-3 space-y-2">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-neutral-500">Trang thai:</span>
+                      <span className="font-medium text-neutral-900">
+                        {ghnTracking.status}
+                      </span>
+                    </div>
+                    {ghnTracking.expectedDelivery && (
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-neutral-500">Du kien giao:</span>
+                        <span className="font-medium text-neutral-900">
+                          {formatDate(ghnTracking.expectedDelivery)}
+                        </span>
+                      </div>
+                    )}
+                    {ghnTracking.logs && ghnTracking.logs.length > 0 && (
+                      <div className="mt-2 border-t border-neutral-200 pt-2">
+                        <p className="text-xs font-medium text-neutral-600 mb-1">
+                          Lich su:
+                        </p>
+                        <div className="space-y-1 max-h-40 overflow-y-auto">
+                          {ghnTracking.logs.map((log, i) => (
+                            <div
+                              key={i}
+                              className="flex items-center justify-between text-xs text-neutral-600"
+                            >
+                              <span>{log.status}</span>
+                              <span className="text-neutral-400">
+                                {formatDate(log.updated_date)}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <p className="font-body text-sm text-neutral-500">
+                  Chua tao don giao hang GHN cho don nay.
+                </p>
+                {ghnError && (
+                  <div className="flex items-center gap-2 text-sm text-red-600">
+                    <AlertCircle className="w-4 h-4" />
+                    {ghnError}
+                  </div>
+                )}
+                <button
+                  onClick={handleCreateGhnOrder}
+                  disabled={
+                    ghnCreating ||
+                    order.status === "CANCELLED" ||
+                    order.status === "REFUNDED"
+                  }
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-xl font-body font-medium hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {ghnCreating ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Truck className="w-4 h-4" />
+                  )}
+                  Tao don GHN
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Order items */}

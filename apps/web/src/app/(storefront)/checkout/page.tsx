@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -47,8 +47,11 @@ interface OrderResponse {
   orderNumber: string;
 }
 
-const FREE_SHIPPING_THRESHOLD = 500000;
-const SHIPPING_FEE = 30000;
+interface FeeResponse {
+  total: number;
+  serviceFee: number;
+  insuranceFee: number;
+}
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -57,6 +60,8 @@ export default function CheckoutPage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [loyaltyPoints, setLoyaltyPoints] = useState(0);
   const [loyaltyDiscount, setLoyaltyDiscount] = useState(0);
+  const [shippingFee, setShippingFee] = useState<number | null>(null);
+  const [shippingLoading, setShippingLoading] = useState(false);
 
   const items = useCartStore((s) => s.items);
   const voucherCode = useCartStore((s) => s.voucherCode);
@@ -104,6 +109,38 @@ export default function CheckoutPage() {
       paymentMethod: "COD",
     },
   });
+
+  // Calculate shipping fee when address changes
+  const handleAddressChange = useCallback(
+    async (districtId: number, wardCode: string) => {
+      setShippingLoading(true);
+      try {
+        // Calculate total weight from cart items (default 500g per item)
+        const totalWeight = items.reduce(
+          (sum, item) => sum + item.quantity * 500,
+          0,
+        );
+
+        const fee = await apiClient.post<FeeResponse>(
+          "/shipping/calculate-fee",
+          {
+            toDistrictId: districtId,
+            toWardCode: wardCode,
+            weight: Math.max(totalWeight, 500),
+            insuranceValue: subtotal,
+            serviceTypeId: 2, // standard
+          },
+        );
+        setShippingFee(fee.total);
+      } catch {
+        // Fallback to flat fee if GHN fails
+        setShippingFee(30000);
+      } finally {
+        setShippingLoading(false);
+      }
+    },
+    [items, subtotal],
+  );
 
   const onSubmit = async (data: CheckoutSchema) => {
     setSubmitting(true);
@@ -175,8 +212,8 @@ export default function CheckoutPage() {
     return null;
   }
 
-  const shippingFee = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
-  const grandTotal = Math.max(0, total + shippingFee - loyaltyDiscount);
+  const effectiveFee = shippingFee ?? 0;
+  const grandTotal = Math.max(0, total + effectiveFee - loyaltyDiscount);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
@@ -195,7 +232,10 @@ export default function CheckoutPage() {
         <div className="lg:grid lg:grid-cols-3 lg:gap-8">
           {/* Left column -- form */}
           <div className="lg:col-span-2 space-y-8">
-            <ShippingForm form={form} />
+            <ShippingForm
+              form={form}
+              onAddressChange={handleAddressChange}
+            />
             <PaymentMethodSelector form={form} />
 
             <VoucherInput />
@@ -217,10 +257,10 @@ export default function CheckoutPage() {
             {/* Submit button */}
             <button
               type="submit"
-              disabled={submitting}
+              disabled={submitting || shippingFee === null}
               className={cn(
                 "w-full h-12 rounded-xl text-white font-medium transition-colors flex items-center justify-center gap-2",
-                submitting
+                submitting || shippingFee === null
                   ? "bg-primary-700/70 cursor-not-allowed"
                   : "bg-primary-700 hover:bg-primary-800"
               )}
@@ -230,13 +270,19 @@ export default function CheckoutPage() {
               )}
               {submitting
                 ? "Dang xu ly..."
-                : `Dat hang (${new Intl.NumberFormat("vi-VN").format(grandTotal)}\u0111)`}
+                : shippingFee === null
+                  ? "Vui long chon dia chi giao hang"
+                  : `Dat hang (${new Intl.NumberFormat("vi-VN").format(grandTotal)}\u0111)`}
             </button>
           </div>
 
           {/* Right column -- order summary */}
           <div className="mt-8 lg:mt-0">
-            <OrderSummary loyaltyDiscount={loyaltyDiscount} />
+            <OrderSummary
+              loyaltyDiscount={loyaltyDiscount}
+              shippingFee={shippingFee}
+              shippingLoading={shippingLoading}
+            />
           </div>
         </div>
       </form>

@@ -76,6 +76,10 @@ export class UpdateProductDto {
   metaDescription?: string;
 
   @IsOptional()
+  @IsString()
+  pancakeId?: string;
+
+  @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateVariantDto)

@@ -8,6 +8,11 @@ import { PrismaService } from "../../common/services/prisma.service";
 import { NotificationsService } from "../notifications/notifications.service";
 import { AdminNotificationsService } from "../notifications/admin-notifications.service";
 import { LoyaltyService } from "../loyalty/loyalty.service";
+import {
+  PancakeService,
+  PancakeOrderStatus,
+} from "../pancake/pancake.service";
+import { GhnShippingService } from "../shipping/ghn.service";
 import { CreateOrderDto } from "./dto/create-order.dto";
 import { OrderFilterDto } from "./dto/order-filter.dto";
 import {
@@ -27,6 +32,8 @@ export class OrdersService {
     private readonly notificationsService: NotificationsService,
     private readonly loyaltyService: LoyaltyService,
     private readonly adminNotificationsService: AdminNotificationsService,
+    private readonly pancakeService: PancakeService,
+    private readonly ghnService: GhnShippingService,
   ) {}
 
   /**
@@ -214,8 +221,26 @@ export class OrdersService {
         voucherId = voucher.id;
       }
 
-      // 4. Calculate shipping fee (free if subtotal >= 500000, else 30000)
-      let shippingFee = subtotal >= 500000 ? 0 : 30000;
+      // 4. Calculate shipping fee via GHN API (fallback to flat fee)
+      let shippingFee = 30000; // default fallback
+      if (this.ghnService.isConfigured) {
+        try {
+          const totalWeight = orderItems.reduce(
+            (sum, item) => sum + item.quantity * 500,
+            0,
+          );
+          const feeResult = await this.ghnService.calculateFee({
+            service_type_id: 2, // standard
+            to_district_id: Number(dto.shippingDistrict),
+            to_ward_code: dto.shippingWard,
+            weight: Math.max(totalWeight, 500),
+            insurance_value: Number(subtotal),
+          });
+          shippingFee = feeResult.total;
+        } catch (err) {
+          this.logger.warn('GHN fee calculation failed, using fallback:', err);
+        }
+      }
 
       // Apply FREE_SHIPPING voucher
       if (dto.voucherCode && voucherId) {
@@ -365,6 +390,11 @@ export class OrdersService {
       .catch((err) => {
         this.logger.error('Failed to create admin notification:', err);
       });
+
+    // 11. Sync order to Pancake POS (non-blocking)
+    this.syncOrderToPancake(order).catch((err) => {
+      this.logger.error('Failed to sync order to Pancake POS:', err);
+    });
 
     return order;
   }
@@ -608,6 +638,11 @@ export class OrdersService {
         this.logger.error('Failed to send order cancellation notification:', err);
       });
     }
+
+    // Sync status to Pancake POS (non-blocking)
+    this.syncStatusToPancake(id, status).catch((err) => {
+      this.logger.error('Failed to sync status to Pancake POS:', err);
+    });
 
     return updatedOrder;
   }
@@ -907,6 +942,143 @@ export class OrdersService {
         value: Number(voucher.value),
       },
     };
+  }
+
+  /**
+   * Map Enzara OrderStatus to Pancake POS status code.
+   */
+  private mapToPancakeStatus(status: OrderStatus): PancakeOrderStatus {
+    switch (status) {
+      case OrderStatus.PENDING:
+        return PancakeOrderStatus.NEW;
+      case OrderStatus.CONFIRMED:
+        return PancakeOrderStatus.CONFIRMED;
+      case OrderStatus.PROCESSING:
+        return PancakeOrderStatus.PACKING;
+      case OrderStatus.SHIPPING:
+        return PancakeOrderStatus.SHIPPED;
+      case OrderStatus.DELIVERED:
+        return PancakeOrderStatus.RECEIVED;
+      case OrderStatus.CANCELLED:
+        return PancakeOrderStatus.CANCELLED;
+      case OrderStatus.REFUNDED:
+        return PancakeOrderStatus.RETURNED;
+      default:
+        return PancakeOrderStatus.NEW;
+    }
+  }
+
+  /**
+   * Sync a newly created order to Pancake POS.
+   * Looks up pancakeId on products/variants to map items.
+   */
+  private async syncOrderToPancake(order: any) {
+    if (!this.pancakeService.isConfigured) return;
+
+    // Load order items with pancake IDs
+    const items = await this.prisma.orderItem.findMany({
+      where: { orderId: order.id },
+      include: {
+        product: { select: { id: true, pancakeId: true, name: true } },
+        variant: { select: { id: true, pancakeId: true, name: true } },
+      },
+    });
+
+    // Build Pancake order items - only include items that have pancakeId mappings
+    const pancakeItems = items
+      .filter((item) => item.product?.pancakeId)
+      .map((item) => ({
+        product_id: item.product!.pancakeId!,
+        variation_id: item.variant?.pancakeId || item.product!.pancakeId!,
+        quantity: item.quantity,
+        discount_each_product: 0,
+        is_bonus_product: false,
+        is_discount_percent: false,
+        is_wholesale: false,
+        one_time_product: false,
+        variation_info: {
+          name: item.variantName || item.productName,
+          retail_price: Number(item.price),
+        },
+      }));
+
+    if (pancakeItems.length === 0) {
+      this.logger.warn(
+        `Order ${order.orderNumber}: No items have pancakeId mapped. Skipping Pancake sync.`,
+      );
+      return;
+    }
+
+    const shopId = parseInt(
+      this.pancakeService["shopId"] || "0",
+      10,
+    );
+
+    const result = await this.pancakeService.createOrder({
+      shop_id: shopId,
+      bill_full_name: order.shippingName,
+      bill_phone_number: order.shippingPhone,
+      bill_email: order.shippingEmail || undefined,
+      items: pancakeItems,
+      shipping_address: {
+        full_name: order.shippingName,
+        phone_number: order.shippingPhone,
+        address: order.shippingAddress,
+        full_address: [
+          order.shippingAddress,
+          order.shippingWard,
+          order.shippingDistrict,
+          order.shippingProvince,
+        ]
+          .filter(Boolean)
+          .join(", "),
+        province_id: order.shippingProvince || undefined,
+        district_id: order.shippingDistrict || undefined,
+        commune_id: order.shippingWard || undefined,
+      },
+      shipping_fee: Number(order.shippingFee),
+      total_discount: Number(order.discountAmount),
+      note: order.note || undefined,
+      custom_id: order.orderNumber,
+      status: PancakeOrderStatus.NEW,
+      cash: 0,
+    });
+
+    if (result.success && result.pancakeOrderId) {
+      await this.prisma.order.update({
+        where: { id: order.id },
+        data: { pancakeOrderId: result.pancakeOrderId },
+      });
+      this.logger.log(
+        `Order ${order.orderNumber} synced to Pancake POS: ${result.pancakeOrderId}`,
+      );
+    }
+  }
+
+  /**
+   * Sync order status change to Pancake POS.
+   */
+  private async syncStatusToPancake(orderId: string, status: OrderStatus) {
+    if (!this.pancakeService.isConfigured) return;
+
+    const order = await this.prisma.order.findUnique({
+      where: { id: orderId },
+      select: { pancakeOrderId: true, orderNumber: true },
+    });
+
+    if (!order?.pancakeOrderId) return;
+
+    const pancakeStatus = this.mapToPancakeStatus(status);
+    const result = await this.pancakeService.updateOrderStatus(
+      order.pancakeOrderId,
+      pancakeStatus,
+    );
+
+    if (result.success) {
+      this.logger.log(
+        `Order ${order.orderNumber} status synced to Pancake POS: ${status} -> ${pancakeStatus}`,
+      );
+    }
   }
 
   /**

@@ -13,8 +13,6 @@ import {
 import { CartSummary } from "@/components/storefront/cart/CartSummary";
 import { CartSuggestions } from "@/components/storefront/cart/CartSuggestions";
 
-const FREE_SHIPPING_THRESHOLD = 500000;
-
 function formatPrice(price: number): string {
   return new Intl.NumberFormat("vi-VN").format(price) + "đ";
 }
@@ -87,8 +85,12 @@ export function CartPage() {
         Gio hang ({totalItems} san pham)
       </h1>
 
-      {/* Free Shipping Progress Bar */}
-      <FreeShippingBar subtotal={subtotal} />
+      {/* Shipping note */}
+      <div className="mb-6 bg-primary-50 rounded-xl p-4">
+        <p className="text-sm font-body text-primary-800">
+          Phi van chuyen se duoc tinh khi ban chon dia chi giao hang o buoc thanh toan.
+        </p>
+      </div>
 
       <div className="lg:grid lg:grid-cols-3 lg:gap-8">
         {/* Cart items column */}
@@ -430,39 +432,4 @@ export function CartPage() {
 
 export default function CartPageRoute() {
   return <CartPage />;
-}
-
-function FreeShippingBar({ subtotal }: { subtotal: number }) {
-  const remaining = FREE_SHIPPING_THRESHOLD - subtotal;
-  const progress = Math.min((subtotal / FREE_SHIPPING_THRESHOLD) * 100, 100);
-  const isFree = subtotal >= FREE_SHIPPING_THRESHOLD;
-
-  return (
-    <div className="mb-6 bg-primary-50 rounded-xl p-4">
-      <p className="text-sm font-body text-primary-800 mb-2">
-        {isFree ? (
-          <span className="font-bold text-primary-700">
-            Ban da duoc mien phi van chuyen!
-          </span>
-        ) : (
-          <>
-            Con{" "}
-            <span className="font-bold text-primary-700">
-              {formatPrice(remaining)}
-            </span>{" "}
-            nua de duoc mien phi van chuyen
-          </>
-        )}
-      </p>
-      <div className="h-2 bg-primary-100 rounded-full overflow-hidden">
-        <div
-          className={cn(
-            "h-full rounded-full transition-all duration-500",
-            isFree ? "bg-green-500" : "bg-primary-700",
-          )}
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-    </div>
-  );
 }

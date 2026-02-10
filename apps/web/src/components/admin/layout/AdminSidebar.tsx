@@ -16,6 +16,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Megaphone,
+  RefreshCw,
+  Truck,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -97,6 +99,11 @@ const navItems: NavItem[] = [
       { label: 'SEO', href: '/admin/settings/seo' },
       { label: 'Giao dien', href: '/admin/settings/appearance' },
     ],
+  },
+  {
+    label: 'Pancake POS',
+    icon: RefreshCw,
+    href: '/admin/pancake',
   },
 ];
 

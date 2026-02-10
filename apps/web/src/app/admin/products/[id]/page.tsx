@@ -48,6 +48,7 @@ const productSchema = z.object({
   images: z.array(imageSchema).optional(),
   metaTitle: z.string().optional(),
   metaDescription: z.string().optional(),
+  pancakeId: z.string().optional(),
 });
 
 type ProductFormData = z.infer<typeof productSchema>;
@@ -83,6 +84,7 @@ interface Product {
   images?: Array<z.infer<typeof imageSchema>>;
   metaTitle?: string;
   metaDescription?: string;
+  pancakeId?: string;
 }
 
 function generateSlug(text: string): string {
@@ -174,6 +176,7 @@ export default function EditProductPage({
         isFeatured: fetchedProduct.isFeatured,
         metaTitle: fetchedProduct.metaTitle || "",
         metaDescription: fetchedProduct.metaDescription || "",
+        pancakeId: (fetchedProduct as any).pancakeId || "",
       });
 
       if (fetchedProduct.variants && fetchedProduct.variants.length > 0) {
@@ -343,6 +346,7 @@ export default function EditProductPage({
     { id: 2, label: "Biến thể" },
     { id: 3, label: "Hình ảnh" },
     { id: 4, label: "SEO" },
+    { id: 5, label: "Pancake POS" },
   ];
 
   if (loading) {
@@ -950,6 +954,39 @@ export default function EditProductPage({
                         "Mô tả sản phẩm sẽ hiển thị ở đây..."}
                     </div>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* Tab 5: Pancake POS */}
+            {activeTab === 5 && (
+              <div className="space-y-6">
+                <div>
+                  <label className="block font-body font-medium text-neutral-900 mb-2">
+                    Pancake Product ID
+                  </label>
+                  <input
+                    {...register("pancakeId")}
+                    type="text"
+                    placeholder="VD: 3487e126-b0d9-4dae-89a9-ee60bef2f4e9"
+                    className="w-full px-4 py-2 border border-neutral-200 rounded-xl font-body focus:outline-none focus:ring-2 focus:ring-primary-700"
+                  />
+                  <p className="mt-1 text-sm text-neutral-500 font-body">
+                    ID san pham tren Pancake POS. Dung de dong bo don hang va ton kho.
+                  </p>
+                </div>
+
+                <div className="border border-neutral-200 rounded-xl p-4 bg-neutral-50">
+                  <h4 className="font-body font-semibold text-neutral-900 mb-2">
+                    Huong dan
+                  </h4>
+                  <ul className="space-y-2 text-sm text-neutral-600 font-body">
+                    <li>1. Dang nhap Pancake POS (pos.pancake.vn)</li>
+                    <li>2. Vao quan ly san pham, chon san pham can mapping</li>
+                    <li>3. Copy Product ID tu URL hoac chi tiet san pham</li>
+                    <li>4. Dan vao truong &quot;Pancake Product ID&quot; o tren</li>
+                    <li>5. Luu lai de bat dau dong bo don hang va ton kho</li>
+                  </ul>
                 </div>
               </div>
             )}

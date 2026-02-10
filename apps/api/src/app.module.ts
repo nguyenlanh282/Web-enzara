@@ -20,6 +20,7 @@ import { AnalyticsModule } from "./modules/analytics/analytics.module";
 import { WishlistModule } from "./modules/wishlist/wishlist.module";
 import { LoyaltyModule } from "./modules/loyalty/loyalty.module";
 import { AdminCustomersModule } from "./modules/admin-customers/admin-customers.module";
+import { ShippingModule } from "./modules/shipping/shipping.module";
 import { PrismaService } from "./common/services/prisma.service";
 import { LoggerMiddleware } from "./common/middleware/logger.middleware";
 
@@ -49,6 +50,7 @@ import { LoggerMiddleware } from "./common/middleware/logger.middleware";
     WishlistModule,
     LoyaltyModule,
     AdminCustomersModule,
+    ShippingModule,
   ],
   controllers: [AppController],
   providers: [

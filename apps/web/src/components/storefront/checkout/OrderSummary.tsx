@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { Loader2 } from "lucide-react";
 import {
   useCartStore,
   selectSubtotal,
@@ -13,13 +14,14 @@ function formatPrice(price: number): string {
   return new Intl.NumberFormat("vi-VN").format(price) + "\u0111";
 }
 
-const FREE_SHIPPING_THRESHOLD = 500000;
-const SHIPPING_FEE = 30000;
-
 export function OrderSummary({
   loyaltyDiscount = 0,
+  shippingFee,
+  shippingLoading = false,
 }: {
   loyaltyDiscount?: number;
+  shippingFee: number | null;
+  shippingLoading?: boolean;
 }) {
   const [mounted, setMounted] = useState(false);
 
@@ -33,8 +35,8 @@ export function OrderSummary({
   const voucherCode = useCartStore((s) => s.voucherCode);
   const voucherDiscount = useCartStore((s) => s.voucherDiscount);
 
-  const shippingFee = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
-  const grandTotal = Math.max(0, total + shippingFee - loyaltyDiscount);
+  const effectiveFee = shippingFee ?? 0;
+  const grandTotal = Math.max(0, total + effectiveFee - loyaltyDiscount);
 
   if (!mounted) {
     return (
@@ -129,20 +131,17 @@ export function OrderSummary({
         <div className="flex items-center justify-between">
           <span className="text-neutral-600 font-body">Phi van chuyen</span>
           <span className="text-neutral-900 font-medium">
-            {shippingFee === 0 ? (
+            {shippingLoading ? (
+              <Loader2 className="h-4 w-4 animate-spin text-neutral-400" />
+            ) : shippingFee === null ? (
+              <span className="text-neutral-400 text-xs">Chon dia chi</span>
+            ) : shippingFee === 0 ? (
               <span className="text-green-600">Mien phi</span>
             ) : (
               formatPrice(shippingFee)
             )}
           </span>
         </div>
-
-        {shippingFee > 0 && (
-          <p className="text-xs text-neutral-400">
-            Mien phi van chuyen cho don hang tu{" "}
-            {formatPrice(FREE_SHIPPING_THRESHOLD)}
-          </p>
-        )}
       </div>
 
       {/* Divider */}
@@ -154,7 +153,11 @@ export function OrderSummary({
           Tong cong
         </span>
         <span className="text-lg font-heading font-bold text-primary-700">
-          {formatPrice(grandTotal)}
+          {shippingFee === null ? (
+            <span className="text-sm text-neutral-400 font-normal">--</span>
+          ) : (
+            formatPrice(grandTotal)
+          )}
         </span>
       </div>
     </div>
