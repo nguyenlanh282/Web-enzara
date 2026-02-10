@@ -7,6 +7,10 @@ import { Newsletter } from "@/components/storefront/home/Newsletter";
 import { FlashSaleWidget } from "@/components/storefront/home/FlashSaleWidget";
 import { Testimonials } from "@/components/storefront/home/Testimonials";
 import { generatePageMetadata, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import { ScrollReveal } from "@/components/storefront/effects/ScrollReveal";
+import { OrganicSectionHeading } from "@/components/storefront/effects/OrganicBadge";
+import { WaveDividerSoft } from "@/components/storefront/effects/WaveDivider";
+import { FloatingLeaves } from "@/components/storefront/effects/LeafDecoration";
 
 interface FlashSaleData {
   id: string;
@@ -70,51 +74,93 @@ export default async function HomePage() {
       )}
 
       {categories && categories.length > 0 && (
-        <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <h2 className="text-2xl font-heading font-bold text-neutral-900 mb-6 text-center">
-            Danh mục sản phẩm
-          </h2>
-          <CategoryGrid categories={categories} />
+        <section className="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <ScrollReveal animation="fade-up">
+            <OrganicSectionHeading
+              title="Danh mục sản phẩm"
+              subtitle="Khám phá các dòng sản phẩm thiên nhiên, an toàn cho gia đình bạn"
+            />
+          </ScrollReveal>
+          <ScrollReveal animation="fade-up" delay={150}>
+            <CategoryGrid categories={categories} />
+          </ScrollReveal>
         </section>
       )}
+
+      <WaveDividerSoft />
 
       {featuredProducts?.items && featuredProducts.items.length > 0 && (
-        <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <ProductCarousel
-            title="Sản phẩm nổi bật"
-            products={featuredProducts.items}
-            viewAllHref="/products?featured=true"
-          />
+        <section className="relative bg-organic-gradient py-12">
+          <FloatingLeaves />
+          <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ScrollReveal animation="fade-up">
+              <OrganicSectionHeading
+                title="Sản phẩm nổi bật"
+                subtitle="Được yêu thích và tin dùng bởi hàng ngàn khách hàng"
+              />
+            </ScrollReveal>
+            <ScrollReveal animation="fade-up" delay={150}>
+              <ProductCarousel
+                products={featuredProducts.items}
+                viewAllHref="/products?featured=true"
+              />
+            </ScrollReveal>
+          </div>
         </section>
       )}
 
+      <WaveDividerSoft flip />
+
       {newProducts?.items && newProducts.items.length > 0 && (
-        <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <ProductCarousel
-            title="Sản phẩm mới"
-            products={newProducts.items}
-            viewAllHref="/products?sort=newest"
-          />
+        <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <ScrollReveal animation="fade-up">
+            <OrganicSectionHeading
+              title="Sản phẩm mới"
+              subtitle="Cập nhật những sản phẩm mới nhất từ thiên nhiên"
+            />
+          </ScrollReveal>
+          <ScrollReveal animation="fade-up" delay={150}>
+            <ProductCarousel
+              products={newProducts.items}
+              viewAllHref="/products?sort=newest"
+            />
+          </ScrollReveal>
         </section>
       )}
 
       {bestSellers?.items && bestSellers.items.length > 0 && (
-        <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <ProductCarousel
-            title="Bán chạy nhất"
-            products={bestSellers.items}
-            viewAllHref="/products?sort=bestseller"
-          />
+        <section className="relative bg-organic-radial py-12">
+          <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ScrollReveal animation="fade-up">
+              <OrganicSectionHeading
+                title="Bán chạy nhất"
+                subtitle="Sản phẩm được lựa chọn nhiều nhất"
+              />
+            </ScrollReveal>
+            <ScrollReveal animation="fade-up" delay={150}>
+              <ProductCarousel
+                products={bestSellers.items}
+                viewAllHref="/products?sort=bestseller"
+              />
+            </ScrollReveal>
+          </div>
         </section>
       )}
 
       {featuredReviews && featuredReviews.length > 0 && (
-        <Testimonials reviews={featuredReviews} />
+        <ScrollReveal animation="fade">
+          <Testimonials reviews={featuredReviews} />
+        </ScrollReveal>
       )}
 
-      <section className="bg-primary-50 py-12">
+      <WaveDividerSoft fill="#f0f5e0" />
+
+      <section className="relative bg-leaf-gradient bg-primary-50 py-14">
+        <FloatingLeaves className="opacity-30" />
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Newsletter />
+          <ScrollReveal animation="scale">
+            <Newsletter />
+          </ScrollReveal>
         </div>
       </section>
     </>

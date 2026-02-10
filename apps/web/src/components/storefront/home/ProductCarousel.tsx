@@ -7,7 +7,7 @@ import Link from "next/link";
 import { ProductCard } from "../product/ProductCard";
 
 interface ProductCarouselProps {
-  title: string;
+  title?: string;
   products: Array<{
     name: string;
     slug: string;
@@ -50,11 +50,13 @@ export function ProductCarousel({
   return (
     <section className="py-12">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-heading font-bold text-neutral-900">
-          {title}
-        </h2>
+        {title && (
+          <h2 className="text-2xl font-heading font-bold text-neutral-900">
+            {title}
+          </h2>
+        )}
 
-        <div className="flex items-center gap-4">
+        <div className={`flex items-center gap-4 ${!title ? "ml-auto" : ""}`}>
           {viewAllHref && (
             <Link
               href={viewAllHref}

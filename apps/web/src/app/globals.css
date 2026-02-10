@@ -26,6 +26,95 @@
   }
 }
 
+/* ========================================
+   Organic / Nature-Inspired Effects
+   ======================================== */
+
+@layer utilities {
+  /* Organic gradient backgrounds */
+  .bg-organic-gradient {
+    background: linear-gradient(135deg, #f7f9f0 0%, #f0f3e4 50%, #fef7ec 100%);
+  }
+
+  .bg-organic-radial {
+    background: radial-gradient(ellipse at top, #f0f3e4 0%, #f5f5f0 70%);
+  }
+
+  .bg-leaf-gradient {
+    background: linear-gradient(180deg, rgba(98, 108, 19, 0.03) 0%, transparent 60%);
+  }
+
+  /* Soft organic glow */
+  .shadow-organic {
+    box-shadow: 0 4px 20px rgba(98, 108, 19, 0.1), 0 1px 4px rgba(0, 0, 0, 0.04);
+  }
+
+  .shadow-organic-lg {
+    box-shadow: 0 8px 32px rgba(98, 108, 19, 0.15), 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Shimmer effect for loading/highlight */
+  .shimmer {
+    background: linear-gradient(
+      110deg,
+      transparent 33%,
+      rgba(255, 255, 255, 0.5) 50%,
+      transparent 67%
+    );
+    background-size: 300% 100%;
+    animation: shimmer 2s infinite;
+  }
+}
+
+/* Keyframe Animations */
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(-3deg); }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes grow-in {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float-reverse { animation: float-reverse 5s ease-in-out infinite; }
+.animate-sway { animation: sway 4s ease-in-out infinite; }
+.animate-pulse-soft { animation: pulse-soft 3s ease-in-out infinite; }
+.animate-grow-in { animation: grow-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-reverse,
+  .animate-sway,
+  .animate-pulse-soft,
+  .animate-grow-in,
+  .shimmer {
+    animation: none !important;
+  }
+}
+
 /* Print styles for order invoice */
 @media print {
   body > * {
