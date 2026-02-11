@@ -37,17 +37,25 @@ FROM node:22-alpine AS production
 RUN corepack enable && corepack prepare pnpm@9 --activate
 WORKDIR /app
 
-COPY --from=build /app/node_modules ./node_modules
+# Copy package files and install ALL deps (need prisma CLI for generate)
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+COPY apps/api/package.json ./apps/api/
+COPY packages/database/package.json ./packages/database/
+COPY packages/types/package.json ./packages/types/
+COPY packages/utils/package.json ./packages/utils/
+RUN pnpm install --frozen-lockfile --prod=false
+
+# Copy prisma schema and generate client
+COPY --from=build /app/packages/database/prisma ./packages/database/prisma
+RUN cd packages/database && npx prisma generate
+
+# Copy build artifacts
 COPY --from=build /app/apps/api/dist ./apps/api/dist
-COPY --from=build /app/apps/api/node_modules ./apps/api/node_modules
-COPY --from=build /app/apps/api/package.json ./apps/api/
-COPY --from=build /app/packages/database ./packages/database
+COPY --from=build /app/packages/database/index.ts ./packages/database/index.ts
 COPY --from=build /app/packages/types ./packages/types
 COPY --from=build /app/packages/utils ./packages/utils
-COPY --from=build /app/package.json ./
-COPY --from=build /app/pnpm-workspace.yaml ./
 
 ENV NODE_ENV=production
 EXPOSE 4000
 
-CMD ["sh", "-c", "npx -y prisma migrate deploy --schema=./packages/database/prisma/schema.prisma && node apps/api/dist/main.js"]
+CMD ["node", "apps/api/dist/main.js"]
