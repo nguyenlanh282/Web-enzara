@@ -50,4 +50,4 @@ COPY --from=build /app/pnpm-workspace.yaml ./
 ENV NODE_ENV=production
 EXPOSE 4000
 
-CMD ["sh", "-c", "cd /app/packages/database && npx prisma migrate deploy && cd /app && node apps/api/dist/main.js"]
+CMD ["node", "apps/api/dist/main.js"]
