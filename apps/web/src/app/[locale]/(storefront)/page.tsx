@@ -7,11 +7,10 @@ import { ProductCarousel } from "@/components/storefront/home/ProductCarousel";
 import { Newsletter } from "@/components/storefront/home/Newsletter";
 import { FlashSaleWidget } from "@/components/storefront/home/FlashSaleWidget";
 import { Testimonials } from "@/components/storefront/home/Testimonials";
+import { ValueProposition } from "@/components/storefront/home/ValueProposition";
 import { generatePageMetadata, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { ScrollReveal } from "@/components/storefront/effects/ScrollReveal";
 import { OrganicSectionHeading } from "@/components/storefront/effects/OrganicBadge";
-import { WaveDividerSoft } from "@/components/storefront/effects/WaveDivider";
-import { FloatingLeaves } from "@/components/storefront/effects/LeafDecoration";
 
 interface FlashSaleData {
   id: string;
@@ -72,31 +71,37 @@ export default async function HomePage() {
         }}
       />
 
+      {/* Hero */}
       {banners && banners.length > 0 && <HeroSlider banners={banners} />}
 
+      {/* Value Proposition Bar */}
+      <ValueProposition />
+
+      {/* Flash Sale */}
       {flashSale && flashSale.items && flashSale.items.length > 0 && (
-        <FlashSaleWidget flashSale={flashSale} />
+        <ScrollReveal animation="fade-up">
+          <FlashSaleWidget flashSale={flashSale} />
+        </ScrollReveal>
       )}
 
+      {/* Categories */}
       {categories && categories.length > 0 && (
-        <section className="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <ScrollReveal animation="fade-up">
             <OrganicSectionHeading
               title={t("categorySection.title")}
               subtitle={t("categorySection.subtitle")}
             />
           </ScrollReveal>
-          <ScrollReveal animation="fade-up" delay={150}>
+          <ScrollReveal animation="fade-up" delay={100}>
             <CategoryGrid categories={categories} />
           </ScrollReveal>
         </section>
       )}
 
-      <WaveDividerSoft />
-
+      {/* Featured Products */}
       {featuredProducts?.items && featuredProducts.items.length > 0 && (
-        <section className="relative bg-organic-gradient py-12">
-          <FloatingLeaves />
+        <section className="bg-neutral-50 py-16">
           <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal animation="fade-up">
               <OrganicSectionHeading
@@ -104,7 +109,7 @@ export default async function HomePage() {
                 subtitle={t("featuredProducts.subtitle")}
               />
             </ScrollReveal>
-            <ScrollReveal animation="fade-up" delay={150}>
+            <ScrollReveal animation="fade-up" delay={100}>
               <ProductCarousel
                 products={featuredProducts.items}
                 viewAllHref="/products?featured=true"
@@ -114,17 +119,16 @@ export default async function HomePage() {
         </section>
       )}
 
-      <WaveDividerSoft flip />
-
+      {/* New Products */}
       {newProducts?.items && newProducts.items.length > 0 && (
-        <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <ScrollReveal animation="fade-up">
             <OrganicSectionHeading
               title={t("newProducts.title")}
               subtitle={t("newProducts.subtitle")}
             />
           </ScrollReveal>
-          <ScrollReveal animation="fade-up" delay={150}>
+          <ScrollReveal animation="fade-up" delay={100}>
             <ProductCarousel
               products={newProducts.items}
               viewAllHref="/products?sort=newest"
@@ -133,8 +137,9 @@ export default async function HomePage() {
         </section>
       )}
 
+      {/* Best Sellers */}
       {bestSellers?.items && bestSellers.items.length > 0 && (
-        <section className="relative bg-organic-radial py-12">
+        <section className="bg-neutral-50 py-16">
           <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal animation="fade-up">
               <OrganicSectionHeading
@@ -142,7 +147,7 @@ export default async function HomePage() {
                 subtitle={t("bestSellers.subtitle")}
               />
             </ScrollReveal>
-            <ScrollReveal animation="fade-up" delay={150}>
+            <ScrollReveal animation="fade-up" delay={100}>
               <ProductCarousel
                 products={bestSellers.items}
                 viewAllHref="/products?sort=bestseller"
@@ -152,21 +157,18 @@ export default async function HomePage() {
         </section>
       )}
 
+      {/* Testimonials */}
       {featuredReviews && featuredReviews.length > 0 && (
         <ScrollReveal animation="fade">
           <Testimonials reviews={featuredReviews} />
         </ScrollReveal>
       )}
 
-      <WaveDividerSoft fill="#f0f5e0" />
-
-      <section className="relative bg-leaf-gradient bg-primary-50 py-14">
-        <FloatingLeaves className="opacity-30" />
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal animation="scale">
-            <Newsletter />
-          </ScrollReveal>
-        </div>
+      {/* Newsletter */}
+      <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <ScrollReveal animation="scale">
+          <Newsletter />
+        </ScrollReveal>
       </section>
     </>
   );

@@ -71,7 +71,25 @@
     "testimonials": {
       "title": "What customers say about Enzara"
     },
-    "storeDescription": "Premium essential oils and natural products, bringing health and happiness to your family."
+    "storeDescription": "Premium essential oils and natural products, bringing health and happiness to your family.",
+    "valueProps": {
+      "freeShipping": {
+        "title": "Free shipping",
+        "desc": "Orders from 300,000d"
+      },
+      "organic": {
+        "title": "100% Organic",
+        "desc": "Natural ingredients"
+      },
+      "guarantee": {
+        "title": "Quality guaranteed",
+        "desc": "30-day returns"
+      },
+      "support": {
+        "title": "24/7 Support",
+        "desc": "Dedicated assistance"
+      }
+    }
   },
 
   "products": {

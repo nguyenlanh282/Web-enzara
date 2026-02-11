@@ -5,13 +5,16 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Banner {
   id: string;
   title: string;
+  subtitle?: string;
   image: string;
   mobileImage?: string;
   link?: string;
+  buttonText?: string;
 }
 
 interface HeroSliderProps {
@@ -29,6 +32,14 @@ export function HeroSlider({ banners }: HeroSliderProps) {
     [emblaApi]
   );
 
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
   useEffect(() => {
     if (!emblaApi) return;
 
@@ -39,7 +50,6 @@ export function HeroSlider({ banners }: HeroSliderProps) {
     emblaApi.on("select", onSelect);
     onSelect();
 
-    // Autoplay
     const interval = setInterval(() => {
       if (emblaApi.canScrollNext()) {
         emblaApi.scrollNext();
@@ -59,7 +69,7 @@ export function HeroSlider({ banners }: HeroSliderProps) {
   }
 
   return (
-    <section className="relative">
+    <section className="relative group">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {banners.map((banner) => {
@@ -81,6 +91,30 @@ export function HeroSlider({ banners }: HeroSliderProps) {
                     priority
                   />
                 )}
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent" />
+
+                {/* Text content */}
+                <div className="absolute inset-0 flex items-center">
+                  <div className="max-w-screen-xl mx-auto px-6 sm:px-8 lg:px-12 w-full">
+                    <div className="max-w-lg">
+                      <h2 className="text-2xl sm:text-3xl lg:text-5xl font-heading font-bold text-white leading-tight mb-3 drop-shadow-lg">
+                        {banner.title}
+                      </h2>
+                      {banner.subtitle && (
+                        <p className="text-sm sm:text-base lg:text-lg text-white/90 mb-6 line-clamp-2 drop-shadow">
+                          {banner.subtitle}
+                        </p>
+                      )}
+                      {banner.link && (
+                        <span className="inline-flex items-center gap-2 bg-white text-neutral-900 font-heading font-semibold px-6 py-3 rounded-full text-sm hover:bg-primary-50 transition-colors cursor-pointer shadow-lg">
+                          {banner.buttonText || "Khám phá ngay"}
+                          <ChevronRight className="h-4 w-4" />
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
             );
 
@@ -97,17 +131,38 @@ export function HeroSlider({ banners }: HeroSliderProps) {
         </div>
       </div>
 
+      {/* Navigation arrows */}
       {banners.length > 1 && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        <>
+          <button
+            onClick={scrollPrev}
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white/40"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            onClick={scrollNext}
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white/40"
+            aria-label="Next slide"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </>
+      )}
+
+      {/* Dot indicators */}
+      {banners.length > 1 && (
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
           {banners.map((_, index) => (
             <button
               key={index}
               onClick={() => scrollTo(index)}
               className={cn(
-                "w-2 h-2 rounded-full transition-all",
+                "h-2 rounded-full transition-all duration-300",
                 selectedIndex === index
                   ? "bg-white w-8"
-                  : "bg-white/50 hover:bg-white/75"
+                  : "bg-white/40 w-2 hover:bg-white/60"
               )}
               aria-label={`Go to slide ${index + 1}`}
             />

@@ -71,7 +71,25 @@
     "testimonials": {
       "title": "Khach hang noi gi ve Enzara"
     },
-    "storeDescription": "Cua hang tinh dau va san pham thien nhien chat luong cao, mang den suc khoe va hanh phuc cho gia dinh ban."
+    "storeDescription": "Cua hang tinh dau va san pham thien nhien chat luong cao, mang den suc khoe va hanh phuc cho gia dinh ban.",
+    "valueProps": {
+      "freeShipping": {
+        "title": "Mien phi van chuyen",
+        "desc": "Don hang tu 300.000d"
+      },
+      "organic": {
+        "title": "100% huu co",
+        "desc": "Nguyen lieu tu thien nhien"
+      },
+      "guarantee": {
+        "title": "Cam ket chat luong",
+        "desc": "Doi tra trong 30 ngay"
+      },
+      "support": {
+        "title": "Ho tro 24/7",
+        "desc": "Tu van tan tinh"
+      }
+    }
   },
 
   "products": {
