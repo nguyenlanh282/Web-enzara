@@ -11,6 +11,8 @@ import { ValueProposition } from "@/components/storefront/home/ValueProposition"
 import { generatePageMetadata, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { ScrollReveal } from "@/components/storefront/effects/ScrollReveal";
 import { OrganicSectionHeading } from "@/components/storefront/effects/OrganicBadge";
+import { Leaf, Droplets, Sparkles } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 
 interface FlashSaleData {
   id: string;
@@ -56,6 +58,8 @@ export default async function HomePage() {
     fetchAPI<any[]>("/reviews/featured?limit=6"),
   ]);
 
+  const hasBanners = banners && banners.length > 0;
+
   return (
     <>
       <script
@@ -72,7 +76,50 @@ export default async function HomePage() {
       />
 
       {/* Hero */}
-      {banners && banners.length > 0 && <HeroSlider banners={banners} />}
+      {hasBanners ? (
+        <HeroSlider banners={banners} />
+      ) : (
+        <section className="relative overflow-hidden bg-gradient-to-br from-primary-800 via-primary-700 to-primary-600">
+          {/* Decorative elements */}
+          <div className="absolute inset-0">
+            <div className="absolute top-10 left-10 w-72 h-72 bg-primary-500/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-10 right-10 w-96 h-96 bg-primary-400/15 rounded-full blur-3xl" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-300/10 rounded-full blur-3xl" />
+          </div>
+
+          <div className="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-2 mb-6">
+                <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm text-white/90 text-xs font-medium px-3 py-1.5 rounded-full">
+                  <Leaf className="h-3.5 w-3.5" />
+                  100% Organic
+                </span>
+                <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm text-white/90 text-xs font-medium px-3 py-1.5 rounded-full">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  Enzyme
+                </span>
+              </div>
+
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-heading font-bold text-white leading-tight mb-4">
+                {t("hero.title")}
+              </h1>
+              <p className="text-base sm:text-lg text-white/80 mb-8 max-w-lg leading-relaxed">
+                {t("hero.subtitle")}
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link
+                  href="/products"
+                  className="inline-flex items-center justify-center gap-2 bg-white text-primary-800 font-heading font-semibold px-8 py-3.5 rounded-full hover:bg-primary-50 transition-colors shadow-lg text-sm"
+                >
+                  <Droplets className="h-4 w-4" />
+                  {t("hero.cta")}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Value Proposition Bar */}
       <ValueProposition />

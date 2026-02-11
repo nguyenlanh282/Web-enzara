@@ -24,6 +24,15 @@ export function Header({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = useTranslations("navigation");
 
+  const defaultMenus = [
+    { id: "home", label: t("home"), href: "/" },
+    { id: "products", label: t("products"), href: "/products" },
+    { id: "blog", label: t("blog"), href: "/blog" },
+    { id: "contact", label: t("contact"), href: "/contact" },
+  ];
+
+  const navMenus = menus.length > 0 ? menus : defaultMenus;
+
   return (
     <>
       {/* Utility Bar */}
@@ -75,7 +84,7 @@ export function Header({
             </Link>
 
             <nav className="flex items-center gap-8">
-              {menus.map((menu) => (
+              {navMenus.map((menu) => (
                 <Link
                   key={menu.id}
                   href={menu.href}
@@ -126,7 +135,10 @@ export function Header({
               Enzara
             </Link>
 
-            <CartIconWithBadge />
+            <div className="flex items-center gap-1">
+              <LanguageSwitcher />
+              <CartIconWithBadge />
+            </div>
           </div>
         </div>
       </header>
@@ -135,7 +147,7 @@ export function Header({
       <MobileMenu
         open={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
-        menus={menus}
+        menus={navMenus}
         categories={categories}
       />
     </>

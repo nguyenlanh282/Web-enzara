@@ -52,6 +52,11 @@
       "title": "Enzara - Organic, eco-friendly cleaning products",
       "description": "Shop organic, bio-based cleaning products at Enzara. Safe, eco-friendly products for your family's health and the environment."
     },
+    "hero": {
+      "title": "Clean from nature, safe for family",
+      "subtitle": "Enzara brings you organic cleaning products made from natural pineapple enzymes. Safe for health, friendly to the environment.",
+      "cta": "Explore products"
+    },
     "categorySection": {
       "title": "Product categories",
       "subtitle": "Explore our range of natural, family-safe products"
