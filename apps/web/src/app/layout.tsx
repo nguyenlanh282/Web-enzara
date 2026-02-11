@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, Be_Vietnam_Pro } from "next/font/google";
+import { Montserrat, Be_Vietnam_Pro } from "next/font/google";
 import { ServiceWorkerRegistration } from "@/components/storefront/ServiceWorkerRegistration";
 import "./globals.css";
 
-const heading = Plus_Jakarta_Sans({
+const heading = Montserrat({
   subsets: ["latin", "vietnamese"],
-  weight: ["600", "700", "800"],
+  weight: ["500", "600", "700", "800"],
   variable: "--font-heading",
   display: "swap",
 });
@@ -18,7 +18,7 @@ const body = Be_Vietnam_Pro({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#047857",
+  themeColor: "#626c13",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -26,36 +26,36 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Enzara - San pham tay rua huu co tu enzyme dua",
+    default: "Enzara - Sản phẩm tẩy rửa hữu cơ từ enzyme dứa",
     template: "%s | Enzara",
   },
   description:
-    "Enzara - San pham tay rua huu co tu enzyme dua tu nhien. An toan cho suc khoe, than thien voi moi truong.",
+    "Enzara - Sản phẩm tẩy rửa hữu cơ từ enzyme dứa tự nhiên. An toàn cho sức khỏe, thân thiện với môi trường.",
   metadataBase: new URL("https://enzara.vn"),
   keywords: [
     "enzara",
-    "tay rua huu co",
-    "enzyme dua",
-    "san pham sinh thai",
-    "tay rua tu nhien",
-    "eco cleaning",
+    "tẩy rửa hữu cơ",
+    "enzyme dứa",
+    "sản phẩm sinh thái",
+    "tẩy rửa tự nhiên",
+    "nước rửa chén hữu cơ",
   ],
   authors: [{ name: "Enzara" }],
   openGraph: {
     type: "website",
     locale: "vi_VN",
     siteName: "Enzara",
-    title: "Enzara - San pham tay rua huu co tu enzyme dua",
+    title: "Enzara - Sản phẩm tẩy rửa hữu cơ từ enzyme dứa",
     description:
-      "San pham tay rua huu co tu enzyme dua tu nhien. An toan cho suc khoe, than thien voi moi truong.",
+      "Sản phẩm tẩy rửa hữu cơ từ enzyme dứa tự nhiên. An toàn cho sức khỏe, thân thiện với môi trường.",
     images: [
       { url: "/og-image.png", width: 1200, height: 630, alt: "Enzara" },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Enzara - San pham tay rua huu co tu enzyme dua",
-    description: "San pham tay rua huu co tu enzyme dua tu nhien.",
+    title: "Enzara - Sản phẩm tẩy rửa hữu cơ từ enzyme dứa",
+    description: "Sản phẩm tẩy rửa hữu cơ từ enzyme dứa tự nhiên.",
     images: ["/og-image.png"],
   },
   icons: {
