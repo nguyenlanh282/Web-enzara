@@ -92,7 +92,8 @@ COPY --from=build-web /app/apps/web/public ./web-standalone/apps/web/public
 COPY nginx/default.conf /etc/nginx/http.d/default.conf
 
 # ── Entrypoint script ──
-RUN printf '#!/bin/sh\nset -e\necho "Running prisma migrate deploy..."\ncd /app/packages/database && npx prisma migrate deploy\necho "Starting API..."\ncd /app && node apps/api/dist/main.js &\necho "Starting Web..."\ncd /app/web-standalone && HOSTNAME=0.0.0.0 node apps/web/server.js &\necho "Starting nginx..."\nnginx -g "daemon off;"\n' > /app/start.sh && chmod +x /app/start.sh
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
 
 ENV NODE_ENV=production
 EXPOSE 80
