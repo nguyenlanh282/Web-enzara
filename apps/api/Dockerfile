@@ -63,4 +63,4 @@ COPY --from=build /app/packages/utils/tsconfig.json ./packages/utils/tsconfig.js
 ENV NODE_ENV=production
 EXPOSE 4000
 
-CMD ["node", "apps/api/dist/main.js"]
+CMD ["sh", "-c", "cd /app/packages/database && npx prisma migrate deploy && cd /app && node apps/api/dist/main.js"]
