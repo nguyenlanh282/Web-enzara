@@ -4,16 +4,11 @@ echo "=== Running prisma migrate deploy ==="
 cd /app/packages/database
 npx prisma migrate deploy || echo "WARNING: Migration failed, continuing anyway..."
 
-# Seed database only if no admin user exists (first deployment)
-echo "=== Checking if database needs seeding ==="
+# Always run seed (uses upsert, safe to re-run)
+echo "=== Running database seed ==="
 cd /app/packages/database
-if node -e "const{PrismaClient}=require('@prisma/client');const p=new PrismaClient();p.user.findFirst({where:{role:'ADMIN'}}).then(u=>{p.\$disconnect().then(()=>{process.exit(u?0:1)})}).catch(()=>{p.\$disconnect();process.exit(1)})" 2>/dev/null; then
-  echo "Database already seeded, skipping."
-else
-  echo "Running database seed..."
-  npx ts-node prisma/seed.ts || echo "WARNING: Seed failed, continuing anyway..."
-  echo "Database seed step done."
-fi
+npx ts-node prisma/seed.ts || echo "WARNING: Seed failed, continuing anyway..."
+echo "Database seed step done."
 
 echo "=== Starting API ==="
 cd /app && node apps/api/dist/main.js &
