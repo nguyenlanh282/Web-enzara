@@ -1,58 +1,53 @@
-# ── Stage 1: Base ──────────────────────────────────────────────
+# ── Stage 1: base ─────────────────────────────────────────────
 FROM node:22-alpine AS base
 RUN corepack enable && corepack prepare pnpm@9 --activate
 WORKDIR /app
 
-# ── Stage 2: Builder ──────────────────────────────────────────
-FROM base AS builder
-
-# Copy workspace config first for better layer caching
-COPY pnpm-lock.yaml pnpm-workspace.yaml package.json turbo.json ./
-
-# Copy only the package.json files we need (for dependency install caching)
+# ── Stage 2: deps ─────────────────────────────────────────────
+FROM base AS deps
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 COPY apps/api/package.json ./apps/api/
-COPY apps/api/nest-cli.json ./apps/api/
-COPY apps/api/tsconfig.json ./apps/api/
 COPY packages/database/package.json ./packages/database/
 COPY packages/types/package.json ./packages/types/
 COPY packages/utils/package.json ./packages/utils/
-COPY packages/ui/package.json ./packages/ui/
+RUN pnpm install --frozen-lockfile --prod=false
 
-# Install all dependencies (frozen lockfile for reproducibility)
-RUN pnpm install --frozen-lockfile
+# ── Stage 3: build ────────────────────────────────────────────
+FROM base AS build
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/apps/api/node_modules ./apps/api/node_modules
+COPY --from=deps /app/packages/database/node_modules ./packages/database/node_modules
+COPY --from=deps /app/packages/types/node_modules ./packages/types/node_modules
+COPY --from=deps /app/packages/utils/node_modules ./packages/utils/node_modules
 
-# Copy the full source
-COPY packages/database/ ./packages/database/
-COPY packages/types/ ./packages/types/
-COPY packages/utils/ ./packages/utils/
-COPY packages/ui/ ./packages/ui/
-COPY apps/api/ ./apps/api/
+COPY packages/database ./packages/database
+COPY packages/types ./packages/types
+COPY packages/utils ./packages/utils
+COPY apps/api ./apps/api
+COPY turbo.json package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 
 # Generate Prisma client
-RUN pnpm --filter @enzara/database db:generate
+RUN cd packages/database && npx prisma generate
 
-# Build the API
-RUN pnpm --filter @enzara/api build
+# Build NestJS
+RUN cd apps/api && npx nest build
 
-# ── Stage 3: Production runner ────────────────────────────────
-FROM node:22-alpine AS runner
+# ── Stage 4: production ──────────────────────────────────────
+FROM node:22-alpine AS production
+RUN corepack enable && corepack prepare pnpm@9 --activate
 WORKDIR /app
 
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=build /app/apps/api/dist ./apps/api/dist
+COPY --from=build /app/apps/api/node_modules ./apps/api/node_modules
+COPY --from=build /app/apps/api/package.json ./apps/api/
+COPY --from=build /app/packages/database ./packages/database
+COPY --from=build /app/packages/types ./packages/types
+COPY --from=build /app/packages/utils ./packages/utils
+COPY --from=build /app/package.json ./
+COPY --from=build /app/pnpm-workspace.yaml ./
+
 ENV NODE_ENV=production
-
-# Add non-root user for security
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nestjs
-
-# Copy built output and dependencies
-COPY --from=builder /app/apps/api/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/apps/api/node_modules ./apps/api/node_modules
-COPY --from=builder /app/packages/database/prisma ./prisma
-COPY --from=builder /app/packages/database/node_modules/.prisma ./node_modules/.prisma
-
-USER nestjs
-
 EXPOSE 4000
 
-CMD ["node", "dist/main.js"]
+CMD ["node", "apps/api/dist/main.js"]

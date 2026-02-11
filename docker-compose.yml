@@ -1,28 +1,60 @@
-version: "3.8"
 services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: enzara-postgres
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: unless-stopped
     ports:
-      - "5432:5432"
+      - "4000:4000"
     environment:
-      POSTGRES_USER: enzara
-      POSTGRES_PASSWORD: enzara_dev
-      POSTGRES_DB: enzara_db
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    restart: unless-stopped
+      - NODE_ENV=production
+      - PORT=4000
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRATION=${JWT_EXPIRATION:-15m}
+      - JWT_REFRESH_EXPIRATION=${JWT_REFRESH_EXPIRATION:-7d}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - REVALIDATION_SECRET=${REVALIDATION_SECRET}
+      - R2_ACCOUNT_ID=${R2_ACCOUNT_ID}
+      - R2_ACCESS_KEY_ID=${R2_ACCESS_KEY_ID}
+      - R2_SECRET_ACCESS_KEY=${R2_SECRET_ACCESS_KEY}
+      - R2_BUCKET_NAME=${R2_BUCKET_NAME}
+      - R2_PUBLIC_URL=${R2_PUBLIC_URL}
+      - SEPAY_API_KEY=${SEPAY_API_KEY}
+      - SEPAY_WEBHOOK_SECRET=${SEPAY_WEBHOOK_SECRET}
+      - SEPAY_BANK_NAME=${SEPAY_BANK_NAME}
+      - SEPAY_ACCOUNT_NUMBER=${SEPAY_ACCOUNT_NUMBER}
+      - SEPAY_ACCOUNT_HOLDER=${SEPAY_ACCOUNT_HOLDER}
+      - SEPAY_PREFIX=${SEPAY_PREFIX:-PC}
+      - PANCAKE_API_URL=${PANCAKE_API_URL}
+      - PANCAKE_API_KEY=${PANCAKE_API_KEY}
+      - PANCAKE_SHOP_ID=${PANCAKE_SHOP_ID}
+      - PANCAKE_WEBHOOK_SECRET=${PANCAKE_WEBHOOK_SECRET}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - EMAIL_FROM=${EMAIL_FROM}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:4000/api"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-  redis:
-    image: redis:7-alpine
-    container_name: enzara-redis
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+        - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
+    restart: unless-stopped
     ports:
-      - "6379:6379"
-    command: redis-server --appendonly yes
-    volumes:
-      - redisdata:/data
-    restart: unless-stopped
-
-volumes:
-  pgdata:
-  redisdata:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
+    depends_on:
+      api:
+        condition: service_healthy

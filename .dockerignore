@@ -9,6 +9,14 @@ dist
 .next
 .turbo
 coverage
+playwright-report
+test-results
+e2e
+plans
 .vscode
 .idea
 *.log
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
