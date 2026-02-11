@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface Category {
   id: string;
@@ -17,6 +18,7 @@ interface CategoryGridProps {
 }
 
 export function CategoryGrid({ categories }: CategoryGridProps) {
+  const t = useTranslations("home");
   if (categories.length === 0) {
     return null;
   }
@@ -49,7 +51,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
               {featured.name}
             </h3>
             <span className="inline-flex items-center gap-1 text-white/80 text-sm group-hover:text-white transition-colors">
-              Xem sản phẩm
+              {t("viewProducts")}
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </span>
           </div>

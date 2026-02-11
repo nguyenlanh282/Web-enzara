@@ -3,9 +3,10 @@
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface Banner {
   id: string;
@@ -22,6 +23,7 @@ interface HeroSliderProps {
 }
 
 export function HeroSlider({ banners }: HeroSliderProps) {
+  const t = useTranslations("home");
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -108,7 +110,7 @@ export function HeroSlider({ banners }: HeroSliderProps) {
                       )}
                       {banner.link && (
                         <span className="inline-flex items-center gap-2 bg-white text-neutral-900 font-heading font-semibold px-6 py-3 rounded-full text-sm hover:bg-primary-50 transition-colors cursor-pointer shadow-lg">
-                          {banner.buttonText || "Khám phá ngay"}
+                          {banner.buttonText || t("exploreNow")}
                           <ChevronRight className="h-4 w-4" />
                         </span>
                       )}

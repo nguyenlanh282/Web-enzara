@@ -72,6 +72,9 @@
       "title": "What customers say about Enzara"
     },
     "storeDescription": "Premium essential oils and natural products, bringing health and happiness to your family.",
+    "viewProducts": "View products",
+    "viewDetails": "View details",
+    "exploreNow": "Explore now",
     "valueProps": {
       "freeShipping": {
         "title": "Free shipping",
@@ -103,7 +106,8 @@
     "addToCart": "Add to cart",
     "outOfStock": "Out of stock",
     "sale": "Sale",
-    "new": "New"
+    "new": "New",
+    "viewDetails": "View details"
   },
 
   "cart": {

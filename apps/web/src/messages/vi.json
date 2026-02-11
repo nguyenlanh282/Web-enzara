@@ -1,421 +1,425 @@
 {
   "common": {
     "brandName": "Enzara",
-    "loading": "Dang tai...",
-    "error": "Da co loi xay ra. Vui long thu lai.",
-    "close": "Dong",
-    "cancel": "Huy",
-    "save": "Luu",
-    "delete": "Xoa",
-    "edit": "Chinh sua",
-    "confirm": "Xac nhan",
-    "back": "Quay lai",
-    "next": "Tiep theo",
-    "previous": "Truoc do",
-    "viewAll": "Xem tat ca",
-    "continueShopping": "Tiep tuc mua sam",
-    "apply": "Ap dung",
+    "loading": "Đang tải...",
+    "error": "Đã có lỗi xảy ra. Vui lòng thử lại.",
+    "close": "Đóng",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "confirm": "Xác nhận",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "previous": "Trước đó",
+    "viewAll": "Xem tất cả",
+    "continueShopping": "Tiếp tục mua sắm",
+    "apply": "Áp dụng",
     "poweredBy": "Powered by Enzara",
-    "allRightsReserved": "Tat ca quyen duoc bao luu.",
-    "currency": "d",
-    "phone": "Dien thoai",
+    "allRightsReserved": "Tất cả quyền được bảo lưu.",
+    "currency": "đ",
+    "phone": "Điện thoại",
     "email": "Email",
-    "optional": "khong bat buoc",
-    "required": "bat buoc",
-    "freeShipping": "Mien phi"
+    "optional": "không bắt buộc",
+    "required": "bắt buộc",
+    "freeShipping": "Miễn phí"
   },
 
   "navigation": {
-    "home": "Trang chu",
-    "products": "San pham",
+    "home": "Trang chủ",
+    "products": "Sản phẩm",
     "blog": "Blog",
-    "contact": "Lien he",
-    "orderTracking": "Theo doi don hang",
-    "account": "Tai khoan",
-    "search": "Tim kiem",
-    "cart": "Gio hang",
-    "login": "Dang nhap",
-    "register": "Dang ky",
-    "logout": "Dang xuat",
-    "aboutUs": "Ve chung toi",
+    "contact": "Liên hệ",
+    "orderTracking": "Theo dõi đơn hàng",
+    "account": "Tài khoản",
+    "search": "Tìm kiếm",
+    "cart": "Giỏ hàng",
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "logout": "Đăng xuất",
+    "aboutUs": "Về chúng tôi",
     "menu": "Menu",
-    "closeMenu": "Dong menu",
-    "searchPlaceholder": "Tim kiem san pham...",
-    "searchAriaLabel": "Tim kiem",
-    "accountAriaLabel": "Tai khoan",
-    "categories": "Danh muc san pham",
-    "utilities": "Tien ich"
+    "closeMenu": "Đóng menu",
+    "searchPlaceholder": "Tìm kiếm sản phẩm...",
+    "searchAriaLabel": "Tìm kiếm",
+    "accountAriaLabel": "Tài khoản",
+    "categories": "Danh mục sản phẩm",
+    "utilities": "Tiện ích"
   },
 
   "home": {
     "seo": {
-      "title": "Enzara - San pham tay rua huu co, than thien voi moi truong",
-      "description": "Mua sam san pham tay rua sinh hoc, huu co tai Enzara. Cac san pham lam sach an toan, than thien voi moi truong va suc khoe gia dinh ban."
+      "title": "Enzara - Sản phẩm tẩy rửa hữu cơ, thân thiện với môi trường",
+      "description": "Mua sắm sản phẩm tẩy rửa sinh học, hữu cơ tại Enzara. Các sản phẩm làm sạch an toàn, thân thiện với môi trường và sức khỏe gia đình bạn."
     },
     "categorySection": {
-      "title": "Danh muc san pham",
-      "subtitle": "Kham pha cac dong san pham thien nhien, an toan cho gia dinh ban"
+      "title": "Danh mục sản phẩm",
+      "subtitle": "Khám phá các dòng sản phẩm thiên nhiên, an toàn cho gia đình bạn"
     },
     "featuredProducts": {
-      "title": "San pham noi bat",
-      "subtitle": "Duoc yeu thich va tin dung boi hang ngan khach hang"
+      "title": "Sản phẩm nổi bật",
+      "subtitle": "Được yêu thích và tin dùng bởi hàng ngàn khách hàng"
     },
     "newProducts": {
-      "title": "San pham moi",
-      "subtitle": "Cap nhat nhung san pham moi nhat tu thien nhien"
+      "title": "Sản phẩm mới",
+      "subtitle": "Cập nhật những sản phẩm mới nhất từ thiên nhiên"
     },
     "bestSellers": {
-      "title": "Ban chay nhat",
-      "subtitle": "San pham duoc lua chon nhieu nhat"
+      "title": "Bán chạy nhất",
+      "subtitle": "Sản phẩm được lựa chọn nhiều nhất"
     },
     "testimonials": {
-      "title": "Khach hang noi gi ve Enzara"
+      "title": "Khách hàng nói gì về Enzara"
     },
-    "storeDescription": "Cua hang tinh dau va san pham thien nhien chat luong cao, mang den suc khoe va hanh phuc cho gia dinh ban.",
+    "storeDescription": "Cửa hàng tinh dầu và sản phẩm thiên nhiên chất lượng cao, mang đến sức khỏe và hạnh phúc cho gia đình bạn.",
+    "viewProducts": "Xem sản phẩm",
+    "viewDetails": "Xem chi tiết",
+    "exploreNow": "Khám phá ngay",
     "valueProps": {
       "freeShipping": {
-        "title": "Mien phi van chuyen",
-        "desc": "Don hang tu 300.000d"
+        "title": "Miễn phí vận chuyển",
+        "desc": "Đơn hàng từ 300.000đ"
       },
       "organic": {
-        "title": "100% huu co",
-        "desc": "Nguyen lieu tu thien nhien"
+        "title": "100% Hữu cơ",
+        "desc": "Nguyên liệu từ thiên nhiên"
       },
       "guarantee": {
-        "title": "Cam ket chat luong",
-        "desc": "Doi tra trong 30 ngay"
+        "title": "Cam kết chất lượng",
+        "desc": "Đổi trả trong 30 ngày"
       },
       "support": {
-        "title": "Ho tro 24/7",
-        "desc": "Tu van tan tinh"
+        "title": "Hỗ trợ 24/7",
+        "desc": "Tư vấn tận tình"
       }
     }
   },
 
   "products": {
     "seo": {
-      "title": "San pham - Enzara",
-      "description": "Kham pha bo suu tap san pham lam sach huu co Enzara. Nuoc rua chen, nuoc giat, nuoc lau san tu enzyme dua tu nhien."
+      "title": "Sản phẩm - Enzara",
+      "description": "Khám phá bộ sưu tập sản phẩm làm sạch hữu cơ Enzara. Nước rửa chén, nước giặt, nước lau sàn từ enzyme dứa tự nhiên."
     },
-    "breadcrumb": "San pham",
-    "noProductsFound": "Khong tim thay san pham nao",
-    "featured": "Noi bat",
-    "addToCart": "Them vao gio hang",
-    "outOfStock": "Het hang",
-    "sale": "Giam gia",
-    "new": "Moi"
+    "breadcrumb": "Sản phẩm",
+    "noProductsFound": "Không tìm thấy sản phẩm nào",
+    "featured": "Nổi bật",
+    "addToCart": "Thêm vào giỏ hàng",
+    "outOfStock": "Hết hàng",
+    "sale": "Giảm giá",
+    "new": "Mới",
+    "viewDetails": "Xem chi tiết"
   },
 
   "cart": {
-    "title": "Gio hang",
-    "itemCount": "san pham",
+    "title": "Giỏ hàng",
+    "itemCount": "sản phẩm",
     "emptyCart": {
-      "title": "Gio hang cua ban dang trong",
-      "description": "Hay them san pham vao gio hang de bat dau mua sam cac san pham lam sach sinh hoc than thien voi moi truong."
+      "title": "Giỏ hàng của bạn đang trống",
+      "description": "Hãy thêm sản phẩm vào giỏ hàng để bắt đầu mua sắm các sản phẩm làm sạch sinh học thân thiện với môi trường."
     },
-    "shippingNote": "Phi van chuyen se duoc tinh khi ban chon dia chi giao hang o buoc thanh toan.",
+    "shippingNote": "Phí vận chuyển sẽ được tính khi bạn chọn địa chỉ giao hàng ở bước thanh toán.",
     "tableHeaders": {
-      "product": "San pham",
-      "unitPrice": "Don gia",
-      "quantity": "So luong",
-      "total": "Thanh tien"
+      "product": "Sản phẩm",
+      "unitPrice": "Đơn giá",
+      "quantity": "Số lượng",
+      "total": "Thành tiền"
     },
-    "decreaseQuantity": "Giam so luong",
-    "increaseQuantity": "Tang so luong",
-    "removeItem": "Xoa san pham",
-    "continueShopping": "Tiep tuc mua sam",
+    "decreaseQuantity": "Giảm số lượng",
+    "increaseQuantity": "Tăng số lượng",
+    "removeItem": "Xóa sản phẩm",
+    "continueShopping": "Tiếp tục mua sắm",
     "voucher": {
-      "title": "Ma giam gia",
-      "placeholder": "Nhap ma giam gia",
-      "apply": "Ap dung",
-      "remove": "Xoa ma giam gia"
+      "title": "Mã giảm giá",
+      "placeholder": "Nhập mã giảm giá",
+      "apply": "Áp dụng",
+      "remove": "Xóa mã giảm giá"
     },
-    "proceedToCheckout": "Tien hanh thanh toan"
+    "proceedToCheckout": "Tiến hành thanh toán"
   },
 
   "checkout": {
-    "title": "Thanh toan",
+    "title": "Thanh toán",
     "breadcrumbs": {
-      "cart": "Gio hang",
-      "checkout": "Thanh toan"
+      "cart": "Giỏ hàng",
+      "checkout": "Thanh toán"
     },
     "validation": {
-      "nameRequired": "Vui long nhap ho ten",
-      "phoneInvalid": "So dien thoai khong hop le",
-      "emailInvalid": "Email khong hop le",
-      "provinceRequired": "Vui long chon tinh/thanh",
-      "districtRequired": "Vui long chon quan/huyen",
-      "wardRequired": "Vui long chon phuong/xa",
-      "addressRequired": "Vui long nhap dia chi chi tiet"
+      "nameRequired": "Vui lòng nhập họ tên",
+      "phoneInvalid": "Số điện thoại không hợp lệ",
+      "emailInvalid": "Email không hợp lệ",
+      "provinceRequired": "Vui lòng chọn tỉnh/thành",
+      "districtRequired": "Vui lòng chọn quận/huyện",
+      "wardRequired": "Vui lòng chọn phường/xã",
+      "addressRequired": "Vui lòng nhập địa chỉ chi tiết"
     },
-    "submitting": "Dang xu ly...",
-    "selectAddress": "Vui long chon dia chi giao hang",
-    "placeOrder": "Dat hang",
-    "submitError": "Da co loi xay ra. Vui long thu lai."
+    "submitting": "Đang xử lý...",
+    "selectAddress": "Vui lòng chọn địa chỉ giao hàng",
+    "placeOrder": "Đặt hàng",
+    "submitError": "Đã có lỗi xảy ra. Vui lòng thử lại."
   },
 
   "auth": {
     "login": {
-      "title": "Dang nhap",
-      "subtitle": "Nhap thong tin tai khoan de tiep tuc",
+      "title": "Đăng nhập",
+      "subtitle": "Nhập thông tin tài khoản để tiếp tục",
       "emailLabel": "Email",
       "emailPlaceholder": "you@example.com",
-      "passwordLabel": "Mat khau",
-      "passwordPlaceholder": "Nhap mat khau",
-      "forgotPassword": "Quen mat khau?",
-      "submitButton": "Dang nhap",
-      "submitting": "Dang dang nhap...",
-      "noAccount": "Chua co tai khoan?",
-      "registerLink": "Dang ky",
-      "error": "Da co loi xay ra. Vui long thu lai."
+      "passwordLabel": "Mật khẩu",
+      "passwordPlaceholder": "Nhập mật khẩu",
+      "forgotPassword": "Quên mật khẩu?",
+      "submitButton": "Đăng nhập",
+      "submitting": "Đang đăng nhập...",
+      "noAccount": "Chưa có tài khoản?",
+      "registerLink": "Đăng ký",
+      "error": "Đã có lỗi xảy ra. Vui lòng thử lại."
     },
     "register": {
-      "title": "Tao tai khoan",
-      "subtitle": "Dang ky de mua sam san pham sinh thai",
-      "fullNameLabel": "Ho va ten",
-      "fullNamePlaceholder": "Nguyen Van A",
+      "title": "Tạo tài khoản",
+      "subtitle": "Đăng ký để mua sắm sản phẩm sinh thái",
+      "fullNameLabel": "Họ và tên",
+      "fullNamePlaceholder": "Nguyễn Văn A",
       "emailLabel": "Email",
       "emailPlaceholder": "you@example.com",
-      "phoneLabel": "So dien thoai",
-      "phoneOptional": "khong bat buoc",
+      "phoneLabel": "Số điện thoại",
+      "phoneOptional": "không bắt buộc",
       "phonePlaceholder": "0912 345 678",
-      "passwordLabel": "Mat khau",
-      "passwordPlaceholder": "Toi thieu 6 ky tu",
-      "confirmPasswordLabel": "Xac nhan mat khau",
-      "confirmPasswordPlaceholder": "Nhap lai mat khau",
-      "submitButton": "Dang ky",
-      "submitting": "Dang tao tai khoan...",
-      "hasAccount": "Da co tai khoan?",
-      "loginLink": "Dang nhap",
-      "error": "Da co loi xay ra. Vui long thu lai."
+      "passwordLabel": "Mật khẩu",
+      "passwordPlaceholder": "Tối thiểu 6 ký tự",
+      "confirmPasswordLabel": "Xác nhận mật khẩu",
+      "confirmPasswordPlaceholder": "Nhập lại mật khẩu",
+      "submitButton": "Đăng ký",
+      "submitting": "Đang tạo tài khoản...",
+      "hasAccount": "Đã có tài khoản?",
+      "loginLink": "Đăng nhập",
+      "error": "Đã có lỗi xảy ra. Vui lòng thử lại."
     },
     "validation": {
-      "emailRequired": "Vui long nhap email",
-      "emailInvalid": "Email khong hop le",
-      "passwordMin": "Mat khau toi thieu 6 ky tu",
-      "nameRequired": "Vui long nhap ho ten",
-      "confirmPasswordRequired": "Vui long xac nhan mat khau",
-      "passwordMismatch": "Mat khau xac nhan khong khop"
+      "emailRequired": "Vui lòng nhập email",
+      "emailInvalid": "Email không hợp lệ",
+      "passwordMin": "Mật khẩu tối thiểu 6 ký tự",
+      "nameRequired": "Vui lòng nhập họ tên",
+      "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu",
+      "passwordMismatch": "Mật khẩu xác nhận không khớp"
     }
   },
 
   "account": {
-    "title": "Tai khoan",
-    "orders": "Don hang cua toi",
-    "profile": "Thong tin ca nhan",
-    "addresses": "Dia chi",
-    "wishlist": "Yeu thich",
-    "loyalty": "Diem thuong",
-    "settings": "Cai dat"
+    "title": "Tài khoản",
+    "orders": "Đơn hàng của tôi",
+    "profile": "Thông tin cá nhân",
+    "addresses": "Địa chỉ",
+    "wishlist": "Yêu thích",
+    "loyalty": "Điểm thưởng",
+    "settings": "Cài đặt"
   },
 
   "contact": {
     "seo": {
-      "title": "Lien he - Enzara",
-      "description": "Lien he voi Enzara de duoc tu van ve san pham tay rua huu co tu enzyme dua. Ho tro khach hang nhanh chong."
+      "title": "Liên hệ - Enzara",
+      "description": "Liên hệ với Enzara để được tư vấn về sản phẩm tẩy rửa hữu cơ từ enzyme dứa. Hỗ trợ khách hàng nhanh chóng."
     },
-    "title": "Lien he voi chung toi",
-    "subtitle": "Ban co cau hoi hoac gop y? Hay gui tin nhan cho chung toi, chung toi se phan hoi som nhat.",
+    "title": "Liên hệ với chúng tôi",
+    "subtitle": "Bạn có câu hỏi hoặc góp ý? Hãy gửi tin nhắn cho chúng tôi, chúng tôi sẽ phản hồi sớm nhất.",
     "form": {
-      "nameLabel": "Ho va ten *",
-      "namePlaceholder": "Nhap ho va ten",
+      "nameLabel": "Họ và tên *",
+      "namePlaceholder": "Nhập họ và tên",
       "emailLabel": "Email *",
-      "emailPlaceholder": "Nhap email",
-      "phoneLabel": "So dien thoai",
-      "phonePlaceholder": "Nhap so dien thoai (tuy chon)",
-      "messageLabel": "Noi dung *",
-      "messagePlaceholder": "Nhap noi dung lien he",
-      "submitButton": "Gui lien he",
-      "submitting": "Dang gui..."
+      "emailPlaceholder": "Nhập email",
+      "phoneLabel": "Số điện thoại",
+      "phonePlaceholder": "Nhập số điện thoại (tùy chọn)",
+      "messageLabel": "Nội dung *",
+      "messagePlaceholder": "Nhập nội dung liên hệ",
+      "submitButton": "Gửi liên hệ",
+      "submitting": "Đang gửi..."
     },
     "validation": {
-      "nameRequired": "Vui long nhap ten",
-      "emailInvalid": "Email khong hop le",
-      "messageRequired": "Vui long nhap noi dung"
+      "nameRequired": "Vui lòng nhập tên",
+      "emailInvalid": "Email không hợp lệ",
+      "messageRequired": "Vui lòng nhập nội dung"
     },
     "success": {
-      "title": "Cam on ban da lien he!",
-      "message": "Chung toi da nhan duoc tin nhan cua ban va se phan hoi trong thoi gian som nhat."
+      "title": "Cảm ơn bạn đã liên hệ!",
+      "message": "Chúng tôi đã nhận được tin nhắn của bạn và sẽ phản hồi trong thời gian sớm nhất."
     },
-    "error": "Co loi xay ra. Vui long thu lai.",
+    "error": "Có lỗi xảy ra. Vui lòng thử lại.",
     "info": {
-      "title": "Thong tin lien he",
-      "address": "Ho Chi Minh City, Vietnam",
-      "phoneLabel": "Dien thoai"
+      "title": "Thông tin liên hệ",
+      "address": "Thành phố Hồ Chí Minh, Việt Nam",
+      "phoneLabel": "Điện thoại"
     }
   },
 
   "orderTracking": {
     "seo": {
-      "title": "Theo doi don hang - Enzara"
+      "title": "Theo dõi đơn hàng - Enzara"
     },
-    "title": "Theo doi don hang",
-    "subtitle": "Nhap ma don hang de kiem tra trang thai giao hang",
-    "searchPlaceholder": "Nhap ma don hang (VD: ENZ-20260209-XXXXX)",
-    "searchButton": "Tra cuu",
-    "searching": "Dang tra cuu...",
-    "notFound": "Khong tim thay don hang",
-    "error": "Da co loi xay ra. Vui long thu lai sau.",
-    "orderNumber": "Ma don hang",
-    "orderDate": "Ngay dat",
+    "title": "Theo dõi đơn hàng",
+    "subtitle": "Nhập mã đơn hàng để kiểm tra trạng thái giao hàng",
+    "searchPlaceholder": "Nhập mã đơn hàng (VD: ENZ-20260209-XXXXX)",
+    "searchButton": "Tra cứu",
+    "searching": "Đang tra cứu...",
+    "notFound": "Không tìm thấy đơn hàng",
+    "error": "Đã có lỗi xảy ra. Vui lòng thử lại sau.",
+    "orderNumber": "Mã đơn hàng",
+    "orderDate": "Ngày đặt",
     "statusLabels": {
-      "PENDING": "Cho xu ly",
-      "CONFIRMED": "Da xac nhan",
-      "PROCESSING": "Dang chuan bi",
-      "SHIPPING": "Dang giao hang",
-      "DELIVERED": "Da giao hang",
-      "CANCELLED": "Da huy"
+      "PENDING": "Chờ xử lý",
+      "CONFIRMED": "Đã xác nhận",
+      "PROCESSING": "Đang chuẩn bị",
+      "SHIPPING": "Đang giao hàng",
+      "DELIVERED": "Đã giao hàng",
+      "CANCELLED": "Đã hủy"
     },
-    "orderStatus": "Trang thai don hang",
-    "currentStatus": "Trang thai hien tai",
-    "notCompleted": "Chua hoan thanh",
-    "cancelled": "Da huy",
-    "orderCancelled": "Don hang da bi huy",
-    "productsTitle": "San pham",
-    "shippingAddress": "Dia chi nhan hang",
+    "orderStatus": "Trạng thái đơn hàng",
+    "currentStatus": "Trạng thái hiện tại",
+    "notCompleted": "Chưa hoàn thành",
+    "cancelled": "Đã hủy",
+    "orderCancelled": "Đơn hàng đã bị hủy",
+    "productsTitle": "Sản phẩm",
+    "shippingAddress": "Địa chỉ nhận hàng",
     "payment": {
-      "title": "Thanh toan",
-      "method": "Phuong thuc",
-      "status": "Trang thai thanh toan",
-      "subtotal": "Tam tinh",
-      "discount": "Giam gia",
-      "shippingFee": "Phi van chuyen",
-      "freeShipping": "Mien phi",
-      "total": "Tong cong"
+      "title": "Thanh toán",
+      "method": "Phương thức",
+      "status": "Trạng thái thanh toán",
+      "subtotal": "Tạm tính",
+      "discount": "Giảm giá",
+      "shippingFee": "Phí vận chuyển",
+      "freeShipping": "Miễn phí",
+      "total": "Tổng cộng"
     },
     "paymentMethods": {
-      "COD": "Thanh toan khi nhan hang (COD)",
-      "BANK_TRANSFER": "Chuyen khoan ngan hang",
-      "MOMO": "Vi MoMo",
+      "COD": "Thanh toán khi nhận hàng (COD)",
+      "BANK_TRANSFER": "Chuyển khoản ngân hàng",
+      "MOMO": "Ví MoMo",
       "ZALOPAY": "ZaloPay"
     },
     "paymentStatus": {
-      "PENDING": "Chua thanh toan",
-      "PAID": "Da thanh toan",
-      "FAILED": "Thanh toan that bai",
-      "REFUNDED": "Da hoan tien"
+      "PENDING": "Chưa thanh toán",
+      "PAID": "Đã thanh toán",
+      "FAILED": "Thanh toán thất bại",
+      "REFUNDED": "Đã hoàn tiền"
     }
   },
 
   "blog": {
     "seo": {
       "title": "Blog - Enzara",
-      "description": "Kham pha kien thuc ve enzyme va giai phap ve sinh sinh thai than thien voi moi truong cung Enzara"
+      "description": "Khám phá kiến thức về enzyme và giải pháp vệ sinh sinh thái thân thiện với môi trường cùng Enzara"
     },
     "title": "Blog Enzara",
-    "subtitle": "Kham pha kien thuc ve enzyme va giai phap ve sinh sinh thai than thien voi moi truong",
-    "allCategories": "Tat ca",
-    "noPosts": "Chua co bai viet nao",
-    "readMore": "Doc them",
-    "readingTime": "phut doc"
+    "subtitle": "Khám phá kiến thức về enzyme và giải pháp vệ sinh sinh thái thân thiện với môi trường",
+    "allCategories": "Tất cả",
+    "noPosts": "Chưa có bài viết nào",
+    "readMore": "Đọc thêm",
+    "readingTime": "phút đọc"
   },
 
   "search": {
     "seo": {
-      "title": "Tim kiem san pham - Enzara",
-      "resultTitle": "Ket qua tim kiem cho \"{query}\" - Enzara",
-      "resultDescription": "Tim kiem san pham cho \"{query}\""
+      "title": "Tìm kiếm sản phẩm - Enzara",
+      "resultTitle": "Kết quả tìm kiếm cho \"{query}\" - Enzara",
+      "resultDescription": "Tìm kiếm sản phẩm cho \"{query}\""
     },
-    "breadcrumb": "Tim kiem",
-    "title": "Ket qua tim kiem cho",
-    "foundProducts": "Tim thay",
-    "products": "san pham",
-    "noResults": "Khong tim thay san pham phu hop voi",
-    "tryDifferent": "Thu tim kiem voi tu khoa khac",
-    "viewAllProducts": "Xem tat ca san pham",
-    "enterKeyword": "Nhap tu khoa de tim kiem san pham",
+    "breadcrumb": "Tìm kiếm",
+    "title": "Kết quả tìm kiếm cho",
+    "foundProducts": "Tìm thấy",
+    "products": "sản phẩm",
+    "noResults": "Không tìm thấy sản phẩm phù hợp với",
+    "tryDifferent": "Thử tìm kiếm với từ khóa khác",
+    "viewAllProducts": "Xem tất cả sản phẩm",
+    "enterKeyword": "Nhập từ khóa để tìm kiếm sản phẩm",
     "modal": {
-      "placeholder": "Tim kiem san pham...",
-      "close": "Dong",
-      "searching": "Dang tim kiem...",
-      "noResults": "Khong tim thay san pham nao",
-      "viewAllResults": "Xem tat ca ket qua",
-      "recentSearches": "Tim kiem gan day",
-      "clearAll": "Xoa tat ca"
+      "placeholder": "Tìm kiếm sản phẩm...",
+      "close": "Đóng",
+      "searching": "Đang tìm kiếm...",
+      "noResults": "Không tìm thấy sản phẩm nào",
+      "viewAllResults": "Xem tất cả kết quả",
+      "recentSearches": "Tìm kiếm gần đây",
+      "clearAll": "Xóa tất cả"
     }
   },
 
   "footer": {
-    "storeDescription": "Cua hang tinh dau va san pham thien nhien chat luong cao, mang den suc khoe va hanh phuc cho gia dinh ban.",
+    "storeDescription": "Cửa hàng tinh dầu và sản phẩm thiên nhiên chất lượng cao, mang đến sức khỏe và hạnh phúc cho gia đình bạn.",
     "quickLinks": {
-      "title": "Lien ket nhanh",
-      "aboutUs": "Ve chung toi",
-      "products": "San pham",
+      "title": "Liên kết nhanh",
+      "aboutUs": "Về chúng tôi",
+      "products": "Sản phẩm",
       "blog": "Blog",
-      "contact": "Lien he",
-      "orderTracking": "Theo doi don hang"
+      "contact": "Liên hệ",
+      "orderTracking": "Theo dõi đơn hàng"
     },
     "policies": {
-      "title": "Chinh sach",
-      "privacy": "Chinh sach bao mat",
-      "terms": "Dieu khoan su dung",
-      "shipping": "Chinh sach van chuyen",
-      "returns": "Chinh sach doi tra"
+      "title": "Chính sách",
+      "privacy": "Chính sách bảo mật",
+      "terms": "Điều khoản sử dụng",
+      "shipping": "Chính sách vận chuyển",
+      "returns": "Chính sách đổi trả"
     },
     "contactInfo": {
-      "title": "Lien he"
+      "title": "Liên hệ"
     },
-    "copyright": "Tat ca quyen duoc bao luu.",
+    "copyright": "Tất cả quyền được bảo lưu.",
     "poweredBy": "Powered by Enzara"
   },
 
   "newsletter": {
-    "title": "Dang ky nhan tin",
-    "subtitle": "Nhan thong tin ve san pham moi, uu dai dac biet va cac meo cham soc suc khoe tu Enzara",
-    "placeholder": "Nhap email cua ban",
-    "submitButton": "Dang ky",
-    "submitting": "Dang gui...",
+    "title": "Đăng ký nhận tin",
+    "subtitle": "Nhận thông tin về sản phẩm mới, ưu đãi đặc biệt và các mẹo chăm sóc sức khỏe từ Enzara",
+    "placeholder": "Nhập email của bạn",
+    "submitButton": "Đăng ký",
+    "submitting": "Đang gửi...",
     "success": {
-      "title": "Cam on ban da dang ky!",
-      "message": "Chung toi se gui tin tuc moi nhat den email cua ban."
+      "title": "Cảm ơn bạn đã đăng ký!",
+      "message": "Chúng tôi sẽ gửi tin tức mới nhất đến email của bạn."
     },
-    "error": "Co loi xay ra. Vui long thu lai."
+    "error": "Có lỗi xảy ra. Vui lòng thử lại."
   },
 
   "flashSale": {
-    "endsIn": "Ket thuc sau:",
-    "sold": "Da ban",
+    "endsIn": "Kết thúc sau:",
+    "sold": "Đã bán",
     "countdown": {
-      "days": "Ngay",
-      "hours": "Gio",
-      "minutes": "Phut",
-      "seconds": "Giay"
+      "days": "Ngày",
+      "hours": "Giờ",
+      "minutes": "Phút",
+      "seconds": "Giây"
     }
   },
 
   "errors": {
-    "generic": "Da co loi xay ra. Vui long thu lai.",
-    "networkError": "Loi ket noi mang. Vui long kiem tra lai.",
-    "notFound": "Khong tim thay trang nay.",
-    "unauthorized": "Ban can dang nhap de tiep tuc.",
-    "forbidden": "Ban khong co quyen truy cap.",
-    "serverError": "Loi may chu. Vui long thu lai sau.",
-    "validationError": "Vui long kiem tra lai thong tin.",
-    "sessionExpired": "Phien dang nhap da het han. Vui long dang nhap lai."
+    "generic": "Đã có lỗi xảy ra. Vui lòng thử lại.",
+    "networkError": "Lỗi kết nối mạng. Vui lòng kiểm tra lại.",
+    "notFound": "Không tìm thấy trang này.",
+    "unauthorized": "Bạn cần đăng nhập để tiếp tục.",
+    "forbidden": "Bạn không có quyền truy cập.",
+    "serverError": "Lỗi máy chủ. Vui lòng thử lại sau.",
+    "validationError": "Vui lòng kiểm tra lại thông tin.",
+    "sessionExpired": "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại."
   },
 
   "seo": {
     "home": {
-      "title": "Enzara - San pham tay rua huu co, than thien voi moi truong",
-      "description": "Mua sam san pham tay rua sinh hoc, huu co tai Enzara. Cac san pham lam sach an toan, than thien voi moi truong va suc khoe gia dinh ban."
+      "title": "Enzara - Sản phẩm tẩy rửa hữu cơ, thân thiện với môi trường",
+      "description": "Mua sắm sản phẩm tẩy rửa sinh học, hữu cơ tại Enzara. Các sản phẩm làm sạch an toàn, thân thiện với môi trường và sức khỏe gia đình bạn."
     },
     "products": {
-      "title": "San pham - Enzara",
-      "description": "Kham pha bo suu tap san pham lam sach huu co Enzara. Nuoc rua chen, nuoc giat, nuoc lau san tu enzyme dua tu nhien."
+      "title": "Sản phẩm - Enzara",
+      "description": "Khám phá bộ sưu tập sản phẩm làm sạch hữu cơ Enzara. Nước rửa chén, nước giặt, nước lau sàn từ enzyme dứa tự nhiên."
     },
     "blog": {
       "title": "Blog - Enzara",
-      "description": "Kham pha kien thuc ve enzyme va giai phap ve sinh sinh thai than thien voi moi truong cung Enzara"
+      "description": "Khám phá kiến thức về enzyme và giải pháp vệ sinh sinh thái thân thiện với môi trường cùng Enzara"
     },
     "contact": {
-      "title": "Lien he - Enzara",
-      "description": "Lien he voi Enzara de duoc tu van ve san pham tay rua huu co tu enzyme dua. Ho tro khach hang nhanh chong."
+      "title": "Liên hệ - Enzara",
+      "description": "Liên hệ với Enzara để được tư vấn về sản phẩm tẩy rửa hữu cơ từ enzyme dứa. Hỗ trợ khách hàng nhanh chóng."
     },
     "orderTracking": {
-      "title": "Theo doi don hang - Enzara"
+      "title": "Theo dõi đơn hàng - Enzara"
     },
     "search": {
-      "title": "Tim kiem san pham - Enzara"
+      "title": "Tìm kiếm sản phẩm - Enzara"
     }
   }
 }
