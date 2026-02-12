@@ -1,5 +1,5 @@
 import { fetchAPI } from "@/lib/api-server";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Breadcrumbs } from "@/components/storefront/shared/Breadcrumbs";
 import { Pagination } from "@/components/storefront/shared/Pagination";
 import { ProductCard } from "@/components/storefront/product/ProductCard";
@@ -23,7 +23,9 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
   };
 }
 
-export default async function SearchPage({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
+export default async function SearchPage({ searchParams, params: paramsPromise }: { searchParams: Promise<Record<string, string>>; params: Promise<{ locale: string }> }) {
+  const { locale } = await paramsPromise;
+  setRequestLocale(locale);
   const t = await getTranslations("search");
   const params = await searchParams;
   const query = params.q || "";

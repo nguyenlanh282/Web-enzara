@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { fetchAPI } from '@/lib/api-server';
 import { Breadcrumbs } from '@/components/storefront/shared/Breadcrumbs';
 import { Pagination } from '@/components/storefront/shared/Pagination';
@@ -52,9 +52,13 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function BlogPage({
   searchParams,
+  params: paramsPromise,
 }: {
   searchParams: Promise<Record<string, string>>;
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await paramsPromise;
+  setRequestLocale(locale);
   const t = await getTranslations('blog');
   const params = await searchParams;
   const page = parseInt(params.page || '1', 10);

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { fetchAPI } from "@/lib/api-server";
 import { HeroSlider } from "@/components/storefront/home/HeroSlider";
 import { CategoryGrid } from "@/components/storefront/home/CategoryGrid";
@@ -45,7 +45,13 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default async function HomePage() {
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("home");
 
   const [banners, categories, featuredProductsRaw, newProductsRaw, bestSellersRaw, flashSale, featuredReviews] = await Promise.all([

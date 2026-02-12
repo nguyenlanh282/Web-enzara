@@ -1,5 +1,5 @@
 import { fetchAPI } from "@/lib/api-server";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Breadcrumbs } from "@/components/storefront/shared/Breadcrumbs";
 import { Pagination } from "@/components/storefront/shared/Pagination";
 import { ProductCard } from "@/components/storefront/product/ProductCard";
@@ -26,9 +26,13 @@ interface ProductListResponse {
 
 export default async function ProductListingPage({
   searchParams,
+  params: paramsPromise,
 }: {
   searchParams: Promise<Record<string, string>>;
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await paramsPromise;
+  setRequestLocale(locale);
   const t = await getTranslations("products");
   const params = await searchParams;
   const queryString = new URLSearchParams(params).toString();
