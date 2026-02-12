@@ -48,7 +48,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HomePage() {
   const t = await getTranslations("home");
 
-  const [banners, categories, featuredProducts, newProducts, bestSellers, flashSale, featuredReviews] = await Promise.all([
+  const [banners, categories, featuredProductsRaw, newProductsRaw, bestSellersRaw, flashSale, featuredReviews] = await Promise.all([
     fetchAPI<any[]>("/banners?position=hero&active=true"),
     fetchAPI<any[]>("/categories"),
     fetchAPI<any>("/products/featured?limit=8"),
@@ -57,6 +57,17 @@ export default async function HomePage() {
     fetchAPI<FlashSaleData>("/flash-sales/active"),
     fetchAPI<any[]>("/reviews/featured?limit=6"),
   ]);
+
+  // Normalize product responses: API returns array or {data: [...]}
+  const featuredProducts = Array.isArray(featuredProductsRaw)
+    ? featuredProductsRaw
+    : featuredProductsRaw?.data || featuredProductsRaw?.items || [];
+  const newProducts = Array.isArray(newProductsRaw)
+    ? newProductsRaw
+    : newProductsRaw?.data || newProductsRaw?.items || [];
+  const bestSellers = Array.isArray(bestSellersRaw)
+    ? bestSellersRaw
+    : bestSellersRaw?.data || bestSellersRaw?.items || [];
 
   const hasBanners = banners && banners.length > 0;
 
@@ -147,7 +158,7 @@ export default async function HomePage() {
       )}
 
       {/* Featured Products */}
-      {featuredProducts?.items && featuredProducts.items.length > 0 && (
+      {featuredProducts.length > 0 && (
         <section className="bg-neutral-50 py-16">
           <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal animation="fade-up">
@@ -158,7 +169,7 @@ export default async function HomePage() {
             </ScrollReveal>
             <ScrollReveal animation="fade-up" delay={100}>
               <ProductCarousel
-                products={featuredProducts.items}
+                products={featuredProducts}
                 viewAllHref="/products?featured=true"
               />
             </ScrollReveal>
@@ -167,7 +178,7 @@ export default async function HomePage() {
       )}
 
       {/* New Products */}
-      {newProducts?.items && newProducts.items.length > 0 && (
+      {newProducts.length > 0 && (
         <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <ScrollReveal animation="fade-up">
             <OrganicSectionHeading
@@ -177,7 +188,7 @@ export default async function HomePage() {
           </ScrollReveal>
           <ScrollReveal animation="fade-up" delay={100}>
             <ProductCarousel
-              products={newProducts.items}
+              products={newProducts}
               viewAllHref="/products?sort=newest"
             />
           </ScrollReveal>
@@ -185,7 +196,7 @@ export default async function HomePage() {
       )}
 
       {/* Best Sellers */}
-      {bestSellers?.items && bestSellers.items.length > 0 && (
+      {bestSellers.length > 0 && (
         <section className="bg-neutral-50 py-16">
           <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal animation="fade-up">
@@ -196,7 +207,7 @@ export default async function HomePage() {
             </ScrollReveal>
             <ScrollReveal animation="fade-up" delay={100}>
               <ProductCarousel
-                products={bestSellers.items}
+                products={bestSellers}
                 viewAllHref="/products?sort=bestseller"
               />
             </ScrollReveal>

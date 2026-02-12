@@ -4,7 +4,9 @@ export async function fetchAPI<T>(path: string, revalidate = 300): Promise<T | n
   try {
     const res = await fetch(`${API_BASE}${path}`, { next: { revalidate } });
     if (!res.ok) return null;
-    return res.json();
+    const text = await res.text();
+    if (!text) return null;
+    return JSON.parse(text) as T;
   } catch {
     return null;
   }
