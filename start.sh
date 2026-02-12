@@ -1,8 +1,8 @@
 #!/bin/sh
 
-echo "=== Running prisma migrate deploy ==="
+echo "=== Running prisma db push ==="
 cd /app/packages/database
-npx prisma migrate deploy || echo "WARNING: Migration failed, continuing anyway..."
+npx prisma db push --accept-data-loss || echo "WARNING: DB push failed, continuing anyway..."
 
 # Always run seed (uses upsert, safe to re-run)
 echo "=== Running database seed ==="
