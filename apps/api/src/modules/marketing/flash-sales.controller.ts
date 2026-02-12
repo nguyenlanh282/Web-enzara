@@ -37,7 +37,8 @@ export class FlashSalesController {
   @UseInterceptors(HttpCacheInterceptor)
   @CacheTTL(60)
   async getActive() {
-    return this.flashSalesService.getActive();
+    const sale = await this.flashSalesService.getActive();
+    return sale ?? { id: null, items: [] };
   }
 
   /**
